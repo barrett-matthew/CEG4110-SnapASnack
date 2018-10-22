@@ -1,14 +1,14 @@
 from marshmallow import Schema, fields
 
-
-class ImageSchema(Schema):
-    id = fields.Int(dump_only=True)
-    # comments = fields.Nested(CommentSchema, dump_only=True)
-    image = fields.Str(required=True)
-    hasfood = fields.Float(required=True)
-    notfood = fields.Float(required=True)
-    posted_at = fields.DateTime(dump_only=True)
+from models.db_init import marshmall
+from models.image import Image
 
 
-image_schema = ImageSchema()
-images_schema = ImageSchema(many=True, only=('id', 'image', 'hasfood', 'notfood', 'posted_at'))
+class ImageSchema(marshmall.ModelSchema):
+    comments = marshmall.List(marshmall.HyperlinkRelated('CommentsView:get'))
+    class Meta:
+        model = Image
+
+
+ImageSerializer = ImageSchema()
+
