@@ -15,7 +15,7 @@ tags:
 schemes:
 - "http"
 paths:
-  /images:
+  /images/:
     post:
       tags:
       - "image"
@@ -57,7 +57,7 @@ paths:
             type: 'array'
             items: 
               $ref: "#/definitions/Image"
-  /images/{imageId}:
+  /images/{imageId}/:
     get:
       tags:
       - "image"
@@ -80,7 +80,7 @@ paths:
             $ref: "#/definitions/Image"
         404:
           description: "Image not found"
-  /images/{imageId}/comments:
+  /images/{imageId}/comments/:
     get:
       tags:
       - "image"
@@ -104,7 +104,7 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Comment"
-  /images/{imageId}/add_comment:
+  /images/{imageId}/add_comment/:
     post:
       tags:
       - "image"
@@ -132,7 +132,7 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/Comment"
-  /comments/{commentId}:
+  /comments/{commentId}/:
     get:
       tags:
       - "comment"

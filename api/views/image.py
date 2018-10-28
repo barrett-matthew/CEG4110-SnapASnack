@@ -68,13 +68,13 @@ class ImagesAPI(FlaskView):
 
         return return_data
 
-    @route('/<id>/comments')
+    @route('/<id>/comments/')
     def comments(self, id):
         comments = Comment.query.filter_by(image_id=id).all()
         result = CommentSerializer.dump(comments, many=True)
         return jsonify({'comments': result})
 
-    @route('/<id>/add_comment', methods=['POST'])
+    @route('/<id>/add_comment/', methods=['POST'])
     def add_comment(self, id):
         json_data = {}
         if not request.form.get('text', False):
