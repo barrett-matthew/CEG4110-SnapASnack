@@ -19,8 +19,9 @@ from schemas.comment import CommentSerializer
 from initialize_tensor import run_tensor
 
 
-class ImagesView(FlaskView):
+class ImagesAPI(FlaskView):
     excluded_methods = ['parse_image']
+    route_base = '/images/'
 
     def index(self):
         page = int(request.args.get('page', 1))

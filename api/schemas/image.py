@@ -5,7 +5,7 @@ from models.image import Image
 
 
 class ImageSchema(marshmall.ModelSchema):
-    comments = marshmall.List(marshmall.HyperlinkRelated('CommentsView:get'))
+    comments = marshmall.List(marshmall.HyperlinkRelated('CommentsRetrievalAPI:get'))
     class Meta:
         model = Image
 
