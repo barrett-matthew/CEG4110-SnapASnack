@@ -1,5 +1,8 @@
 # This .gitignore was taken from the GitHub repository at https://github.com/github/gitignore
 
+# DS_Store
+.DS_Store
+
 # Built application files
 *.apk
 *.ap_
