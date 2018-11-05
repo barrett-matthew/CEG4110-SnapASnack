@@ -49,13 +49,13 @@ class ImagesAPI(FlaskView):
         filename = secure_filename(unique_filename + image.filename)
         file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         image.save(file_path)
-        return_data['image'] = file_path
+        return_data['image'] = '/static/images/'+ filename
 
         im = plimage.open(file_path)
         # convert to thumbnail image
         im.thumbnail((128, 128), plimage.ANTIALIAS)
         thumbnail_filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], "T_" + filename)
-        return_data['thumbnail'] = thumbnail_filepath
+        return_data['thumbnail'] = '/static/images/' + "T_" + filename
         im.save(thumbnail_filepath, "JPEG")
 
 

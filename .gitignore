@@ -6,3 +6,4 @@ api/.idea
 api/static/images
 api/venv
 .idea
+app/.idea
