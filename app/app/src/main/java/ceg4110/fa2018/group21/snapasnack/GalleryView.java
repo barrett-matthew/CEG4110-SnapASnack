@@ -27,8 +27,12 @@ public class GalleryView extends View
     public void InitalizeImages()
     {
         // communicate with swagger UI to create SeaFoodImage objects.
-        //SeaFoodImage completedImage = new SeaFoodImage(SwaggerUI.getImage, SwaggerUI.getConfidenceRating);
 
+        // for every image in swagger:
+        // {
+        // SeaFoodImage completedImage = new SeaFoodImage(SwaggerUI.getImage, SwaggerUI.getConfidenceRating);
+        // images.add(completedImage)
+        // }
     }
 
     public void RetrieveImages(ArrayList<SeaFoodImage> completedImages)
@@ -40,7 +44,7 @@ public class GalleryView extends View
         }
     }
 
-    // we need a method for the to handle events for the main menu. this will take the user back to the main menu screen
+    // we need a method to handle events for the main menu. this will take the user back to the main menu screen
 
     // also need a method to handle when the user clicks on the image in the gallery. images should be able to be
     // clicked on and handled accordingly, should be able to add comments as well
