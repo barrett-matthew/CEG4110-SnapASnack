@@ -7,9 +7,26 @@ from models.comment import Comment
 from schemas.comment import CommentSerializer
 
 
-class CommentsView(FlaskView):
+class CommentsRetrievalAPI(FlaskView):
+    route_base = '/comments/'
 
     def get(self, id):
+        """
+        Retrieve a Comment
+        ---
+        tags:
+          - comments
+        parameters:
+          - in: path
+            name: id
+            description: ID of the comment to be retrieved
+            required: true
+            type: string
+        responses:
+          201:
+            description: User created
+          400:
+        """
         try:
             image = Comment.query.get(id)
         except IntegrityError:

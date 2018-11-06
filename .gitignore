@@ -1,2 +1,9 @@
-# DS_Store
+*~
 .DS_Store
+api/.idea
+*.pyc
+*.db
+api/static/images
+api/venv
+.idea
+app/.idea
