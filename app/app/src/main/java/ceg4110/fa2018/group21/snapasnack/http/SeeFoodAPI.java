@@ -1,4 +1,4 @@
-package ceg4110.fa2018.group21.snapasnack;
+package ceg4110.fa2018.group21.snapasnack.http;
 
 import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImagesResponse;
 import okhttp3.MultipartBody;
@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
-public interface UploadApis {
+public interface SeeFoodAPI {
     @Multipart
     @POST("/images/")
     Call<ResponseBody> uploadImage(@Part MultipartBody.Part file);

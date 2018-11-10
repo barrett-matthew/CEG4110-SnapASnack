@@ -1,4 +1,4 @@
-package ceg4110.fa2018.group21.snapasnack;
+package ceg4110.fa2018.group21.snapasnack.http;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,16 +15,16 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ImageSubmissionHelper {
+public class SeeFoodHTTPHandler {
 
     private static String _remoteAddr = "http://ec2-13-58-18-68.us-east-2.compute.amazonaws.com";
-    private static ImageSubmissionHelper _instance;
+    private static SeeFoodHTTPHandler _instance;
 
-    private ImageSubmissionHelper() { }
+    private SeeFoodHTTPHandler() { }
 
-    public static ImageSubmissionHelper getInstance() {
+    public static SeeFoodHTTPHandler getInstance() {
         if (_instance == null) {
-            _instance = new ImageSubmissionHelper();
+            _instance = new SeeFoodHTTPHandler();
         }
         return _instance;
     }
@@ -89,7 +89,7 @@ public class ImageSubmissionHelper {
         });
     }
 
-    private static UploadApis getTransactionHandler() {
+    private static SeeFoodAPI getTransactionHandler() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
@@ -97,7 +97,7 @@ public class ImageSubmissionHelper {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        return retrofit.create(UploadApis.class);
+        return retrofit.create(SeeFoodAPI.class);
     }
 
 }
