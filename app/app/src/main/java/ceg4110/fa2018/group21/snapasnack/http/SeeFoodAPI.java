@@ -11,9 +11,15 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface SeeFoodAPI {
+
+    String BASE_URL = "http://ec2-13-58-18-68.us-east-2.compute.amazonaws.com";
+
     @Multipart
     @POST("/images/")
     Call<ResponseBody> uploadImage(@Part MultipartBody.Part file);
+
+    @GET("/images/")
+    Call<RetrieveAllImagesResponse> retrieveAllImages();
 
     @GET("/images/")
     Call<RetrieveAllImagesResponse> retrieveAllImages(@Query("page") String page);

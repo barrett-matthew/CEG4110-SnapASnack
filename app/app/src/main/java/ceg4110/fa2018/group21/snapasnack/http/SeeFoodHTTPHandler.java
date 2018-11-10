@@ -17,7 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SeeFoodHTTPHandler {
 
-    private static String _remoteAddr = "http://ec2-13-58-18-68.us-east-2.compute.amazonaws.com";
     private static SeeFoodHTTPHandler _instance;
 
     private SeeFoodHTTPHandler() { }
@@ -29,11 +28,9 @@ public class SeeFoodHTTPHandler {
         return _instance;
     }
 
-    // Returns reponse as a String
     // Permissions: Internet, External Storage Read/Write
+    // TODO : Return results
     public static void uploadImageListFromPath(ArrayList<String> filePaths) {
-        // TODO: Return results?
-
         for(String thisPath : filePaths) {
             File file = new File(thisPath);
             RequestBody fileRequestBody = RequestBody.create(MediaType.parse("image/*"), file);
@@ -58,14 +55,11 @@ public class SeeFoodHTTPHandler {
                 }
             });
         }
-
-        // TODO: The return statement here is called before the response gets back to us...fix?
-        return;
     }
 
-    // TODO: We need to return the images somehow
+    // TODO: Return results
     public static void retrieveAllImages() {
-        Call call = getTransactionHandler().retrieveAllImages("1");
+        Call call = getTransactionHandler().retrieveAllImages();
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
@@ -93,7 +87,7 @@ public class SeeFoodHTTPHandler {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(_remoteAddr)
+                .baseUrl(SeeFoodAPI.BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
