@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.RetrieveSingleImageResponse;
 import ceg4110.fa2018.group21.snapasnack.model.SeeFoodImage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -12,6 +13,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -57,6 +59,29 @@ public class SeeFoodHTTPHandler {
         }
     }
 
+    // TODO : Finish and test this once the response object is fixed (11.10)
+    public static void retrieveSingleImage(int imageId) {
+        Call call = getTransactionHandler().retrieveSingleImage(1);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.code() == 200) {
+                    // Successful operation
+                    RetrieveSingleImageResponse result = (RetrieveSingleImageResponse) response.body();
+                    SeeFoodImage image = result.getImage();
+                }
+                else if(response.code() == 404) {
+                    // Image not found
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                // TODO: Do something if we cannot retrieve the image
+            }
+        });
+    }
+
     // TODO: Return results
     public static void retrieveAllImages() {
         Call call = getTransactionHandler().retrieveAllImages();
@@ -78,7 +103,7 @@ public class SeeFoodHTTPHandler {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                // TODO: Do something if we cannot submit the image
+                // TODO: Do something if we cannot retrieve the images
             }
         });
     }
