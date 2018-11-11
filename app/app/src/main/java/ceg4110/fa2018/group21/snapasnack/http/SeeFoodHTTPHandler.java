@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImageCommentsResponse;
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImagesResponse;
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveCommentInformationResponse;
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveSingleImageResponse;
-import ceg4110.fa2018.group21.snapasnack.model.SeeFoodComment;
-import ceg4110.fa2018.group21.snapasnack.model.SeeFoodImage;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImageCommentsResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveCommentInformationResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveSingleImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
+import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;

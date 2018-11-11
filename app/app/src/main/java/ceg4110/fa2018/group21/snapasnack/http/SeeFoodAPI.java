@@ -1,9 +1,9 @@
 package ceg4110.fa2018.group21.snapasnack.http;
 
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImageCommentsResponse;
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImagesResponse;
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveSingleImageResponse;
-import ceg4110.fa2018.group21.snapasnack.model.RetrieveCommentInformationResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImageCommentsResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveSingleImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveCommentInformationResponse;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

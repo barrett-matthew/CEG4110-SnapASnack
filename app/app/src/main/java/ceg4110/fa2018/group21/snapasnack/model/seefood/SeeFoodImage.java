@@ -1,4 +1,4 @@
-package ceg4110.fa2018.group21.snapasnack.model;
+package ceg4110.fa2018.group21.snapasnack.model.seefood;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
