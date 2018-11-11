@@ -20,6 +20,11 @@ public interface SeeFoodAPI {
     @POST("/images/")
     Call<ResponseBody> uploadImage(@Part MultipartBody.Part file);
 
+    @Multipart
+    @POST("/images/{imageId}/add_comment/")
+    Call<ResponseBody> addCommentToImageWithID(@Path(value="imageId", encoded=true) int imageId,
+                                               @Part MultipartBody.Part commentAsString);
+
     @GET("/images/")
     Call<RetrieveAllImagesResponse> retrieveAllImages();
 

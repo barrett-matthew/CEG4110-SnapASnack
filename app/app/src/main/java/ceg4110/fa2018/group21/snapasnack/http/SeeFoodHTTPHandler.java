@@ -59,6 +59,29 @@ public class SeeFoodHTTPHandler {
         }
     }
 
+    public static void addCommentToImageById(int imageId, String comment) {
+        MultipartBody.Part commentPart = MultipartBody.Part.createFormData("text", comment);
+        Call call = getTransactionHandler().addCommentToImageWithID(imageId, commentPart);
+
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                // TODO: Do something with the response
+                if(response.code() == 200) {
+                    // Image added successfully
+                }
+                else if(response.code() == 404) {
+                    // Image not found
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                // TODO: Do something if we cannot submit the image
+            }
+        });
+    }
+
     // TODO : Finish and test this once the response object is fixed (11.10)
     public static void retrieveSingleImage(int imageId) {
         Call call = getTransactionHandler().retrieveSingleImage(1);
