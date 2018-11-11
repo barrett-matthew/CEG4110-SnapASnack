@@ -1,7 +1,9 @@
 package ceg4110.fa2018.group21.snapasnack.http;
 
+import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImageCommentsResponse;
 import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImagesResponse;
 import ceg4110.fa2018.group21.snapasnack.model.RetrieveSingleImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.RetrieveCommentInformationResponse;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -33,4 +35,11 @@ public interface SeeFoodAPI {
 
     @GET("/images/{imageId}/")
     Call<RetrieveSingleImageResponse> retrieveSingleImage(@Path(value="imageId", encoded=true) int imageId);
+
+    @GET("/images/{imageId}/comments/")
+    Call<RetrieveAllImageCommentsResponse> retrieveAllCommentsForImageId(@Path(value="imageId", encoded=true) int imageId);
+
+    @GET("/comments/{commentId}/")
+    Call<RetrieveCommentInformationResponse> retrieveCommentInformation(@Path(value="commentId", encoded=true) int commentId);
+
 }

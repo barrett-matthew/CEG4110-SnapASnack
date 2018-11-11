@@ -4,8 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImageCommentsResponse;
 import ceg4110.fa2018.group21.snapasnack.model.RetrieveAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.RetrieveCommentInformationResponse;
 import ceg4110.fa2018.group21.snapasnack.model.RetrieveSingleImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.SeeFoodComment;
 import ceg4110.fa2018.group21.snapasnack.model.SeeFoodImage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -127,6 +130,54 @@ public class SeeFoodHTTPHandler {
             @Override
             public void onFailure(Call call, Throwable t) {
                 // TODO: Do something if we cannot retrieve the images
+            }
+        });
+    }
+
+    // TODO : This has the same issue as the retrieveImages JSON...fix after JSON is resolved
+    public static void retrieveAllCommentsForImageById(int imageId) {
+        Call call = getTransactionHandler().retrieveAllCommentsForImageId(imageId);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.code() == 200) {
+                    // Comments retrieved successfully
+                    // Extract the comments
+                    RetrieveAllImageCommentsResponse result = (RetrieveAllImageCommentsResponse) response.body();
+                    List<SeeFoodComment> images = result.getComments();
+                }
+                else if(response.code() == 400) {
+                    // Invalid input
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                // TODO: Do something if we cannot retrieve the comments
+            }
+        });
+    }
+
+    // TODO : Finish this after the JSON issue is resolved
+    public static void retrieveCommentInformation(int commentId) {
+        Call call = getTransactionHandler().retrieveCommentInformation(commentId);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if(response.code() == 200) {
+                    // Comment info retrieved
+                    // Extract the comment object
+                    RetrieveCommentInformationResponse result = (RetrieveCommentInformationResponse) response.body();
+                    SeeFoodComment comment = result.getComment();
+                }
+                else if(response.code() == 400) {
+                    // Invalid input
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                // TODO: Do something if we cannot retrieve the comments
             }
         });
     }
