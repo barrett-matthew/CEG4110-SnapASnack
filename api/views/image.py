@@ -27,7 +27,7 @@ class ImagesAPI(FlaskView):
         page = int(request.args.get('page', 1))
         per_page = 10
         images = Image.query.order_by(Image.posted_at.desc()).paginate(page, per_page, error_out=False)
-        result = ImageSerializer.dump(images.items, many=True)
+        result = ImageSerializer.dump(images.items, many=True).data
         return jsonify({'images': result,
                         'total': images.total,
                         'per_page': images.per_page,
@@ -40,7 +40,7 @@ class ImagesAPI(FlaskView):
             image = Image.query.get(id)
         except IntegrityError:
             return jsonify({'message': 'Image could not be found.'}), 400
-        result = ImageSerializer.dump(image)
+        result = ImageSerializer.dump(image).data
         return jsonify({'image': result})
 
     def _parse_image(self, image):
@@ -71,7 +71,7 @@ class ImagesAPI(FlaskView):
     @route('/<id>/comments/')
     def comments(self, id):
         comments = Comment.query.filter_by(image_id=id).all()
-        result = CommentSerializer.dump(comments, many=True)
+        result = CommentSerializer.dump(comments, many=True).data
         return jsonify({'comments': result})
 
     @route('/<id>/add_comment/', methods=['POST'])
@@ -98,7 +98,7 @@ class ImagesAPI(FlaskView):
 
         db.session.add(comment)
         db.session.commit()
-        result = CommentSerializer.dump(Comment.query.get(comment.id))
+        result = CommentSerializer.dump(Comment.query.get(comment.id)).data
         return jsonify({
             'message': 'Created new comment.',
             'comment': result,
@@ -146,8 +146,9 @@ class ImagesAPI(FlaskView):
             db.session.add(image)
             db.session.commit()
             results.append(image.id)
-        result = ImageSerializer.dump(Image.query.filter(Image.id.in_(results)), many=True)
+        result = ImageSerializer.dump(Image.query.filter(Image.id.in_(results)), many=True).data
         return jsonify({
             'message': 'Created new image.',
             'images': result,
         })
+

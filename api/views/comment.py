@@ -31,5 +31,5 @@ class CommentsRetrievalAPI(FlaskView):
             image = Comment.query.get(id)
         except IntegrityError:
             return jsonify({'message': 'Comment could not be found.'}), 400
-        result = CommentSerializer.dump(image)
+        result = CommentSerializer.dump(image).data
         return jsonify({'comment': result})
