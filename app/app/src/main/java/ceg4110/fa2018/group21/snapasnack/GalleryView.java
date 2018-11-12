@@ -10,7 +10,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 // TODO: account for empty case (later)
-// TODO: need to account for seafoodimage rather than placehoderimage
+// TODO: need to account for SeaFoodImage rather than placeholderimage
 public class GalleryView extends AppCompatActivity
 {
     // PLACEHOLDER TITLES
