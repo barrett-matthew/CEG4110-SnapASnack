@@ -108,9 +108,15 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    // TODO: Return results
+    // TODO : Return results
     public static void retrieveAllImages() {
-        Call call = getTransactionHandler().retrieveAllImages();
+        // Default to page 1
+        retrieveAllImages(1);
+    }
+
+    // TODO: Return results
+    public static void retrieveAllImages(int pageNumber) {
+        Call call = getTransactionHandler().retrieveAllImages(pageNumber);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {

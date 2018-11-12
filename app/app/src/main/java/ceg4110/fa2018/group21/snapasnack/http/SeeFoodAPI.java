@@ -31,7 +31,7 @@ public interface SeeFoodAPI {
     Call<RetrieveAllImagesResponse> retrieveAllImages();
 
     @GET("/images/")
-    Call<RetrieveAllImagesResponse> retrieveAllImages(@Query("page") String page);
+    Call<RetrieveAllImagesResponse> retrieveAllImages(@Query("page") int page);
 
     @GET("/images/{imageId}/")
     Call<RetrieveSingleImageResponse> retrieveSingleImage(@Path(value="imageId", encoded=true) int imageId);
