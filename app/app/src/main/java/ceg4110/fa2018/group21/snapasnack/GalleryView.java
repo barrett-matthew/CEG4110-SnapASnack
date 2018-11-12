@@ -38,7 +38,8 @@ public class GalleryView extends AppCompatActivity
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery_view);
 
@@ -57,7 +58,8 @@ public class GalleryView extends AppCompatActivity
     }
 
     //TODO: Switch to SeaFoodImage
-    private ArrayList<PlaceHolderImage> prepareData(){
+    private ArrayList<PlaceHolderImage> prepareData()
+    {
         //TODO: Switch to SeaFoodImage
         ArrayList<PlaceHolderImage> seaFoodImages = new ArrayList<>();
 

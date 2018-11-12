@@ -6,18 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         configureButtons();
-
     }
 
-    public void configureButtons() {
+    public void configureButtons()
+    {
         Button toGalleryView = (Button) findViewById(R.id.galleryview);
 
         toGalleryView.setOnClickListener(new View.OnClickListener() {

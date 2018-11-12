@@ -10,7 +10,8 @@
         android:id="@+id/img"
         android:adjustViewBounds="true"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp"
+        android:contentDescription="@string/todo" />
 
     <TextView
         android:layout_gravity="center"
@@ -19,5 +20,25 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge1"
+        android:layout_gravity="center"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp" />
+        <!--gauge:pointStartColor="@color/Red"-->
+        <!--gauge:pointEndColor="@color/Red"-->
+        <!--gauge:pointSize="6"-->
+        <!--gauge:startAngel="135"-->
+        <!--gauge:strokeCap="ROUND"-->
+        <!--gauge:strokeColor="@color/Gray"-->
+        <!--gauge:strokeWidth="10dp"-->
+        <!--gauge:startValue="0"-->
+        <!--gauge:endValue="1000"-->
+        <!--gauge:sweepAngel="270" />-->
 
 </LinearLayout>

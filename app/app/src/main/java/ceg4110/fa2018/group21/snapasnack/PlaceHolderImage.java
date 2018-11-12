@@ -1,6 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack;
 
-public class PlaceHolderImage {
+public class PlaceHolderImage
+{
     private String title;
     private Integer img;
 
