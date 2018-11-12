@@ -11,14 +11,14 @@ public class RetrieveSingleImageResponse {
 
     @SerializedName("image")
     @Expose
-    private List<SeeFoodImage> image;
+    private SeeFoodImage image;
 
     public SeeFoodImage getImage() {
-        return image.get(0);
+        return image;
     }
 
     public void setImage(SeeFoodImage image) {
-        this.image.set(0, image);
+        this.image = image;
     }
 
 }

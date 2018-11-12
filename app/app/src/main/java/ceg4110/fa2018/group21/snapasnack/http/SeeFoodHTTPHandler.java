@@ -71,10 +71,10 @@ public class SeeFoodHTTPHandler {
             public void onResponse(Call call, Response response) {
                 // TODO: Do something with the response
                 if(response.code() == 200) {
-                    // Image added successfully
+                    // Comment added successfully
                 }
-                else if(response.code() == 404) {
-                    // Image not found
+                else {
+                    // Error occurred
                 }
             }
 
@@ -85,7 +85,7 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    // TODO : Finish and test this once the response object is fixed (11.10)
+    // TODO : Return results
     public static void retrieveSingleImage(int imageId) {
         Call call = getTransactionHandler().retrieveSingleImage(1);
         call.enqueue(new Callback() {
@@ -134,7 +134,7 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    // TODO : This has the same issue as the retrieveImages JSON...fix after JSON is resolved
+    // TODO : Return results
     public static void retrieveAllCommentsForImageById(int imageId) {
         Call call = getTransactionHandler().retrieveAllCommentsForImageId(imageId);
         call.enqueue(new Callback() {
@@ -158,7 +158,7 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    // TODO : Finish this after the JSON issue is resolved
+    // TODO : Return results
     public static void retrieveCommentInformation(int commentId) {
         Call call = getTransactionHandler().retrieveCommentInformation(commentId);
         call.enqueue(new Callback() {
