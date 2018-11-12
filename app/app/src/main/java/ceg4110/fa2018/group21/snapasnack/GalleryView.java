@@ -1,63 +1,85 @@
 package ceg4110.fa2018.group21.snapasnack;
 
-
-import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
 
-// GalleryView should be able to communicate with the API
-// GalleryView should only be a view??
-// Initialize this class and pop up this view when "Browse Community Uploads" is clicked in MainMenuView
-// account for empty case
-public class GalleryView extends View
+// TODO: account for empty case (later)
+// TODO: need to account for seafoodimage rather than placehoderimage
+public class GalleryView extends AppCompatActivity
 {
-    private Button mainMenuBtn;
-    private ArrayList<SeaFoodImage> images;
+    // PLACEHOLDER TITLES
+    private final String image_titles[] = {
+            "Img1",
+            "Img2",
+            "Img3",
+            "Img4",
+            "Img5",
+            "Img6",
+            "Img7",
+            "Img8"
+    };
 
+    // PLACEHOLDER IMAGES
+    private final Integer image_ids[] = {
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img6,
+            R.drawable.img7,
+            R.drawable.img8
+    };
 
-    public GalleryView(Context context)
-    {
-        super(context);
-        InitalizeImages();
-        RetrieveImages(images);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.gallery_view);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.gallery);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //TODO: Switch to SeaFoodImage
+        ArrayList<PlaceHolderImage> cells = prepareData();
+        GalleryViewAdapter adapter = new GalleryViewAdapter(getApplicationContext(), cells);
+        recyclerView.setAdapter(adapter);
+
+        configureBackButton();
     }
 
-    public void InitalizeImages()
-    {
-        // communicate with swagger UI to create SeaFoodImage objects.
+    //TODO: Switch to SeaFoodImage
+    private ArrayList<PlaceHolderImage> prepareData(){
+        //TODO: Switch to SeaFoodImage
+        ArrayList<PlaceHolderImage> seaFoodImages = new ArrayList<>();
 
-        // for every image in swagger:
-        // {
-        // SeaFoodImage completedImage = new SeaFoodImage(SwaggerUI.getImage, SwaggerUI.getConfidenceRating);
-        // images.add(completedImage)
-        // }
-    }
-
-    public void RetrieveImages(ArrayList<SeaFoodImage> completedImages)
-    {
-
-        for (int x = 0; x < completedImages.size(); x++)
+        for(int i = 0; i < image_titles.length; i++)
         {
-            // populate based on index
+            PlaceHolderImage cell = new PlaceHolderImage(image_titles[i], image_ids[i]);
+            seaFoodImages.add(cell);
         }
+
+        return seaFoodImages;
     }
 
-    // we need a method to handle events for the main menu. this will take the user back to the main menu screen
-
-    // also need a method to handle when the user clicks on the image in the gallery. images should be able to be
-    // clicked on and handled accordingly, should be able to add comments as well
-
-
-    // maybe we can import libraries instead of implementing from scratch?
-    // https://github.com/mzelzoghbi/ZGallery
-    // https://github.com/yanzhenjie/album
-
-
-
-
-    // implementing a gallery view from scratch:
-    // https://www.androidauthority.com/how-to-build-an-image-gallery-app-718976/
+    public void configureBackButton()
+    {
+        Button backButton = (Button) findViewById(R.id.backtomainmenu);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+    }
 
 }

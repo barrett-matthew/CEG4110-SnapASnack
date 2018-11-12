@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".GalleryView">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:id="@+id/backtomainmenu"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Main Menu"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="417dp" />
-</android.support.constraint.ConstraintLayout>
+        android:text="@string/mainmenu" />
+
+</RelativeLayout>
