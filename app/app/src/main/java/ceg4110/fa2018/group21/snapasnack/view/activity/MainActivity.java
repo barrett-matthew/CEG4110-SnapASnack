@@ -1,10 +1,12 @@
-package ceg4110.fa2018.group21.snapasnack;
+package ceg4110.fa2018.group21.snapasnack.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import ceg4110.fa2018.group21.snapasnack.R;
 
 public class MainActivity extends AppCompatActivity
 {

@@ -1,4 +1,4 @@
-package ceg4110.fa2018.group21.snapasnack;
+package ceg4110.fa2018.group21.snapasnack.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import java.util.ArrayList;
+
+import ceg4110.fa2018.group21.snapasnack.model.seefood.PlaceHolderImage;
+import ceg4110.fa2018.group21.snapasnack.R;
+import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
 
 // TODO: account for empty case (later)
 // TODO: need to account for SeaFoodImage rather than placeholderimage

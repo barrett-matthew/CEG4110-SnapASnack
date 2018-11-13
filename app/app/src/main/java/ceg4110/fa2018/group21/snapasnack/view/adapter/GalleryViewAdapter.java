@@ -1,4 +1,4 @@
-package ceg4110.fa2018.group21.snapasnack;
+package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
+import ceg4110.fa2018.group21.snapasnack.R;
+import ceg4110.fa2018.group21.snapasnack.model.seefood.PlaceHolderImage;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>

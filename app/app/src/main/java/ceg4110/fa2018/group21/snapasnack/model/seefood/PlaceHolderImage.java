@@ -1,4 +1,4 @@
-package ceg4110.fa2018.group21.snapasnack;
+package ceg4110.fa2018.group21.snapasnack.model.seefood;
 
 public class PlaceHolderImage
 {
