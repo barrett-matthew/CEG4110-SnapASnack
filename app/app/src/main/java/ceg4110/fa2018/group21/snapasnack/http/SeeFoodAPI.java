@@ -3,11 +3,11 @@ package ceg4110.fa2018.group21.snapasnack.http;
 import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.model.response.PostCommentToImageResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.PostImageToServerResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImageCommentsResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImagesResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveSingleImageResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveCommentInformationResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.PostImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllCommentsOnImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchSingleImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchCommentInformationResponse;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -23,26 +23,26 @@ public interface SeeFoodAPI {
 
     @Multipart
     @POST("/images/")
-    Call<PostImageToServerResponse> uploadImage(@Part List<MultipartBody.Part> file);
+    Call<PostImagesResponse> postImages(@Part List<MultipartBody.Part> file);
 
     @Multipart
     @POST("/images/{imageId}/add_comment/")
-    Call<PostCommentToImageResponse> addCommentToImageWithID(@Path(value="imageId", encoded=true) int imageId,
-                                                             @Part MultipartBody.Part commentAsString);
+    Call<PostCommentToImageResponse> postCommentToImage(@Path(value="imageId", encoded=true) int imageId,
+                                                        @Part MultipartBody.Part commentAsString);
 
     @GET("/images/")
-    Call<RetrieveAllImagesResponse> retrieveAllImages();
+    Call<FetchAllImagesResponse> fetchAllImages();
 
     @GET("/images/")
-    Call<RetrieveAllImagesResponse> retrieveAllImages(@Query("page") int page);
+    Call<FetchAllImagesResponse> fetchAllImages(@Query("page") int page);
 
     @GET("/images/{imageId}/")
-    Call<RetrieveSingleImageResponse> retrieveSingleImage(@Path(value="imageId", encoded=true) int imageId);
+    Call<FetchSingleImageResponse> fetchSingleImage(@Path(value="imageId", encoded=true) int imageId);
 
     @GET("/images/{imageId}/comments/")
-    Call<RetrieveAllImageCommentsResponse> retrieveAllCommentsForImageId(@Path(value="imageId", encoded=true) int imageId);
+    Call<FetchAllCommentsOnImageResponse> fetchAllCommentsOnImage(@Path(value="imageId", encoded=true) int imageId);
 
     @GET("/comments/{commentId}/")
-    Call<RetrieveCommentInformationResponse> retrieveCommentInformation(@Path(value="commentId", encoded=true) int commentId);
+    Call<FetchCommentInformationResponse> fetchCommentInformation(@Path(value="commentId", encoded=true) int commentId);
 
 }

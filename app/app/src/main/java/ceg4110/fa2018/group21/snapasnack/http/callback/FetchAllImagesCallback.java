@@ -2,10 +2,12 @@ package ceg4110.fa2018.group21.snapasnack.http.callback;
 
 import android.support.annotation.NonNull;
 
-import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
+import java.util.List;
 
-public interface RetrieveCommentInformationCallback {
-    void onSuccess(@NonNull SeeFoodComment comment);
+import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
+
+public interface FetchAllImagesCallback {
+    void onSuccess(@NonNull List<SeeFoodImage> images);
     void onFailure(@NonNull Throwable throwable);
     void onError(@NonNull String errorMessage);
 }

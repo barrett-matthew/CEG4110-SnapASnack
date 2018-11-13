@@ -6,7 +6,7 @@ import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
-public interface PostImageToServerCallback {
+public interface PostImagesCallback {
     void onSuccess(@NonNull List<SeeFoodImage> images);
     void onFailure(@NonNull Throwable throwable);
     void onError(@NonNull String errorMessage);

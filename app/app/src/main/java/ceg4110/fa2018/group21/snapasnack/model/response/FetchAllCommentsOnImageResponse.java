@@ -7,7 +7,7 @@ import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
 
-public class RetrieveAllImageCommentsResponse {
+public class FetchAllCommentsOnImageResponse {
 
     @SerializedName("comments")
     @Expose

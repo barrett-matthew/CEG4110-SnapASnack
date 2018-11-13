@@ -2,7 +2,7 @@ package ceg4110.fa2018.group21.snapasnack.model.response;
 
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
 
-public class RetrieveCommentInformationResponse {
+public class FetchCommentInformationResponse {
 
     private SeeFoodComment comment;
 

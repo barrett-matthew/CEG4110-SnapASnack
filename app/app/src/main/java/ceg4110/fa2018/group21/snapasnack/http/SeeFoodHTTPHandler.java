@@ -6,18 +6,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchAllCommentsOnImageCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.PostCommentToImageCallback;
-import ceg4110.fa2018.group21.snapasnack.http.callback.PostImageToServerCallback;
-import ceg4110.fa2018.group21.snapasnack.http.callback.RetrieveAllImageCommentsCallback;
-import ceg4110.fa2018.group21.snapasnack.http.callback.RetrieveAllImagesCallback;
-import ceg4110.fa2018.group21.snapasnack.http.callback.RetrieveCommentInformationCallback;
-import ceg4110.fa2018.group21.snapasnack.http.callback.RetrieveSingleImageCallback;
+import ceg4110.fa2018.group21.snapasnack.http.callback.PostImagesCallback;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchAllImagesCallback;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchCommentInformationCallback;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.response.PostCommentToImageResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.PostImageToServerResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImageCommentsResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImagesResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveCommentInformationResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveSingleImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.PostImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllCommentsOnImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchCommentInformationResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchSingleImageResponse;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import okhttp3.MediaType;
@@ -44,7 +44,7 @@ public class SeeFoodHTTPHandler {
     }
 
     // Permissions: Internet, External Storage Read/Write
-    public static void uploadImageListFromPath(ArrayList<String> filePaths, @Nullable final PostImageToServerCallback callbacks) {
+    public static void postImages(ArrayList<String> filePaths, @Nullable final PostImagesCallback callbacks) {
         ArrayList<MultipartBody.Part> parts = new ArrayList<>();
         for(String thisPath : filePaths) {
             File file = new File(thisPath);
@@ -53,11 +53,11 @@ public class SeeFoodHTTPHandler {
             parts.add(image);
         }
 
-        Call call = getTransactionHandler().uploadImage(parts);
+        Call call = getTransactionHandler().postImages(parts);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                PostImageToServerResponse result = (PostImageToServerResponse) response.body();
+                PostImagesResponse result = (PostImagesResponse) response.body();
                 if(response.code() == 200) {
                     // Image added successfully
                     List<SeeFoodImage> images = result.getImages();
@@ -83,9 +83,9 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    public static void addCommentToImageById(int imageId, String comment, @Nullable final PostCommentToImageCallback callbacks) {
+    public static void postCommentToImage(int imageId, String comment, @Nullable final PostCommentToImageCallback callbacks) {
         MultipartBody.Part commentPart = MultipartBody.Part.createFormData("text", comment);
-        Call call = getTransactionHandler().addCommentToImageWithID(imageId, commentPart);
+        Call call = getTransactionHandler().postCommentToImage(imageId, commentPart);
 
         call.enqueue(new Callback() {
             @Override
@@ -117,14 +117,14 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    public static void retrieveSingleImage(int imageId, @Nullable final RetrieveSingleImageCallback callbacks) {
-        Call call = getTransactionHandler().retrieveSingleImage(1);
+    public static void fetchSingleImage(int imageId, @Nullable final FetchSingleImageCallback callbacks) {
+        Call call = getTransactionHandler().fetchSingleImage(1);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 if(response.code() == 200) {
                     // Successful operation
-                    RetrieveSingleImageResponse result = (RetrieveSingleImageResponse) response.body();
+                    FetchSingleImageResponse result = (FetchSingleImageResponse) response.body();
                     SeeFoodImage image = result.getImage();
 
                     if(callbacks != null) {
@@ -148,20 +148,20 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    public static void retrieveAllImages(@Nullable final RetrieveAllImagesCallback callbacks) {
+    public static void fetchAllImages(@Nullable final FetchAllImagesCallback callbacks) {
         // Default to page 1
-        retrieveAllImages(1, callbacks);
+        fetchAllImages(1, callbacks);
     }
 
-    public static void retrieveAllImages(int pageNumber, @Nullable final RetrieveAllImagesCallback callbacks) {
-        Call call = getTransactionHandler().retrieveAllImages(pageNumber);
+    public static void fetchAllImages(int pageNumber, @Nullable final FetchAllImagesCallback callbacks) {
+        Call call = getTransactionHandler().fetchAllImages(pageNumber);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 if(response.code() == 200) {
                     // Image added successfully
                     // Isolate the images
-                    RetrieveAllImagesResponse result = (RetrieveAllImagesResponse) response.body();
+                    FetchAllImagesResponse result = (FetchAllImagesResponse) response.body();
                     List<SeeFoodImage> images = result.getImages();
 
                     if(callbacks != null) {
@@ -185,15 +185,15 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    public static void retrieveAllCommentsForImageById(int imageId, @Nullable final RetrieveAllImageCommentsCallback callbacks) {
-        Call call = getTransactionHandler().retrieveAllCommentsForImageId(imageId);
+    public static void fetchAllCommentsOnImage(int imageId, @Nullable final FetchAllCommentsOnImageCallback callbacks) {
+        Call call = getTransactionHandler().fetchAllCommentsOnImage(imageId);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 if(response.code() == 200) {
                     // Comments retrieved successfully
                     // Extract the comments
-                    RetrieveAllImageCommentsResponse result = (RetrieveAllImageCommentsResponse) response.body();
+                    FetchAllCommentsOnImageResponse result = (FetchAllCommentsOnImageResponse) response.body();
                     List<SeeFoodComment> comments = result.getComments();
 
                     if(callbacks != null) {
@@ -217,15 +217,15 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    public static void retrieveCommentInformation(int commentId, final RetrieveCommentInformationCallback callbacks) {
-        Call call = getTransactionHandler().retrieveCommentInformation(commentId);
+    public static void fetchCommentInformation(int commentId, final FetchCommentInformationCallback callbacks) {
+        Call call = getTransactionHandler().fetchCommentInformation(commentId);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 if(response.code() == 200) {
                     // Comment info retrieved
                     // Extract the comment object
-                    RetrieveCommentInformationResponse result = (RetrieveCommentInformationResponse) response.body();
+                    FetchCommentInformationResponse result = (FetchCommentInformationResponse) response.body();
                     SeeFoodComment comment = result.getComment();
 
                     if(callbacks != null) {
