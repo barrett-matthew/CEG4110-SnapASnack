@@ -1,11 +1,14 @@
 package ceg4110.fa2018.group21.snapasnack.http;
 
+import java.util.List;
+
+import ceg4110.fa2018.group21.snapasnack.model.response.PostCommentToImageResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.PostImageToServerResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImageCommentsResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveAllImagesResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveSingleImageResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.RetrieveCommentInformationResponse;
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -20,12 +23,12 @@ public interface SeeFoodAPI {
 
     @Multipart
     @POST("/images/")
-    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file);
+    Call<PostImageToServerResponse> uploadImage(@Part List<MultipartBody.Part> file);
 
     @Multipart
     @POST("/images/{imageId}/add_comment/")
-    Call<ResponseBody> addCommentToImageWithID(@Path(value="imageId", encoded=true) int imageId,
-                                               @Part MultipartBody.Part commentAsString);
+    Call<PostCommentToImageResponse> addCommentToImageWithID(@Path(value="imageId", encoded=true) int imageId,
+                                                             @Part MultipartBody.Part commentAsString);
 
     @GET("/images/")
     Call<RetrieveAllImagesResponse> retrieveAllImages();

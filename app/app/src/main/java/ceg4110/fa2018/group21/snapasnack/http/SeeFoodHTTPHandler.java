@@ -44,7 +44,7 @@ public class SeeFoodHTTPHandler {
     }
 
     // Permissions: Internet, External Storage Read/Write
-    public static void uploadImageListFromPath(ArrayList<String> filePaths, final PostImageToServerCallback callbacks) {
+    public static void uploadImageListFromPath(ArrayList<String> filePaths, @Nullable final PostImageToServerCallback callbacks) {
         ArrayList<MultipartBody.Part> parts = new ArrayList<>();
         for(String thisPath : filePaths) {
             File file = new File(thisPath);
@@ -53,13 +53,11 @@ public class SeeFoodHTTPHandler {
             parts.add(image);
         }
 
-        // TODO : Fix this...we only submit the first selected image
-        Call call = getTransactionHandler().uploadImage(parts.get(0));
+        Call call = getTransactionHandler().uploadImage(parts);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 PostImageToServerResponse result = (PostImageToServerResponse) response.body();
-
                 if(response.code() == 200) {
                     // Image added successfully
                     List<SeeFoodImage> images = result.getImages();
