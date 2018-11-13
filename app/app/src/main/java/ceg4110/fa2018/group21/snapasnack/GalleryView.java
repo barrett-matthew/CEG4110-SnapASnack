@@ -6,8 +6,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-
-
 import java.util.ArrayList;
 
 // TODO: account for empty case (later)

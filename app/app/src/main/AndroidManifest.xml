@@ -24,10 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".GalleryView" />
-        <activity
-            android:name=".ResultView"
-            android:label="@string/title_activity_result_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

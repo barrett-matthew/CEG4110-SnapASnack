@@ -1,7 +1,6 @@
 package ceg4110.fa2018.group21.snapasnack;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -68,10 +66,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
                 //TODO: (???) open a new activity to show image and associated comments.
                 Toast.makeText(context, "selected image", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent (context, ResultView.class);
-                intent.putParcelableArrayListExtra("data", galleryList);
-                intent.putExtra("pos", i);
-                context.startActivity(intent);
             }
         });
     }
