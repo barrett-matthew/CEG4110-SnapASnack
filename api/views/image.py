@@ -19,14 +19,15 @@ from schemas.comment import CommentSerializer
 from initialize_tensor import run_tensor
 
 
-class ImagesView(FlaskView):
+class ImagesAPI(FlaskView):
     excluded_methods = ['parse_image']
+    route_base = '/images/'
 
     def index(self):
         page = int(request.args.get('page', 1))
         per_page = 10
         images = Image.query.order_by(Image.posted_at.desc()).paginate(page, per_page, error_out=False)
-        result = ImageSerializer.dump(images.items, many=True)
+        result = ImageSerializer.dump(images.items, many=True).data
         return jsonify({'images': result,
                         'total': images.total,
                         'per_page': images.per_page,
@@ -39,7 +40,7 @@ class ImagesView(FlaskView):
             image = Image.query.get(id)
         except IntegrityError:
             return jsonify({'message': 'Image could not be found.'}), 400
-        result = ImageSerializer.dump(image)
+        result = ImageSerializer.dump(image).data
         return jsonify({'image': result})
 
     def _parse_image(self, image):
@@ -48,13 +49,13 @@ class ImagesView(FlaskView):
         filename = secure_filename(unique_filename + image.filename)
         file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
         image.save(file_path)
-        return_data['image'] = file_path
+        return_data['image'] = '/static/images/'+ filename
 
         im = plimage.open(file_path)
         # convert to thumbnail image
         im.thumbnail((128, 128), plimage.ANTIALIAS)
         thumbnail_filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], "T_" + filename)
-        return_data['thumbnail'] = thumbnail_filepath
+        return_data['thumbnail'] = '/static/images/' + "T_" + filename
         im.save(thumbnail_filepath, "JPEG")
 
 
@@ -67,13 +68,13 @@ class ImagesView(FlaskView):
 
         return return_data
 
-    @route('/<id>/comments')
+    @route('/<id>/comments/')
     def comments(self, id):
         comments = Comment.query.filter_by(image_id=id).all()
-        result = CommentSerializer.dump(comments, many=True)
+        result = CommentSerializer.dump(comments, many=True).data
         return jsonify({'comments': result})
 
-    @route('/<id>/add_comment', methods=['POST'])
+    @route('/<id>/add_comment/', methods=['POST'])
     def add_comment(self, id):
         json_data = {}
         if not request.form.get('text', False):
@@ -97,7 +98,7 @@ class ImagesView(FlaskView):
 
         db.session.add(comment)
         db.session.commit()
-        result = CommentSerializer.dump(Comment.query.get(comment.id))
+        result = CommentSerializer.dump(Comment.query.get(comment.id)).data
         return jsonify({
             'message': 'Created new comment.',
             'comment': result,
@@ -145,8 +146,9 @@ class ImagesView(FlaskView):
             db.session.add(image)
             db.session.commit()
             results.append(image.id)
-        result = ImageSerializer.dump(Image.query.filter(Image.id.in_(results)), many=True)
+        result = ImageSerializer.dump(Image.query.filter(Image.id.in_(results)), many=True).data
         return jsonify({
             'message': 'Created new image.',
             'images': result,
         })
+
