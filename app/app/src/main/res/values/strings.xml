@@ -4,4 +4,6 @@
     <string name="galleryview">GalleryView</string>
     <string name="mainmenu">MainMenu</string>
     <string name="todo">TODO</string>
+    <string name="title_activity_result_view">ResultView</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

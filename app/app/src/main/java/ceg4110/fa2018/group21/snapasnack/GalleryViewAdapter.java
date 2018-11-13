@@ -1,6 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -30,16 +33,17 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.seafood_img, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.seefood_cell, viewGroup, false);
         return new ViewHolder(view);
     }
 
 
     // TODO: Account for Comments and other SeaFood img components
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i)
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i)
     {
         viewHolder.title.setText(galleryList.get(i).getTitle());
+
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         viewHolder.img.setImageResource(galleryList.get(i).getImg());
 
@@ -54,12 +58,20 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         viewHolder.confidenceRating.setEndValue(1000);
         viewHolder.confidenceRating.setSweepAngle(270);
 
-        viewHolder.img.setOnClickListener(new View.OnClickListener(){
+        viewHolder.comments.setText("20 comments");
+
+
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
                 //TODO: (???) open a new activity to show image and associated comments.
-                Toast.makeText(context, "Image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "selected image", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent (context, ResultView.class);
+                intent.putParcelableArrayListExtra("data", galleryList);
+                intent.putExtra("pos", i);
+                context.startActivity(intent);
             }
         });
     }
@@ -71,10 +83,11 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-
+        private LinearLayout parentLayout;
         private TextView title;
         private ImageView img;
         private CustomGauge confidenceRating;
+        private TextView comments;
 
         public ViewHolder(View view)
         {
@@ -83,6 +96,8 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
             title = (TextView) view.findViewById(R.id.title);
             img = (ImageView) view.findViewById(R.id.img);
             confidenceRating = (CustomGauge) view.findViewById(R.id.gauge1);
+            comments = (TextView) view.findViewById(R.id.comments);
+            parentLayout = (LinearLayout) view.findViewById(R.id.parent_layout);
         }
     }
 }

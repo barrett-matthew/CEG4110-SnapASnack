@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+
 import java.util.ArrayList;
 
 // TODO: account for empty case (later)
@@ -50,7 +51,8 @@ public class GalleryView extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
 
         //TODO: Switch to SeaFoodImage
-        ArrayList<PlaceHolderImage> cells = prepareData();
+        final ArrayList<PlaceHolderImage> cells = prepareData();
+
         GalleryViewAdapter adapter = new GalleryViewAdapter(getApplicationContext(), cells);
         recyclerView.setAdapter(adapter);
 
