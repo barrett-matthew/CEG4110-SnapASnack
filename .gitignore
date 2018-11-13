@@ -5,5 +5,7 @@ api/.idea
 *.db
 api/static/images
 api/venv
+api/logs/*
+api/seefood/*
 .idea
 app/.idea
