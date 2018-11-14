@@ -7,7 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
@@ -19,13 +21,19 @@ import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
 // TODO: account for empty case (later)
 public class GalleryView extends AppCompatActivity
 {
+    private boolean hasNextPage = false;
+    private GalleryViewAdapter adapter;
+    private int currentPageNumber;
+    private RecyclerView recyclerView;
+    private List<SeeFoodImage> galleryList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery_view);
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.gallery);
+        recyclerView = (RecyclerView) findViewById(R.id.gallery);
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
@@ -33,25 +41,33 @@ public class GalleryView extends AppCompatActivity
 
         SeeFoodHTTPHandler.getInstance().fetchAllImages(new FetchAllImagesCallback() {
             @Override
-            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
-                GalleryViewAdapter adapter = new GalleryViewAdapter(getApplicationContext(), images);
+            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
+            {
+                adapter = new GalleryViewAdapter(getApplicationContext(), images);
+
+                setHasNextPage(hasNextPage);
+                setCurrentPageNumber(currentPageNumber);
+                setGalleryList(images);
+
                 recyclerView.setAdapter(adapter);
-                configureBackButton();
+                configureButtons();
             }
 
             @Override
-            public void onFailure(@NonNull Throwable throwable) {
+            public void onFailure(@NonNull Throwable throwable)
+            {
 
             }
 
             @Override
-            public void onError(@NonNull String errorMessage) {
+            public void onError(@NonNull String errorMessage)
+            {
 
             }
         });
     }
 
-    public void configureBackButton()
+    public void configureButtons()
     {
         Button backButton = (Button) findViewById(R.id.backtomainmenu);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +77,54 @@ public class GalleryView extends AppCompatActivity
                 finish();
             }
         });
+
+        Button nextPage = (Button) findViewById(R.id.nextpage);
+        nextPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if(hasNextPage)
+                {
+                    SeeFoodHTTPHandler.getInstance().fetchAllImages(currentPageNumber+1, new FetchAllImagesCallback()
+                    {
+                        @Override
+                        public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
+                        {
+                            galleryList.addAll(images);
+
+                            GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), galleryList);
+
+                            recyclerView.setAdapter(newAdapter);
+
+                            setGalleryList(galleryList);
+                            setHasNextPage(hasNextPage);
+                            setCurrentPageNumber(currentPageNumber);
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Throwable throwable)
+                        {
+
+                        }
+
+                        @Override
+                        public void onError(@NonNull String errorMessage)
+                        {
+
+                        }
+                    });
+                }
+                else
+                {
+                  // there isn't a next page
+                }
+            }
+        });
     }
 
+    public void setHasNextPage(boolean hasNextPage) { this.hasNextPage = hasNextPage; }
+
+    public void setCurrentPageNumber(int currentPageNumber) { this.currentPageNumber = currentPageNumber; }
+
+    public void setGalleryList(List<SeeFoodImage> galleryList) { this.galleryList = galleryList; }
 }

@@ -26,7 +26,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     private List<SeeFoodImage> galleryList;
     private Context context;
 
-    //TODO: switch to SeaFoodImage class
     public GalleryViewAdapter(Context context, List <SeeFoodImage> galleryList)
     {
         this.galleryList = galleryList;
