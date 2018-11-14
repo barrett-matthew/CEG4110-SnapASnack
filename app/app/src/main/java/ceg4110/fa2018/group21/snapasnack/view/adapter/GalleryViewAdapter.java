@@ -11,20 +11,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.ArrayList;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.R;
-import ceg4110.fa2018.group21.snapasnack.model.seefood.PlaceHolderImage;
+import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
+import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
 {
-   //TODO: switch to SeaFoodImage class
-    private ArrayList<PlaceHolderImage> galleryList;
+    private List<SeeFoodImage> galleryList;
     private Context context;
 
     //TODO: switch to SeaFoodImage class
-    public GalleryViewAdapter(Context context, ArrayList<PlaceHolderImage> galleryList)
+    public GalleryViewAdapter(Context context, List <SeeFoodImage> galleryList)
     {
         this.galleryList = galleryList;
         this.context = context;
@@ -37,16 +40,36 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         return new ViewHolder(view);
     }
 
-
-    // TODO: Account for Comments and other SeaFood img components
+    // TODO: Account for comments
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i)
     {
-        viewHolder.title.setText(galleryList.get(i).getTitle());
-
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        viewHolder.img.setImageResource(galleryList.get(i).getImg());
 
+        //viewHolder.title.setText(galleryList.get(i).getId());
+
+        Picasso.get().load(SeeFoodAPI.BASE_URL + galleryList.get(i).getImageLocation()).into(viewHolder.img);
+
+        setConfidenceGauge(viewHolder);
+
+        //viewHolder.comments.setText(galleryList.get(i).getComments().size() + " comments");
+        viewHolder.comments.setText("20 comments");
+
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                //TODO: (???) open a new activity to show full image and associated comments.
+                // TODO: Pass the SeeFood List to the new activity
+                Toast.makeText(context, "selected image", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    // TODO: Find out calculations to set gauge based on SeeFood AI results (has_food - not_food) range of -5 to 5
+    private void setConfidenceGauge(@NonNull ViewHolder viewHolder)
+    {
         viewHolder.confidenceRating.setPointStartColor(Color.RED);
         viewHolder.confidenceRating.setPointEndColor(Color.RED);
         viewHolder.confidenceRating.setPointSize(30);
@@ -58,18 +81,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         viewHolder.confidenceRating.setEndValue(1000);
         viewHolder.confidenceRating.setSweepAngle(270);
 
-        viewHolder.comments.setText("20 comments");
-
-
-        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                //TODO: (???) open a new activity to show image and associated comments.
-                Toast.makeText(context, "selected image", Toast.LENGTH_SHORT).show();
-
-            }
-        });
     }
 
     @Override
