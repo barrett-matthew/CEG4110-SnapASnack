@@ -7,7 +7,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
 
 // TODO: account for empty case (later)
-// TODO: need to account for SeaFoodImage rather than placeholderimage
 public class GalleryView extends AppCompatActivity
 {
     @Override
