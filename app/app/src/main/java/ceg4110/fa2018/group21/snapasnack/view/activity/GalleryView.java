@@ -33,7 +33,7 @@ public class GalleryView extends AppCompatActivity
 
         SeeFoodHTTPHandler.getInstance().fetchAllImages(new FetchAllImagesCallback() {
             @Override
-            public void onSuccess(@NonNull List<SeeFoodImage> images) {
+            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
                 GalleryViewAdapter adapter = new GalleryViewAdapter(getApplicationContext(), images);
                 recyclerView.setAdapter(adapter);
                 configureBackButton();
