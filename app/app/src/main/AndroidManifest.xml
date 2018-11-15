@@ -3,8 +3,8 @@
     package="ceg4110.fa2018.group21.snapasnack">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.GalleryView" />
+        <activity
+            android:name=".view.activity.UploadResultView"
+            android:label="@string/title_activity_upload_result_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
