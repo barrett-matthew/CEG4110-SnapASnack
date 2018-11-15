@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--< These are the cells that will populate the GalleryView />-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
@@ -21,39 +23,43 @@
         android:textColor="#000000"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal">-->
 
-        <pl.pawelkleczkowski.customgauge.CustomGauge
-            android:id="@+id/gauge1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp" />
+    <com.ntt.customgaugeview.library.GaugeView
+        xmlns:gauge="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/gauge_view"
+        android:layout_width="wrap_content"
+        android:layout_height="132dp"
+        android:layout_margin="16dp"
+        gauge:divisions="8"
+        gauge:rangeValues="@array/speedTestRangeValues"
+        gauge:scaleEndValue="100"
+        gauge:showInnerRim="false"
+        gauge:showNeedle="true"
+        gauge:showOuterBorder="false"
+        gauge:showOuterRim="true"
+        gauge:showOuterShadow="false"
+        gauge:showRangeText="true"
+        gauge:showRanges="true"
+        gauge:showScale="true"
+        gauge:subdivisions="1"
+        gauge:textUnit="KB/s"
+        gauge:textUnitSize="0.06"
+        gauge:textValueSize="0.20" />
 
-        <TextView
-            android:id="@+id/comments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="#000000"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+    <!--</LinearLayout>-->
 
-    <!--gauge:pointStartColor="@color/Red"-->
-    <!--gauge:pointEndColor="@color/Red"-->
-    <!--gauge:pointSize="6"-->
-    <!--gauge:startAngel="135"-->
-    <!--gauge:strokeCap="ROUND"-->
-    <!--gauge:strokeColor="@color/Gray"-->
-    <!--gauge:strokeWidth="10dp"-->
-    <!--gauge:startValue="0"-->
-    <!--gauge:endValue="1000"-->
-    <!--gauge:sweepAngel="270" />-->
+
+
 
 </LinearLayout>

@@ -21,7 +21,7 @@ import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
 // TODO: account for empty case (later)
 public class GalleryView extends AppCompatActivity
 {
-    private boolean hasNextPage = false;
+    private boolean hasNextPage;
     private GalleryViewAdapter adapter;
     private int currentPageNumber;
     private RecyclerView recyclerView;
@@ -44,6 +44,7 @@ public class GalleryView extends AppCompatActivity
             public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
             {
                 adapter = new GalleryViewAdapter(getApplicationContext(), images);
+
 
                 setHasNextPage(hasNextPage);
                 setCurrentPageNumber(currentPageNumber);
@@ -116,6 +117,7 @@ public class GalleryView extends AppCompatActivity
                 }
                 else
                 {
+                    System.out.println("there isn't a next page");
                   // there isn't a next page
                 }
             }
