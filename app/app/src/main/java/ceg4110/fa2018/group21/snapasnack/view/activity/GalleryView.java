@@ -45,7 +45,6 @@ public class GalleryView extends AppCompatActivity
             {
                 adapter = new GalleryViewAdapter(getApplicationContext(), images);
 
-
                 setHasNextPage(hasNextPage);
                 setCurrentPageNumber(currentPageNumber);
                 setGalleryList(images);

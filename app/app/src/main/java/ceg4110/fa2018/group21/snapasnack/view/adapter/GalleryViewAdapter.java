@@ -22,7 +22,6 @@ import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
-import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
@@ -55,12 +54,13 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         // Set the number of comments for each image
         viewHolder.comments.setText(galleryList.get(i).getComments().size() + " comments");
 
+        // Adds click listener to image-- the ResultView will pop up if clicked
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
                 //TODO: (???) open a new activity to show full image and related information.
-                Toast.makeText(context, "selected image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, " image", Toast.LENGTH_SHORT).show();
 
 
                 // TODO: Pass this variable to the new activity and call "fetch single image"
@@ -71,41 +71,36 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     }
 
     // TODO: Find out calculations to set gauge based on SeeFood AI results (has_food - not_food)
+    // Sets confidence gauge for each SeaFoodImage
     private void setConfidenceGauge(@NonNull final ViewHolder viewHolder, final float hasFood, final float notFood)
     {
-
-//        int food = receiveArgs.getInt("food");
-//        int notFood = receiveArgs.getInt("not");
-//        int total = receiveArgs.getInt("total");
-//
-//        int percentFood = (int) ((food / (double) total) * 100);
 
        float total = hasFood + notFood;
 
        //(int) ((hasFood / (hasFood+notFood)) * 100);
 
         viewHolder.gaugeView.setShowRangeValues(false);
-        viewHolder.gaugeView.setTargetValue(99);//(int) (((hasFood) / (hasFood+notFood)) * 100)-55);
+       // viewHolder.gaugeView.setTargetValue(99);//(int) (((hasFood) / (hasFood+notFood)) * 100)-55);
 
-//        final Random random = new Random();
-//
-//        final CountDownTimer timer = new CountDownTimer(10000, 2)
-//        {
-//            @Override
-//            public void onTick(long millisUntilFinished)
-//            {
-//                viewHolder.gaugeView.setTargetValue(random.nextInt(100));
-//            }
-//
-//            @Override
-//            public void onFinish()
-//            {
-//                // calculate using has_food - not_food
-//                viewHolder.gaugeView.setTargetValue(20);
-//            }
-//        };
-//
-//        timer.start();
+        final Random random = new Random();
+
+        final CountDownTimer timer = new CountDownTimer(10000, 2)
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+                viewHolder.gaugeView.setTargetValue(random.nextInt(100));
+            }
+
+            @Override
+            public void onFinish()
+            {
+                // calculate using has_food - not_food
+                viewHolder.gaugeView.setTargetValue(20);
+            }
+        };
+
+        timer.start();
     }
 
     @Override
