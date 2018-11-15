@@ -48,14 +48,12 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     {
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        //viewHolder.title.setText(galleryList.get(i).getId());
-
         Picasso.get().load(SeeFoodAPI.BASE_URL + galleryList.get(i).getImageLocation()).into(viewHolder.img);
 
         setConfidenceGauge(viewHolder, galleryList.get(i).getHasFood(), galleryList.get(i).getNotFood());
 
-        //viewHolder.comments.setText(galleryList.get(i).getComments().size() + " comments");
-        viewHolder.comments.setText("20 comments");
+        // Set the number of comments for each image
+        viewHolder.comments.setText(galleryList.get(i).getComments().size() + " comments");
 
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override
