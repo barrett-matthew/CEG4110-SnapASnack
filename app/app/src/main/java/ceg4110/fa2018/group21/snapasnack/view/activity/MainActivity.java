@@ -30,5 +30,15 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, GalleryView.class));
             }
         });
+
+        Button toResultView = (Button) findViewById(R.id.uploadImage);
+
+        toResultView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, UploadResultsView.class));
+            }
+        });
+
     }
 }

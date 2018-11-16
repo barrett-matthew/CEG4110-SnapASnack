@@ -15,5 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/galleryview" />
+
+        <Button
+            android:id="@+id/uploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_image" />
     </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>

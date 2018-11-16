@@ -7,4 +7,8 @@
     <string name="title_activity_result_view">ResultView</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_upload_result_view">UploadResultView</string>
+    <string name="canada">canada</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="to_gallery_view">To Gallery View</string>
+    <string name="main_menu">Main Menu</string>
 </resources>
