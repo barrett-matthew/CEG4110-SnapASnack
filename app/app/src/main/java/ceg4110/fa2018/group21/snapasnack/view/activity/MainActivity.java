@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity
     public void configureButtons()
     {
         Button toGalleryView = (Button) findViewById(R.id.galleryview);
-
         toGalleryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,10 +30,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Button toResultView = (Button) findViewById(R.id.uploadImage);
-
-        toResultView.setOnClickListener(new View.OnClickListener() {
+        Button uploadImages = (Button) findViewById(R.id.uploadImage);
+        uploadImages.setOnClickListener(new View.OnClickListener() {
             @Override
+            // TODO: This button will need to load the UploadImagesScreen. Then we need to pass those results to the UploadResultsView class.
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, UploadResultsView.class));
             }
