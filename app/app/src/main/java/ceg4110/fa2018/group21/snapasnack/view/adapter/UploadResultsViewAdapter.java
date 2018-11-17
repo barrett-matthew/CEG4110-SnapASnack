@@ -55,8 +55,8 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         viewHolder.confidenceRating.setSweepAngle(270);
 
 
-        viewHolder.confidenceRatingText.setText("This is not food!");
-        viewHolder.itemName.setText(resultList.get(i).getTitle());
+       // viewHolder.confidenceRatingText.setText("This is not food!");
+       // viewHolder.itemName.setText(resultList.get(i).getTitle());
     }
 
     @Override
@@ -76,8 +76,8 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         {
             super(itemView);
 
-            itemName = itemView.findViewById(R.id.itemName);
-            confidenceRatingText = itemView.findViewById(R.id.confidenceRatingText);
+            //itemName = itemView.findViewById(R.id.itemName);
+            //confidenceRatingText = itemView.findViewById(R.id.confidenceRatingText);
             image = itemView.findViewById(R.id.seefoodResult);
             name = itemView.findViewById(R.id.name);
             confidenceRating = itemView.findViewById(R.id.gauge2);
