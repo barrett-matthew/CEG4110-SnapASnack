@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--< These are the cells that will populate the UploadResultsView />-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content" android:layout_height="wrap_content">
@@ -48,7 +50,8 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
 
-            <pl.pawelkleczkowski.customgauge.CustomGauge
+            <com.ntt.customgaugeview.library.GaugeView
+                xmlns:gauge="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/gauge2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
@@ -60,7 +63,22 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingRight="10dp"
-                android:paddingBottom="10dp" />
+                android:paddingBottom="10dp"
+                gauge:divisions="8"
+                gauge:rangeValues="@array/speedTestRangeValues"
+                gauge:scaleEndValue="100"
+                gauge:showInnerRim="false"
+                gauge:showNeedle="true"
+                gauge:showOuterBorder="false"
+                gauge:showOuterRim="true"
+                gauge:showOuterShadow="false"
+                gauge:showRangeText="true"
+                gauge:showRanges="true"
+                gauge:showScale="true"
+                gauge:subdivisions="1"
+                gauge:textUnit="KB/s"
+                gauge:textUnitSize="0.06"
+                gauge:textValueSize="0.20" />
 
             <TextView
                 android:id="@+id/name"

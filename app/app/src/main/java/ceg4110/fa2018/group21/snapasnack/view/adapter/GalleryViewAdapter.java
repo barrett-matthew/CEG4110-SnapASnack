@@ -68,37 +68,18 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         });
     }
 
-    // TODO: Find out calculations to set gauge based on SeeFood AI results (has_food - not_food)
+
     // Sets confidence gauge for each SeaFoodImage
     private void setConfidenceGauge(@NonNull final ViewHolder viewHolder, final float hasFood, final float notFood)
     {
-
        float total = hasFood + notFood;
 
        //(int) ((hasFood / (hasFood+notFood)) * 100);
 
         viewHolder.gaugeView.setShowRangeValues(false);
-       // viewHolder.gaugeView.setTargetValue(99);//(int) (((hasFood) / (hasFood+notFood)) * 100)-55);
 
-        final Random random = new Random();
-
-        final CountDownTimer timer = new CountDownTimer(10000, 2)
-        {
-            @Override
-            public void onTick(long millisUntilFinished)
-            {
-                viewHolder.gaugeView.setTargetValue(random.nextInt(100));
-            }
-
-            @Override
-            public void onFinish()
-            {
-                // calculate using has_food - not_food
-                viewHolder.gaugeView.setTargetValue(20);
-            }
-        };
-
-        timer.start();
+        // TODO: Find out calculations to set gauge based on SeeFood AI results (calculate percentage using hasFood and notFood)
+        viewHolder.gaugeView.setTargetValue(20);
     }
 
     @Override
