@@ -1,8 +1,6 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +36,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.seefood_cell, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.seefood_gallery_cell, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -70,37 +68,18 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         });
     }
 
-    // TODO: Find out calculations to set gauge based on SeeFood AI results (has_food - not_food)
+
     // Sets confidence gauge for each SeaFoodImage
     private void setConfidenceGauge(@NonNull final ViewHolder viewHolder, final float hasFood, final float notFood)
     {
-
        float total = hasFood + notFood;
 
        //(int) ((hasFood / (hasFood+notFood)) * 100);
 
         viewHolder.gaugeView.setShowRangeValues(false);
-       // viewHolder.gaugeView.setTargetValue(99);//(int) (((hasFood) / (hasFood+notFood)) * 100)-55);
 
-        final Random random = new Random();
-
-        final CountDownTimer timer = new CountDownTimer(10000, 2)
-        {
-            @Override
-            public void onTick(long millisUntilFinished)
-            {
-                viewHolder.gaugeView.setTargetValue(random.nextInt(100));
-            }
-
-            @Override
-            public void onFinish()
-            {
-                // calculate using has_food - not_food
-                viewHolder.gaugeView.setTargetValue(20);
-            }
-        };
-
-        timer.start();
+        // TODO: Find out calculations to set gauge based on SeeFood AI results (calculate percentage using hasFood and notFood)
+        viewHolder.gaugeView.setTargetValue(20);
     }
 
     @Override

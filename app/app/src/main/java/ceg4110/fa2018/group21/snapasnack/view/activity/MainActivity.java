@@ -16,6 +16,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +123,12 @@ public class MainActivity extends AppCompatActivity {
                             SeeFoodHTTPHandler.getInstance().postImages(filepaths, new PostImagesCallback() {
                                 @Override
                                 public void onSuccess(@NonNull List<SeeFoodImage> images) {
-                                    // TODO : Call Brian's ResultView activity here
+
+                                    // Passing the SeaFoodImage List to UploadResultsView
+                                    Intent intent = new Intent(MainActivity.this, UploadResultsView.class);
+                                    intent.putExtra("SeaFoodResults", (Serializable) images);
+                                    startActivity(intent);
+
                                     // Enable the buttons again
                                     for(Button btn : mainMenuButtons) {
                                         btn.setEnabled(true);
