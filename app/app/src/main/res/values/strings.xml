@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Snap a\' Snack</string>
     <string name="action_settings">Settings</string>
-    <string name="galleryview">GalleryView</string>
     <string name="mainmenu">MainMenu</string>
     <string name="todo">TODO</string>
     <string name="title_activity_result_view">ResultView</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="main_menu_btn_upload">Snap Your Snack</string>
+    <string name="galleryview">Community Upload Gallery</string>
 </resources>
