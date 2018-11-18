@@ -1,7 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,20 +11,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.ArrayList;
+
+import com.ntt.customgaugeview.library.GaugeView;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
-import ceg4110.fa2018.group21.snapasnack.model.seefood.PlaceHolderImage;
-import pl.pawelkleczkowski.customgauge.CustomGauge;
+import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
+import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
 {
-   //TODO: switch to SeaFoodImage class
-    private ArrayList<PlaceHolderImage> galleryList;
+    private List<SeeFoodImage> galleryList;
     private Context context;
 
-    //TODO: switch to SeaFoodImage class
-    public GalleryViewAdapter(Context context, ArrayList<PlaceHolderImage> galleryList)
+    public GalleryViewAdapter(Context context, List <SeeFoodImage> galleryList)
     {
         this.galleryList = galleryList;
         this.context = context;
@@ -37,39 +40,65 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         return new ViewHolder(view);
     }
 
-
-    // TODO: Account for Comments and other SeaFood img components
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i)
     {
-        viewHolder.title.setText(galleryList.get(i).getTitle());
-
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        viewHolder.img.setImageResource(galleryList.get(i).getImg());
 
-        viewHolder.confidenceRating.setPointStartColor(Color.RED);
-        viewHolder.confidenceRating.setPointEndColor(Color.RED);
-        viewHolder.confidenceRating.setPointSize(30);
-        viewHolder.confidenceRating.setStartAngle(135);
-        viewHolder.confidenceRating.setStrokeCap("ROUND");
-        viewHolder.confidenceRating.setStrokeColor(Color.GRAY);
-        //viewHolder.confidenceRating.setStrokeWidth();
-        viewHolder.confidenceRating.setStartValue(0);
-        viewHolder.confidenceRating.setEndValue(1000);
-        viewHolder.confidenceRating.setSweepAngle(270);
+        Picasso.get().load(SeeFoodAPI.BASE_URL + galleryList.get(i).getImageLocation()).into(viewHolder.img);
 
-        viewHolder.comments.setText("20 comments");
+        setConfidenceGauge(viewHolder, galleryList.get(i).getHasFood(), galleryList.get(i).getNotFood());
 
+        // Set the number of comments for each image
+        viewHolder.comments.setText(galleryList.get(i).getComments().size() + " comments");
 
+        // Adds click listener to image-- the ResultView will pop up if clicked
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
-                //TODO: (???) open a new activity to show image and associated comments.
-                Toast.makeText(context, "selected image", Toast.LENGTH_SHORT).show();
+                //TODO: (???) open a new activity to show full image and related information.
+                Toast.makeText(context, " image", Toast.LENGTH_SHORT).show();
+
+
+                // TODO: Pass this variable to the new activity and call "fetch single image"
+                int id = galleryList.get(i).getId();
 
             }
         });
+    }
+
+    // TODO: Find out calculations to set gauge based on SeeFood AI results (has_food - not_food)
+    // Sets confidence gauge for each SeaFoodImage
+    private void setConfidenceGauge(@NonNull final ViewHolder viewHolder, final float hasFood, final float notFood)
+    {
+
+       float total = hasFood + notFood;
+
+       //(int) ((hasFood / (hasFood+notFood)) * 100);
+
+        viewHolder.gaugeView.setShowRangeValues(false);
+       // viewHolder.gaugeView.setTargetValue(99);//(int) (((hasFood) / (hasFood+notFood)) * 100)-55);
+
+        final Random random = new Random();
+
+        final CountDownTimer timer = new CountDownTimer(10000, 2)
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+                viewHolder.gaugeView.setTargetValue(random.nextInt(100));
+            }
+
+            @Override
+            public void onFinish()
+            {
+                // calculate using has_food - not_food
+                viewHolder.gaugeView.setTargetValue(20);
+            }
+        };
+
+        timer.start();
     }
 
     @Override
@@ -82,7 +111,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         private LinearLayout parentLayout;
         private TextView title;
         private ImageView img;
-        private CustomGauge confidenceRating;
+        private GaugeView gaugeView;
         private TextView comments;
 
         public ViewHolder(View view)
@@ -91,7 +120,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
 
             title = (TextView) view.findViewById(R.id.title);
             img = (ImageView) view.findViewById(R.id.img);
-            confidenceRating = (CustomGauge) view.findViewById(R.id.gauge1);
+            gaugeView = (GaugeView) view.findViewById(R.id.gauge_view);
             comments = (TextView) view.findViewById(R.id.comments);
             parentLayout = (LinearLayout) view.findViewById(R.id.parent_layout);
         }

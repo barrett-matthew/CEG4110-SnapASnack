@@ -13,17 +13,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ceg4110.fa2018.group21.snapasnack.R;
-import ceg4110.fa2018.group21.snapasnack.model.seefood.PlaceHolderImage;
-import pl.pawelkleczkowski.customgauge.CustomGauge;
+import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
 public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResultsViewAdapter.ViewHolder>
 {
     // TODO: Switch to SeeFoodImage class
-    private ArrayList<PlaceHolderImage> resultList;
+    private ArrayList<SeeFoodImage> resultList;
     private Context context;
 
     // TODO: Switch to SeeFoodImage class
-    public UploadResultsViewAdapter(Context context, ArrayList<PlaceHolderImage> resultList)
+    public UploadResultsViewAdapter(Context context, ArrayList<SeeFoodImage> resultList)
     {
         this.resultList = resultList;
         this.context = context;
@@ -38,7 +37,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.name.setText(resultList.get(i).getTitle());
+        /*viewHolder.name.setText(resultList.get(i).getTitle());
         viewHolder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         viewHolder.image.setImageResource(resultList.get(i).getImg());
 
@@ -52,7 +51,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         //viewHolder.confidenceRating.setStrokeWidth();
         viewHolder.confidenceRating.setStartValue(0);
         viewHolder.confidenceRating.setEndValue(1000);
-        viewHolder.confidenceRating.setSweepAngle(270);
+        viewHolder.confidenceRating.setSweepAngle(270);*/
 
 
        // viewHolder.confidenceRatingText.setText("This is not food!");
@@ -70,7 +69,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         TextView confidenceRatingText;
         ImageView image;
         TextView name;
-        CustomGauge confidenceRating;
+        //CustomGauge confidenceRating;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -80,7 +79,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
             //confidenceRatingText = itemView.findViewById(R.id.confidenceRatingText);
             image = itemView.findViewById(R.id.seefoodResult);
             name = itemView.findViewById(R.id.name);
-            confidenceRating = itemView.findViewById(R.id.gauge2);
+            //confidenceRating = itemView.findViewById(R.id.gauge2);
 
         }
     }

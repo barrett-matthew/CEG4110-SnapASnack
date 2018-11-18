@@ -11,7 +11,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import ceg4110.fa2018.group21.snapasnack.R;
-import ceg4110.fa2018.group21.snapasnack.model.seefood.PlaceHolderImage;
+import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import ceg4110.fa2018.group21.snapasnack.view.adapter.UploadResultsViewAdapter;
 
 public class UploadResultsView extends AppCompatActivity {
@@ -32,14 +32,14 @@ public class UploadResultsView extends AppCompatActivity {
 
     // PLACEHOLDER IMAGES
     private final Integer image_ids[] = {
-            R.drawable.img1,
+            /*R.drawable.img1,
             R.drawable.img2,
             R.drawable.img3,
             R.drawable.img4,
             R.drawable.img5,
             R.drawable.img6,
             R.drawable.img7,
-            R.drawable.img8
+            R.drawable.img8*/
     };
 
     @Override
@@ -54,7 +54,7 @@ public class UploadResultsView extends AppCompatActivity {
 
 
         // TODO: Switch to SeeFoodImage class
-        final ArrayList<PlaceHolderImage> cells = prepareData();
+        final ArrayList<SeeFoodImage> cells = prepareData();
 
         UploadResultsViewAdapter adapter = new UploadResultsViewAdapter(getApplicationContext(), cells);
         recyclerView.setAdapter(adapter);
@@ -64,15 +64,15 @@ public class UploadResultsView extends AppCompatActivity {
 
 
     // TODO: Switch to SeeFoodImage class
-    public ArrayList<PlaceHolderImage> prepareData()
+    public ArrayList<SeeFoodImage> prepareData()
     {
         // TODO: Switch to SeeFoodImage class
-        ArrayList<PlaceHolderImage> seeFoodImages = new ArrayList<>();
+        ArrayList<SeeFoodImage> seeFoodImages = new ArrayList<>();
 
         for(int i = 0; i < image_titles.length; i++)
         {
-            PlaceHolderImage cell = new PlaceHolderImage(image_titles[i], image_ids[i]);
-            seeFoodImages.add(cell);
+            //PlaceHolderImage cell = new PlaceHolderImage(image_titles[i], image_ids[i]);
+            //seeFoodImages.add(cell);
         }
 
         return seeFoodImages;
