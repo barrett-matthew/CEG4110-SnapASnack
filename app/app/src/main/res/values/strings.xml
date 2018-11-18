@@ -5,6 +5,18 @@
     <string name="todo">TODO</string>
     <string name="title_activity_result_view">ResultView</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="nextpage">nextpage</string>
+    <string-array name="speedTestRangeValues">
+        <item>0</item>
+        <item>12.5</item>
+        <item>25</item>
+        <item>37.5</item>
+        <item>50</item>
+        <item>62.5</item>
+        <item>75</item>
+        <item>87.5</item>
+        <item>100</item>
+    </string-array>
     <string name="main_menu_btn_upload">Snap Your Snack</string>
     <string name="galleryview">Community Upload Gallery</string>
 </resources>
