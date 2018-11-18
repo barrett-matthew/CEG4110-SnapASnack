@@ -38,7 +38,8 @@
             style="@android:style/Widget.Button.Inset"
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:text="@string/galleryview" />
+            android:text="@string/main_menu_btn_gallery" />
 
     </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>

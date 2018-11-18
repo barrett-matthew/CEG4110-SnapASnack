@@ -7,9 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
