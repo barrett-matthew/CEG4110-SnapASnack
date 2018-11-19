@@ -1,7 +1,6 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
@@ -60,7 +58,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
                 //TODO: (???) open a new activity to show full image and related information.
                 Toast.makeText(context, " image", Toast.LENGTH_SHORT).show();
 
-
                 // TODO: Pass this variable to the new activity and call "fetch single image"
                 int id = galleryList.get(i).getId();
 
@@ -72,14 +69,25 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     // Sets confidence gauge for each SeaFoodImage
     private void setConfidenceGauge(@NonNull final ViewHolder viewHolder, final float hasFood, final float notFood)
     {
-       float total = hasFood + notFood;
-
-       //(int) ((hasFood / (hasFood+notFood)) * 100);
-
         viewHolder.gaugeView.setShowRangeValues(false);
 
-        // TODO: Find out calculations to set gauge based on SeeFood AI results (calculate percentage using hasFood and notFood)
-        viewHolder.gaugeView.setTargetValue(20);
+        float result = hasFood - notFood;
+
+        // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
+        // TODO: BUG-- why does app crash if I set the target value to 100??
+        if (result > 5)
+        {
+            viewHolder.gaugeView.setTargetValue(99);
+        }
+        else if (result < -3)
+        {
+            viewHolder.gaugeView.setTargetValue(0);
+        }
+        else
+        {
+            viewHolder.gaugeView.setTargetValue((int) ((result + 3) / 8) * 100);
+        }
+
     }
 
     @Override
@@ -90,7 +98,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         private LinearLayout parentLayout;
-        private TextView title;
         private ImageView img;
         private GaugeView gaugeView;
         private TextView comments;
@@ -99,10 +106,9 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         {
             super(view);
 
-            title = (TextView) view.findViewById(R.id.title);
-            img = (ImageView) view.findViewById(R.id.img);
-            gaugeView = (GaugeView) view.findViewById(R.id.gauge_view);
-            comments = (TextView) view.findViewById(R.id.comments);
+            img = (ImageView) view.findViewById(R.id.galleryImg);
+            gaugeView = (GaugeView) view.findViewById(R.id.galleryGauge);
+            comments = (TextView) view.findViewById(R.id.galleryComments);
             parentLayout = (LinearLayout) view.findViewById(R.id.parent_layout);
         }
     }

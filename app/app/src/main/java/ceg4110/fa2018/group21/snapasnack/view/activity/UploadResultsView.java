@@ -14,10 +14,11 @@ import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import ceg4110.fa2018.group21.snapasnack.view.adapter.UploadResultsViewAdapter;
 
-public class UploadResultsView extends AppCompatActivity {
-
+public class UploadResultsView extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.upload_results_view);
@@ -28,7 +29,7 @@ public class UploadResultsView extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         // Getting SeaFoodImageList from calling the intent
-        final List<SeeFoodImage> cells = (List<SeeFoodImage>) getIntent().getSerializableExtra("SeaFoodResults");
+        final List<SeeFoodImage> cells = (List<SeeFoodImage>) getIntent().getSerializableExtra("SeeFoodResults");
 
         UploadResultsViewAdapter adapter = new UploadResultsViewAdapter(getApplicationContext(), cells);
         recyclerView.setAdapter(adapter);
@@ -57,6 +58,4 @@ public class UploadResultsView extends AppCompatActivity {
             }
         });
     }
-
-
 }
