@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     // Passing the SeaFoodImage List to UploadResultsView
                                     Intent intent = new Intent(MainActivity.this, UploadResultsView.class);
-                                    intent.putExtra("SeaFoodResults", (Serializable) images);
+                                    intent.putExtra("SeeFoodResults", (Serializable) images);
                                     startActivity(intent);
 
                                     // Enable the buttons again
