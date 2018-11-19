@@ -85,7 +85,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         }
         else
         {
-            viewHolder.gaugeView.setTargetValue((int) ((result + 3) / 8) * 100);
+            viewHolder.gaugeView.setTargetValue(((result + 3) / 8) * 100);
         }
 
     }

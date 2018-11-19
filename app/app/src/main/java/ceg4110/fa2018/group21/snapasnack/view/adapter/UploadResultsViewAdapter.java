@@ -82,7 +82,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
                 }
                 else
                 {
-                    viewHolder.gaugeView.setTargetValue((int) ((result + 3) / 8) * 100);
+                    viewHolder.gaugeView.setTargetValue(((result + 3) / 8) * 100);
                 }
 
             }
