@@ -1,0 +1,11 @@
+*~
+.DS_Store
+api/.idea
+*.pyc
+*.db
+api/static/images
+api/venv
+api/logs/*
+api/seefood/*
+.idea
+app/.idea
