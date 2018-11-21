@@ -9,7 +9,7 @@ from PIL import Image as plimage
 from flask_classful import FlaskView, route
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 from werkzeug.utils import secure_filename
 
 from models.db_init import db
@@ -27,13 +27,23 @@ class ImagesAPI(FlaskView):
     def index(self):
         page = int(request.args.get('page', 1))
         ordered_by = request.args.get('sort', 'posted_at')
+        direction = request.args.get('direction', 'desc')
         per_page = 10
         if ordered_by == 'comments':
-            images = Image.query.order_by(desc(Image.num_comments)).paginate(page, per_page, error_out=False)
+            if direction == 'asc':
+                images = Image.query.order_by(asc(Image.num_comments)).paginate(page, per_page, error_out=False)
+            else:
+                images = Image.query.order_by(desc(Image.num_comments)).paginate(page, per_page, error_out=False)
         elif ordered_by == 'score':
-            images = Image.query.order_by(desc(Image.has_food - Image.not_food)).paginate(page, per_page, error_out=False)
+            if direction == 'asc':
+                images = Image.query.order_by(asc(Image.has_food - Image.not_food)).paginate(page, per_page, error_out=False)
+            else:
+                images = Image.query.order_by(desc(Image.has_food - Image.not_food)).paginate(page, per_page, error_out=False)
         else:
-            images = Image.query.order_by(Image.posted_at.desc()).paginate(page, per_page, error_out=False)
+            if direction == 'asc':
+                images = Image.query.order_by(Image.posted_at.asc()).paginate(page, per_page, error_out=False)
+            else:
+                images = Image.query.order_by(Image.posted_at.desc()).paginate(page, per_page, error_out=False)
         result = ImageSerializer.dump(images.items, many=True).data
         return jsonify({'images': result,
                         'total': images.total,
