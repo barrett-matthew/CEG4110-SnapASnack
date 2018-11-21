@@ -31,7 +31,7 @@ class ImagesAPI(FlaskView):
         if ordered_by == 'comments':
             images = Image.query.order_by(desc(Image.num_comments)).paginate(page, per_page, error_out=False)
         elif ordered_by == 'score':
-            images = Image.query.order_by((Image.has_food - Image.not_food)).paginate(page, per_page, error_out=False)
+            images = Image.query.order_by(desc(Image.has_food - Image.not_food)).paginate(page, per_page, error_out=False)
         else:
             images = Image.query.order_by(Image.posted_at.desc()).paginate(page, per_page, error_out=False)
         result = ImageSerializer.dump(images.items, many=True).data
