@@ -65,6 +65,8 @@ public class GalleryView extends AppCompatActivity
         });
     }
 
+
+    // TODO: Add a previous button and set that up acccodingly
     public void configureButtons()
     {
         Button backButton = (Button) findViewById(R.id.backtomainmenu);
@@ -88,9 +90,9 @@ public class GalleryView extends AppCompatActivity
                         @Override
                         public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
                         {
-                            galleryList.addAll(images);
+                            //galleryList.addAll(images);
 
-                            GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), galleryList);
+                            GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images); //galleryList);
 
                             recyclerView.setAdapter(newAdapter);
 
@@ -112,13 +114,51 @@ public class GalleryView extends AppCompatActivity
                         }
                     });
                 }
-                else
+            }
+        });
+
+
+        Button previousPage = (Button) findViewById(R.id.prevpage);
+        previousPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                // if current page is at 1, do not decrement page value
+                if(currentPageNumber > 1)
                 {
-                    System.out.println("there isn't a next page");
-                  // there isn't a next page
+                    SeeFoodHTTPHandler.getInstance().fetchAllImages(currentPageNumber-1, new FetchAllImagesCallback()
+                    {
+                        @Override
+                        public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
+                        {
+                            galleryList.addAll(images);
+
+                            GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images);//galleryList);
+
+                            recyclerView.setAdapter(newAdapter);
+
+                            setGalleryList(galleryList);
+                            setHasNextPage(hasNextPage);
+                            setCurrentPageNumber(currentPageNumber);
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Throwable throwable)
+                        {
+
+                        }
+
+                        @Override
+                        public void onError(@NonNull String errorMessage)
+                        {
+
+                        }
+                    });
                 }
             }
         });
+
+
     }
 
     public void setHasNextPage(boolean hasNextPage) { this.hasNextPage = hasNextPage; }

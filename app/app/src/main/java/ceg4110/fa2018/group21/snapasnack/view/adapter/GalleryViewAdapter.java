@@ -43,7 +43,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     {
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        Picasso.get().load(SeeFoodAPI.BASE_URL + galleryList.get(i).getImageLocation()).into(viewHolder.img);
+        Picasso.get().load(SeeFoodAPI.BASE_URL + galleryList.get(i).getThumbnailLocation()).into(viewHolder.img);
 
         setConfidenceGauge(viewHolder, galleryList.get(i).getHasFood(), galleryList.get(i).getNotFood());
 
