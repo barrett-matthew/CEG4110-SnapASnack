@@ -65,8 +65,6 @@ public class GalleryView extends AppCompatActivity
         });
     }
 
-
-    // TODO: Add a previous button and set that up acccodingly
     public void configureButtons()
     {
         Button backButton = (Button) findViewById(R.id.backtomainmenu);
@@ -123,7 +121,7 @@ public class GalleryView extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                // if current page is at 1, do not decrement page value
+                // if current page is at 1, do not decrement page
                 if(currentPageNumber > 1)
                 {
                     SeeFoodHTTPHandler.getInstance().fetchAllImages(currentPageNumber-1, new FetchAllImagesCallback()
@@ -161,9 +159,9 @@ public class GalleryView extends AppCompatActivity
 
     }
 
-    public void setHasNextPage(boolean hasNextPage) { this.hasNextPage = hasNextPage; }
+    private void setHasNextPage(boolean hasNextPage) { this.hasNextPage = hasNextPage; }
 
-    public void setCurrentPageNumber(int currentPageNumber) { this.currentPageNumber = currentPageNumber; }
+    private void setCurrentPageNumber(int currentPageNumber) { this.currentPageNumber = currentPageNumber; }
 
-    public void setGalleryList(List<SeeFoodImage> galleryList) { this.galleryList = galleryList; }
+    private void setGalleryList(List<SeeFoodImage> galleryList) { this.galleryList = galleryList; }
 }
