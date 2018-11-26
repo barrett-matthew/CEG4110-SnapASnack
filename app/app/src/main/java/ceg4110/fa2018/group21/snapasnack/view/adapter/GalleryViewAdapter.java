@@ -60,7 +60,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
 
                 // TODO: Pass this variable to the new activity and call "fetch single image"
                 int id = galleryList.get(i).getId();
-
+                
             }
         });
     }
