@@ -1,6 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,11 +15,13 @@ import android.widget.Toast;
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
+import ceg4110.fa2018.group21.snapasnack.view.activity.ResultCommentView;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
 {
@@ -55,11 +58,15 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
             @Override
             public void onClick(View view)
             {
-                //TODO: (???) open a new activity to show full image and related information.
+                //TODO: open a new activity to show full image and related information.
                 Toast.makeText(context, " image", Toast.LENGTH_SHORT).show();
 
                 // TODO: Pass this variable to the new activity and call "fetch single image"
-                int id = galleryList.get(i).getId();
+                SeeFoodImage passThisResult = galleryList.get(i);
+
+                Intent intent = new Intent(context, ResultCommentView.class);
+                intent.putExtra("SeeFoodResult", (Serializable) passThisResult);
+                context.startActivity(intent);
                 
             }
         });
