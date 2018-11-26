@@ -62,7 +62,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
                 int id = galleryList.get(i).getId();
 
                 // Passing int image id to ResultCommentView
-                // TODO: Uncomment this stuf when ResultCommentView Class is completed
+                // TODO: Uncomment this stuff when ResultCommentView Class is completed
 //                Intent intent = new Intent(GalleryViewAdapter.this, ResultCommentView.class);
 //                intent.putExtra("SeeFoodResult", id);
 //                startActivity(intent);
