@@ -7,7 +7,7 @@ import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
-public class FetchAllImagesResponse {
+public class FetchImagesByPageNumberResponse {
 
     @SerializedName("has_next")
     @Expose
