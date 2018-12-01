@@ -101,6 +101,7 @@ public class GalleryView extends AppCompatActivity
                             setGalleryList(galleryList);
                             setHasNextPage(hasNextPage);
                             setCurrentPageNumber(currentPageNumber);
+                            updatePrevNextButtons();
                         }
 
                         @Override
@@ -145,6 +146,7 @@ public class GalleryView extends AppCompatActivity
                             setGalleryList(galleryList);
                             setHasNextPage(hasNextPage);
                             setCurrentPageNumber(currentPageNumber);
+                            updatePrevNextButtons();
                         }
 
                         @Override
@@ -163,7 +165,30 @@ public class GalleryView extends AppCompatActivity
             }
         });
 
+        // Update prev/next buttons with the initial configureButtons() call
+        updatePrevNextButtons();
 
+        // TODO : Add logic for filtering here
+        Button filterButton = null;
+
+    }
+
+    private void updatePrevNextButtons() {
+        Button nextPgBtn = (Button) findViewById(R.id.nextpage);
+        Button prevPgBtn = (Button) findViewById(R.id.prevpage);
+        if(!hasNextPage) {
+            nextPgBtn.setEnabled(false);
+        }
+        else {
+            nextPgBtn.setEnabled(true);
+        }
+
+        if(currentPageNumber > 1) {
+            prevPgBtn.setEnabled(true);
+        }
+        else {
+            prevPgBtn.setEnabled(false);
+        }
     }
 
     private void setHasNextPage(boolean hasNextPage) { this.hasNextPage = hasNextPage; }
