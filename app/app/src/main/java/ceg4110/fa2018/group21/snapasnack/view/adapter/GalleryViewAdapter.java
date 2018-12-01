@@ -21,7 +21,7 @@ import java.util.List;
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
-import ceg4110.fa2018.group21.snapasnack.view.activity.ResultCommentView;
+import ceg4110.fa2018.group21.snapasnack.view.activity.ResultView;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
 {
@@ -58,13 +58,10 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
             @Override
             public void onClick(View view)
             {
-                //TODO: open a new activity to show full image and related information.
-                Toast.makeText(context, " image", Toast.LENGTH_SHORT).show();
 
-                // TODO: Pass this variable to the new activity and call "fetch single image"
                 SeeFoodImage passThisResult = galleryList.get(i);
 
-                Intent intent = new Intent(context, ResultCommentView.class);
+                Intent intent = new Intent(context, ResultView.class);
                 intent.putExtra("SeeFoodResult", (Serializable) passThisResult);
                 context.startActivity(intent);
                 

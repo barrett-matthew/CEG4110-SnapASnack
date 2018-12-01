@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/result_comment_image"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="246dp"
         android:layout_weight="70"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
@@ -18,7 +18,7 @@
     <com.ntt.customgaugeview.library.GaugeView
         android:id="@+id/result_comment_gauge"
         android:layout_width="153dp"
-        android:layout_height="130dp"
+        android:layout_height="194dp"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="-19dp"
@@ -42,14 +42,11 @@
         gauge:textUnitSize="0.06"
         gauge:textValueSize="0.20" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/result_comments"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:textColor="#000"
-        />
-
+    <Button
+        android:id="@+id/toCommentView"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="25dp"
+        android:text="Comments" />
 </LinearLayout>

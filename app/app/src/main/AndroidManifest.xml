@@ -26,7 +26,8 @@
         </activity>
         <activity android:name=".view.activity.GalleryView" />
         <activity android:name=".view.activity.UploadResultsView" />
-        <activity android:name=".view.activity.ResultCommentView"></activity>
+        <activity android:name=".view.activity.ResultView" />
+        <activity android:name=".view.activity.CommentView"></activity>
     </application>
 
 </manifest>
