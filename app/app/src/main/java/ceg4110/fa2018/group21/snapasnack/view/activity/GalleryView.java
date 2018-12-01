@@ -10,8 +10,9 @@ import android.widget.Button;
 
 import java.util.List;
 
+import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
-import ceg4110.fa2018.group21.snapasnack.http.callback.FetchAllImagesCallback;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchImagesByPageNumberCallback;
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
@@ -37,7 +38,7 @@ public class GalleryView extends AppCompatActivity
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
 
-        SeeFoodHTTPHandler.getInstance().fetchAllImages(new FetchAllImagesCallback() {
+        SeeFoodHTTPHandler.getInstance().fetchImagesDefaultFirstPage(new FetchImagesByPageNumberCallback() {
             @Override
             public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
             {
@@ -83,7 +84,10 @@ public class GalleryView extends AppCompatActivity
             {
                 if(hasNextPage)
                 {
-                    SeeFoodHTTPHandler.getInstance().fetchAllImages(currentPageNumber+1, new FetchAllImagesCallback()
+                    SeeFoodHTTPHandler.getInstance().fetchImagesByPageNumber(currentPageNumber+1,
+                            null,
+                            null,
+                            new FetchImagesByPageNumberCallback()
                     {
                         @Override
                         public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
