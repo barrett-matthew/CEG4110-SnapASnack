@@ -10,12 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
@@ -28,7 +26,6 @@ import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
 public class GalleryView extends AppCompatActivity
 {
     private boolean hasNextPage;
-    private GalleryViewAdapter adapter;
     private int currentPageNumber;
     private RecyclerView recyclerView;
     private List<SeeFoodImage> galleryList;
@@ -48,38 +45,13 @@ public class GalleryView extends AppCompatActivity
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
         recyclerView.setLayoutManager(layoutManager);
 
-        currentOrderBy = getResources().getString(R.string.filterBy_datePosted);
-        //currentOrderDirection = SeeFoodAPI.FETCH_DIR_DESC;
-
-        SeeFoodHTTPHandler.getInstance().fetchImagesDefaultFirstPage(new FetchImagesByPageNumberCallback() {
-            @Override
-            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
-            {
-                adapter = new GalleryViewAdapter(getApplicationContext(), images);
-
-                setHasNextPage(hasNextPage);
-                setCurrentPageNumber(currentPageNumber);
-                setGalleryList(images);
-
-                recyclerView.setAdapter(adapter);
-                configureButtons();
-            }
-
-            @Override
-            public void onFailure(@NonNull Throwable throwable)
-            {
-
-            }
-
-            @Override
-            public void onError(@NonNull String errorMessage)
-            {
-
-            }
-        });
-
         orderByValues = new ArrayList<>();
         orderByValues.addAll(Arrays.asList(getResources().getStringArray(R.array.filterBy)));
+        currentOrderBy = getResources().getString(R.string.filterBy_datePosted);
+
+        loadImages(1, SeeFoodAPI.FETCH_ORDER_BY_DATE, SeeFoodAPI.FETCH_DIR_DESC);
+
+        configureButtons();
     }
 
     public void configureButtons()
@@ -100,38 +72,8 @@ public class GalleryView extends AppCompatActivity
             {
                 if(hasNextPage)
                 {
-                    SeeFoodHTTPHandler.getInstance().fetchImagesByPageNumber(currentPageNumber+1,
-                            SeeFoodAPI.FETCH_ORDER_BY_DATE,
-                            SeeFoodAPI.FETCH_DIR_DESC,
-                            new FetchImagesByPageNumberCallback()
-                    {
-                        @Override
-                        public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
-                        {
-                            //galleryList.addAll(images);
-
-                            GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images); //galleryList);
-
-                            recyclerView.setAdapter(newAdapter);
-
-                            setGalleryList(galleryList);
-                            setHasNextPage(hasNextPage);
-                            setCurrentPageNumber(currentPageNumber);
-                            updatePrevNextButtons();
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Throwable throwable)
-                        {
-
-                        }
-
-                        @Override
-                        public void onError(@NonNull String errorMessage)
-                        {
-
-                        }
-                    });
+                    String[] queryParams = getQueryParams();
+                    loadImages(currentPageNumber+1, queryParams[0], queryParams[1]);
                 }
             }
         });
@@ -140,52 +82,20 @@ public class GalleryView extends AppCompatActivity
         Button previousPage = (Button) findViewById(R.id.prevpage);
         previousPage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 // if current page is at 1, do not decrement page
-                if(currentPageNumber > 1)
-                {
-                    SeeFoodHTTPHandler.getInstance().fetchImagesByPageNumber(currentPageNumber-1,
-                            SeeFoodAPI.FETCH_ORDER_BY_DATE,
-                            SeeFoodAPI.FETCH_DIR_DESC,
-                            new FetchImagesByPageNumberCallback()
-                    {
-                        @Override
-                        public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
-                        {
-                            galleryList.addAll(images);
-
-                            GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images);//galleryList);
-
-                            recyclerView.setAdapter(newAdapter);
-
-                            setGalleryList(galleryList);
-                            setHasNextPage(hasNextPage);
-                            setCurrentPageNumber(currentPageNumber);
-                            updatePrevNextButtons();
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Throwable throwable)
-                        {
-
-                        }
-
-                        @Override
-                        public void onError(@NonNull String errorMessage)
-                        {
-
-                        }
-                    });
+                if (currentPageNumber > 1) {
+                    String[] queryParams = getQueryParams();
+                    loadImages(currentPageNumber-1, queryParams[0], queryParams[1]);
                 }
             }
         });
 
-        // Update prev/next buttons with the initial configureButtons() call
-        updatePrevNextButtons();
-
         // OnClick logic implemented in showFilterDialog()
         ImageButton filterButton = (ImageButton) findViewById(R.id.filterButton);
+
+        // Update prev/next buttons with the initial configureButtons() call
+        updatePrevNextButtons();
     }
 
     public void showFilterDialog (View view) {
@@ -223,18 +133,11 @@ public class GalleryView extends AppCompatActivity
                     // Restart at the beginning of the pages
                     currentPageNumber = 1;
 
-                    if(currentOrderBy.equals(getResources().getString(R.string.filterBy_datePosted))) {
-                        reloadFilterByDate();
-                    }
-                    else if(currentOrderBy.equals(getResources().getString(R.string.filterBy_confidenceRating))) {
-                        reloadFilterByScore();
-                    }
-                    else if(currentOrderBy.equals(getResources().getString(R.string.filterBy_comments))) {
-                        reloadFilterByComments();
-                    }
-                    else {
-                        // TODO : Error handling?
-                    }
+                    // Get the parameters
+                    String[] queryParams = getQueryParams();
+
+                    // Update the page
+                    loadImages(currentPageNumber, queryParams[0], queryParams[1]);
                 }
             }
         });
@@ -265,22 +168,23 @@ public class GalleryView extends AppCompatActivity
         }
     }
 
-    private void reloadFilterByDate() {
+    private void loadImages(int pageNumber, String orderBy, String orderDirection) {
         SeeFoodHTTPHandler
                 .getInstance()
-                .fetchImagesByPageNumber(1,
-                        SeeFoodAPI.FETCH_ORDER_BY_DATE,
-                        SeeFoodAPI.FETCH_DIR_DESC,
+                .fetchImagesByPageNumber(pageNumber, orderBy, orderDirection,
                         new FetchImagesByPageNumberCallback() {
                             @Override
                             public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
-                                GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images); //galleryList);
-
+                                // Create a new adapter with the query results for this page
+                                GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images);
                                 recyclerView.setAdapter(newAdapter);
 
+                                // Update globals
                                 setGalleryList(galleryList);
                                 setHasNextPage(hasNextPage);
                                 setCurrentPageNumber(currentPageNumber);
+
+                                // Refresh next/previous page buttons
                                 updatePrevNextButtons();
                             }
 
@@ -296,66 +200,26 @@ public class GalleryView extends AppCompatActivity
                         });
     }
 
-    private void reloadFilterByScore() {
-        SeeFoodHTTPHandler
-                .getInstance()
-                .fetchImagesByPageNumber(1,
-                        SeeFoodAPI.FETCH_ORDER_BY_SCORE,
-                        SeeFoodAPI.FETCH_DIR_DESC,
-                        new FetchImagesByPageNumberCallback() {
-                            @Override
-                            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
-                                GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images); //galleryList);
+    // Returns a pair of Strings to be used in querying the server
+    private String[] getQueryParams() {
+        // retVal[0] == orderBy
+        // retVal[1] == orderDirection
+        String[] retVal = new String[2];
 
-                                recyclerView.setAdapter(newAdapter);
+        if(currentOrderBy.equals(getResources().getString(R.string.filterBy_datePosted))) {
+            retVal[0] = SeeFoodAPI.FETCH_ORDER_BY_DATE;
+        }
+        else if(currentOrderBy.equals(getResources().getString(R.string.filterBy_confidenceRating))) {
+            retVal[0] = SeeFoodAPI.FETCH_ORDER_BY_SCORE;
+        }
+        else if(currentOrderBy.equals(getResources().getString(R.string.filterBy_comments))) {
+            retVal[0] = SeeFoodAPI.FETCH_ORDER_BY_COMMENTS;
+        }
 
-                                setGalleryList(galleryList);
-                                setHasNextPage(hasNextPage);
-                                setCurrentPageNumber(currentPageNumber);
-                                updatePrevNextButtons();
-                            }
+        // TODO : Dynamically get direction
+        retVal[1] = SeeFoodAPI.FETCH_DIR_DESC;
 
-                            @Override
-                            public void onFailure(@NonNull Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public void onError(@NonNull String errorMessage) {
-
-                            }
-                        });
-    }
-
-    private void reloadFilterByComments() {
-        SeeFoodHTTPHandler
-                .getInstance()
-                .fetchImagesByPageNumber(1,
-                        SeeFoodAPI.FETCH_ORDER_BY_COMMENTS,
-                        SeeFoodAPI.FETCH_DIR_DESC,
-                        new FetchImagesByPageNumberCallback() {
-                            @Override
-                            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
-                                GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images); //galleryList);
-
-                                recyclerView.setAdapter(newAdapter);
-
-                                setGalleryList(galleryList);
-                                setHasNextPage(hasNextPage);
-                                setCurrentPageNumber(currentPageNumber);
-                                updatePrevNextButtons();
-                            }
-
-                            @Override
-                            public void onFailure(@NonNull Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public void onError(@NonNull String errorMessage) {
-
-                            }
-                        });
+        return retVal;
     }
 
     private void setHasNextPage(boolean hasNextPage) { this.hasNextPage = hasNextPage; }
