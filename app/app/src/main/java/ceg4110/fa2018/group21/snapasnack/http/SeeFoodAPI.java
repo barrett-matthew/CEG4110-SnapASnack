@@ -30,6 +30,7 @@ public interface SeeFoodAPI {
     // Default is no parameter; orders by posted date
     String FETCH_ORDER_BY_COMMENTS = "comments";
     String FETCH_ORDER_BY_SCORE = "score";
+    String FETCH_ORDER_BY_DATE = "posted_at";
 
     @Multipart
     @POST("/images/")

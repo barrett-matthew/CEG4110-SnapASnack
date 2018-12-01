@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import java.util.List;
 
+import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchImagesByPageNumberCallback;
 import ceg4110.fa2018.group21.snapasnack.R;
@@ -84,8 +85,8 @@ public class GalleryView extends AppCompatActivity
                 if(hasNextPage)
                 {
                     SeeFoodHTTPHandler.getInstance().fetchImagesByPageNumber(currentPageNumber+1,
-                            null,
-                            null,
+                            SeeFoodAPI.FETCH_ORDER_BY_DATE,
+                            SeeFoodAPI.FETCH_DIR_DESC,
                             new FetchImagesByPageNumberCallback()
                     {
                         @Override
@@ -128,8 +129,8 @@ public class GalleryView extends AppCompatActivity
                 if(currentPageNumber > 1)
                 {
                     SeeFoodHTTPHandler.getInstance().fetchImagesByPageNumber(currentPageNumber-1,
-                            null,
-                            null,
+                            SeeFoodAPI.FETCH_ORDER_BY_DATE,
+                            SeeFoodAPI.FETCH_DIR_DESC,
                             new FetchImagesByPageNumberCallback()
                     {
                         @Override
