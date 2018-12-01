@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import java.util.List;
 
-import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchImagesByPageNumberCallback;
 import ceg4110.fa2018.group21.snapasnack.R;
@@ -128,7 +127,10 @@ public class GalleryView extends AppCompatActivity
                 // if current page is at 1, do not decrement page
                 if(currentPageNumber > 1)
                 {
-                    SeeFoodHTTPHandler.getInstance().fetchAllImages(currentPageNumber-1, new FetchAllImagesCallback()
+                    SeeFoodHTTPHandler.getInstance().fetchImagesByPageNumber(currentPageNumber-1,
+                            null,
+                            null,
+                            new FetchImagesByPageNumberCallback()
                     {
                         @Override
                         public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage)
