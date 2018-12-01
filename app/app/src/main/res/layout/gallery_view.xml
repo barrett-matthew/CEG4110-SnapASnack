@@ -13,16 +13,30 @@
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/backtomainmenu"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mainmenu" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/nextpage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nextpage" />
+        <Button
+            android:id="@+id/prevpage"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="previouspage" />
+
+        <Button
+            android:id="@+id/nextpage"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="@string/nextpage" />
+
+        <Button
+            android:id="@+id/backtomainmenu"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="@string/mainmenu" />
+
+    </LinearLayout>
 
 </RelativeLayout>
