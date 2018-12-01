@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--< Snap a' Snack's GalleryView. This view will be populated by seefood_gallery_cells />-->
+<!--< Snap a' Snack's GalleryView. This view will be populated by seefood_gallery_cell(s) />-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

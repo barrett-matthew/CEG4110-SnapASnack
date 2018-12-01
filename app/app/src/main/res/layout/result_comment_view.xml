@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gauge="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100">
+    >
 
     <ImageView
+        android:id="@+id/result_comment_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="70"
-        android:id="@+id/result_comment_image"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher" />
+
+    <com.ntt.customgaugeview.library.GaugeView
+        android:id="@+id/result_comment_gauge"
+        android:layout_width="153dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="-19dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        gauge:divisions="8"
+        gauge:rangeValues="@array/speedTestRangeValues"
+        gauge:scaleEndValue="100"
+        gauge:showInnerRim="false"
+        gauge:showNeedle="true"
+        gauge:showOuterBorder="false"
+        gauge:showOuterRim="true"
+        gauge:showOuterShadow="false"
+        gauge:showRangeText="true"
+        gauge:showRanges="true"
+        gauge:showScale="true"
+        gauge:subdivisions="1"
+        gauge:textUnit=""
+        gauge:textUnitSize="0.06"
+        gauge:textValueSize="0.20" />
 
     <TextView
         android:layout_width="wrap_content"

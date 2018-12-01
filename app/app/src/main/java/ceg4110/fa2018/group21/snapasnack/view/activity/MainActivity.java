@@ -103,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Disable buttons
-        for(Button btn : mainMenuButtons) {
-            btn.setEnabled(false);
-        }
+//        for(Button btn : mainMenuButtons) {
+//            btn.setEnabled(false);
+//        }
 
         // If correct permissions are given, continue
         TedBottomPicker bottomSheetDialogFragment = new TedBottomPicker.Builder(MainActivity.this)
@@ -139,26 +139,26 @@ public class MainActivity extends AppCompatActivity {
                                 public void onFailure(@NonNull Throwable throwable) {
                                     // TODO : Handle failures and errors
                                     // Enable the buttons again
-                                    for(Button btn : mainMenuButtons) {
-                                        btn.setEnabled(true);
-                                    }
+//                                    for(Button btn : mainMenuButtons) {
+//                                        btn.setEnabled(true);
+//                                    }
                                 }
 
                                 @Override
                                 public void onError(@NonNull String errorMessage) {
                                     // TODO : Handle failures and errors
                                     // Enable the buttons again
-                                    for(Button btn : mainMenuButtons) {
-                                        btn.setEnabled(true);
-                                    }
+//                                    for(Button btn : mainMenuButtons) {
+//                                        btn.setEnabled(true);
+//                                    }
                                 }
                             });
                         } else {
                             // TODO: This is NOT fired when no images are selected...find another route
                             // Enable the buttons again
-                            for(Button btn : mainMenuButtons) {
-                                btn.setEnabled(true);
-                            }
+//                            for(Button btn : mainMenuButtons) {
+//                                btn.setEnabled(true);
+//                            }
                         }
                     }
                 })
