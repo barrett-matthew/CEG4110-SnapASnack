@@ -24,7 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.GalleryView" />
+        <activity
+            android:name=".view.activity.GalleryView"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".view.activity.UploadResultsView"></activity>
     </application>
 

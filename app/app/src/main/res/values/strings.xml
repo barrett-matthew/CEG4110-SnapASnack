@@ -12,7 +12,9 @@
     <string name="to_gallery_view">To Gallery View</string>
     <string name="main_menu_btn_upload">Snap Your Snack</string>
     <string name="main_menu_btn_gallery">Community Upload Gallery</string>
-    <string name="nextpage">nextpage</string>
+    <string name="nextpage">Next Pg.</string>
+    <string name="previous_page">Prev. Pg.</string>
+    <string name="gallery_filter">Filter</string>
     <string-array name="speedTestRangeValues">
         <item>0</item>
         <item>12.5</item>

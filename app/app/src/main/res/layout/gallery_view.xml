@@ -7,36 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.GalleryView">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/gallery"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
-
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/prevpage"
-            android:layout_width="116dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="previouspage" />
+            android:text="@string/previous_page" />
 
         <Button
             android:id="@+id/nextpage"
-            android:layout_width="136dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/nextpage" />
 
         <Button
             android:id="@+id/backtomainmenu"
-            android:layout_width="110dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mainmenu" />
+            android:layout_weight="1"
+            android:text="@string/main_menu" />
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
