@@ -9,7 +9,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +31,7 @@ public class GalleryView extends AppCompatActivity
     private int currentPageNumber;
     private RecyclerView recyclerView;
     private List<SeeFoodImage> galleryList;
-    private String currentOrderBy, newOrderBy;
+    private String currentOrderBy, newOrderBy, currentOrderDirection;
 
     private ArrayList<String> orderByValues;
 
@@ -48,8 +50,10 @@ public class GalleryView extends AppCompatActivity
         orderByValues = new ArrayList<>();
         orderByValues.addAll(Arrays.asList(getResources().getStringArray(R.array.filterBy)));
         currentOrderBy = getResources().getString(R.string.filterBy_datePosted);
+        currentOrderDirection = SeeFoodAPI.FETCH_DIR_DESC;
 
-        loadImages(1, SeeFoodAPI.FETCH_ORDER_BY_DATE, SeeFoodAPI.FETCH_DIR_DESC);
+        String[] queryParams = getQueryParams();
+        loadImages(1, queryParams[0], queryParams[1]);
 
         configureButtons();
     }
@@ -93,6 +97,24 @@ public class GalleryView extends AppCompatActivity
 
         // OnClick logic implemented in showFilterDialog()
         ImageButton filterButton = (ImageButton) findViewById(R.id.filterButton);
+
+        // "Checked" state == ascending
+        // "Unchecked" state == descending
+        ToggleButton orderDirToggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+        orderDirToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    currentOrderDirection = SeeFoodAPI.FETCH_DIR_ASC;
+                } else {
+                    currentOrderDirection = SeeFoodAPI.FETCH_DIR_DESC;
+                }
+
+                setCurrentPageNumber(1);
+                String[] queryParams = getQueryParams();
+                loadImages(currentPageNumber, queryParams[0], queryParams[1]);
+            }
+        });
 
         // Update prev/next buttons with the initial configureButtons() call
         updatePrevNextButtons();
@@ -216,8 +238,8 @@ public class GalleryView extends AppCompatActivity
             retVal[0] = SeeFoodAPI.FETCH_ORDER_BY_COMMENTS;
         }
 
-        // TODO : Dynamically get direction
-        retVal[1] = SeeFoodAPI.FETCH_DIR_DESC;
+        // Get direction from the global. No conversion needed.
+        retVal[1] = currentOrderDirection;
 
         return retVal;
     }

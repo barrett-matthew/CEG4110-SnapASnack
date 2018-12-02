@@ -39,4 +39,7 @@
         <item>@string/filterBy_confidenceRating</item>
         <item>@string/filterBy_comments</item>
     </string-array>
+
+    <string name="filterDirection_ascending">Asc</string>
+    <string name="filterDirection_descending">Desc</string>
 </resources>

@@ -39,10 +39,22 @@
             android:id="@+id/filterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:contentDescription="@string/contentdesc_gallery_filter"
             android:onClick="showFilterDialog"
             android:tint="@color/colorPrimaryDark"
             app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            style="@style/Base.Widget.AppCompat.DrawerArrowToggle.Common"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="ToggleButton"
+            android:textOff="@string/filterDirection_descending"
+            android:textOn="@string/filterDirection_ascending" />
 
     </LinearLayout>
 
