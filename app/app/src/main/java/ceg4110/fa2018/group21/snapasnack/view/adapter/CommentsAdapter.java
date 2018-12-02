@@ -6,7 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
@@ -33,7 +37,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i)
     {
-//        viewHolder.id.setText(commentsList.get(i).getId());
+        Picasso.get().load("http://bbcpersian7.com/images/transparent-people-png-clipart-1.jpg").into(viewHolder.profilePicture);
         viewHolder.comment.setText(commentsList.get(i).getText());
         viewHolder.postedAt.setText(commentsList.get(i).getPostedAt());
     }
@@ -46,17 +50,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView id;
-        private TextView comment;
-        private TextView postedAt;
+        private ImageView profilePicture;
+        private TextView comment, postedAt;
 
         public ViewHolder(View view)
         {
             super(view);
 
-            id = (TextView) view.findViewById(R.id.userID);
-            comment = (TextView) view.findViewById(R.id.userComment);
-            postedAt = (TextView) view.findViewById(R.id.userPostedAt);
+            profilePicture = (ImageView) view.findViewById(R.id.profilePictureCell);
+            comment = (TextView) view.findViewById(R.id.userCommentCell);
+            postedAt = (TextView) view.findViewById(R.id.userPostedAtCell);
         }
     }
 

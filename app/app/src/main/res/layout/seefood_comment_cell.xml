@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/profilePictureCell"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="5dp"
+        android:orientation="vertical"
+        android:layout_toEndOf="@id/profilePictureCell">
+
 
         <TextView
-            android:id="@+id/userID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:id="@+id/userCommentCell"
+            android:maxLines="5"/>
 
         <TextView
-            android:id="@+id/userComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:id="@+id/userPostedAtCell"
+            android:layout_toRightOf="@id/userCommentCell"/>
 
-        <TextView
-            android:id="@+id/userPostedAt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

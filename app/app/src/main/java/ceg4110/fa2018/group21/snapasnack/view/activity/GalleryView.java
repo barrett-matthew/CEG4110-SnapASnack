@@ -111,11 +111,6 @@ public class GalleryView extends AppCompatActivity
                         }
                     });
                 }
-                else
-                {
-                    System.out.println("there isn't a next page");
-                  // there isn't a next page
-                }
             }
         });
     }

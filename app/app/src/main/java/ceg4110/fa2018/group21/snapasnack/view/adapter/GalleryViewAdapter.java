@@ -58,13 +58,11 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
             @Override
             public void onClick(View view)
             {
-
                 SeeFoodImage passThisResult = galleryList.get(i);
 
                 Intent intent = new Intent(context, ResultView.class);
                 intent.putExtra("SeeFoodResult", (Serializable) passThisResult);
                 context.startActivity(intent);
-                
             }
         });
     }

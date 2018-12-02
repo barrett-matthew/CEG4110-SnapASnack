@@ -1,37 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.CommentView">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/commentToolbar"
+        android:background="?android:attr/windowBackground"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/commentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+        android:scrollbars="vertical"
+        android:layout_below="@id/commentToolbar"
+        android:layout_above="@id/bottom"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom"
+        android:background="#fff"
+        android:padding="4dp"
+        android:layout_alignParentBottom="true">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width = "40dp"
+            android:layout_height = "40dp"
+            android:id= "@+id/profilePicture"/>
 
         <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profilePicture"
+            android:hint= "Add a comment..."
             android:id="@+id/addCommentTF"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            android:layout_toLeftOf="@id/postButton"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:id= "@+id/postButton"
+            android:text="POST"
+            android:layout_marginEnd="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorPrimary"
+            />
 
-        <Button
-            android:id="@+id/addComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="addComment" />
-    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
+</RelativeLayout>

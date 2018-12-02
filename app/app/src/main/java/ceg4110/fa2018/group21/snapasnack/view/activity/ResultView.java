@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
@@ -22,7 +23,6 @@ public class ResultView extends AppCompatActivity {
 
     private Button toCommentView;
 
-    // retrieve id here and display it
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,6 @@ public class ResultView extends AppCompatActivity {
 
         gaugeView.setShowRangeValues(false);
 
-
         final Random random = new Random();
 
         // The timer will allow the gauge to fluctuate between values before setting on a final target value
@@ -64,7 +63,6 @@ public class ResultView extends AppCompatActivity {
                 float result = image.getHasFood() - image.getNotFood();
 
                 // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
-                // TODO: BUG-- why does app crash if I set the target value to 100??
                 if (result > 5) {
                     gaugeView.setTargetValue(99);
                 } else if (result < -3) {
@@ -85,9 +83,12 @@ public class ResultView extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                // Passing the SeeFoodComment List to CommentView
                 Intent intent = new Intent(ResultView.this, CommentView.class);
+
+                // Passing the SeeFoodID & Comments to CommentView
                 intent.putExtra("SeeFoodComments", (Serializable) image.getComments());
+                intent.putExtra("SeeFoodID", image.getId());
+
                 startActivity(intent);
             }
         });
