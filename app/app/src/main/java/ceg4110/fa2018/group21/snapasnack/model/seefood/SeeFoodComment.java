@@ -3,7 +3,9 @@ package ceg4110.fa2018.group21.snapasnack.model.seefood;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SeeFoodComment {
+import java.io.Serializable;
+
+public class SeeFoodComment implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -45,9 +47,7 @@ public class SeeFoodComment {
         this.text = text;
     }
 
-    public String getPostedAt() {
-        return postedAt;
-    }
+    public String getPostedAt() { return postedAt; }
 
     public void setPostedAt(String postedAt) {
         this.postedAt = postedAt;
