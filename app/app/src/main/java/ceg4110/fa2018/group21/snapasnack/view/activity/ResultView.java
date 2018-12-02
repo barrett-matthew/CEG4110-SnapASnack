@@ -92,7 +92,7 @@ public class ResultView extends AppCompatActivity {
                 // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
                 if (result > 5) {
                     gaugeView.setTargetValue(99);
-                    resultCommentText.setText("AI says: This image definitely contains food! :-D");
+                    resultCommentText.setText("AI says: This image definitely contains food!!! :-D");
                 } else if (result < -3) {
                     gaugeView.setTargetValue(0);
                     resultCommentText.setText("AI says: This image is definitely not food! D-:");
