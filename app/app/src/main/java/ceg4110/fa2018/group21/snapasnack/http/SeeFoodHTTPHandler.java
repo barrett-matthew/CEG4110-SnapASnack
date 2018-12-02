@@ -154,9 +154,7 @@ public class SeeFoodHTTPHandler {
     }
 
     // Use SeeFoodAPI.FETCH_* string constants for the orderBy and orderDirection parameters
-    public static void fetchImagesByPageNumber(int pageNumber,
-                                               @Nullable String orderBy,
-                                               @Nullable String orderDirection,
+    public static void fetchImagesByPageNumber(int pageNumber, String orderBy, String orderDirection,
                                                @Nullable final FetchImagesByPageNumberCallback callbacks) {
         Call call = getTransactionHandler().fetchImagesByPageNumber(pageNumber, orderBy, orderDirection);
         call.enqueue(new Callback() {
