@@ -31,6 +31,8 @@ public class CommentView extends AppCompatActivity
     private List<SeeFoodComment> commentList;
     private int SeeFoodID;
 
+
+    //TODO: Figure out how to update all views (GalleryView, ResultView, CommentView) using fetchAllImages and fetchSingleImage. as of right now when you add a comment it will populate the screen but when you leave said activity, the other views arent updating to support the new comment unless you reopen the galleryview
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,7 +47,6 @@ public class CommentView extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
 
         // Getting SeeFoodID & commentList from calling the intent
-
         SeeFoodID = getIntent().getIntExtra("SeeFoodID", 0);
         
         commentList = (List<SeeFoodComment>) getIntent().getSerializableExtra("SeeFoodComments");

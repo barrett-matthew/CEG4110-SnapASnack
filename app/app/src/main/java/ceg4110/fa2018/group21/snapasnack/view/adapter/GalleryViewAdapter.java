@@ -76,7 +76,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         float result = hasFood - notFood;
 
         // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
-        // TODO: BUG-- why does app crash if I set the target value to 100??
         if (result > 5)
         {
             viewHolder.gaugeView.setTargetValue(99);

@@ -25,6 +25,7 @@ public class ResultView extends AppCompatActivity {
     private Button toCommentView;
     private TextView resultCommentText;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
