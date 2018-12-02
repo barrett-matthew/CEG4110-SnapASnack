@@ -25,7 +25,6 @@ public class ResultView extends AppCompatActivity {
     private Button toCommentView;
     private TextView resultCommentText;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -135,8 +134,7 @@ public class ResultView extends AppCompatActivity {
             {
                 Intent intent = new Intent(ResultView.this, CommentView.class);
 
-                // Passing the SeeFoodID & Comments to CommentView
-                intent.putExtra("SeeFoodComments", (Serializable) image.getComments());
+                // Passing the SeeFoodID to CommentView
                 intent.putExtra("SeeFoodID", image.getId());
 
                 startActivity(intent);
@@ -145,7 +143,7 @@ public class ResultView extends AppCompatActivity {
     }
 
 
-    //TODO: maybe add swiping motions to change gallery images? (use fetchSingleImage)
+    //TODO: add swiping motions to change gallery images? (use fetchSingleImage)
 
     //            SeeFoodHTTPHandler.getInstance().fetchSingleImage(seeFoodID, new FetchSingleImageCallback()
 //            {

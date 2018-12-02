@@ -189,7 +189,7 @@ public class GalleryView extends AppCompatActivity
         }
     }
 
-    private void loadImages(int pageNumber, String orderBy, String orderDirection) {
+    private void loadImages(final int pageNumber, final String orderBy, final String orderDirection) {
         SeeFoodHTTPHandler
                 .getInstance()
                 .fetchImagesByPageNumber(pageNumber, orderBy, orderDirection,
@@ -207,6 +207,12 @@ public class GalleryView extends AppCompatActivity
 
                                 // Refresh next/previous page buttons
                                 updatePrevNextButtons();
+//
+//                                if(newAdapter.refreshme())
+//                                {
+//                                    loadImages(pageNumber,orderBy, orderDirection);
+//                                }
+
                             }
 
                             @Override

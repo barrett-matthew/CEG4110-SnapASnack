@@ -29,7 +29,6 @@ import gun0912.tedbottompicker.TedBottomPicker;
 public class MainActivity extends AppCompatActivity {
 
     private boolean allPermissionsGranted;
-
     private ArrayList<Button> mainMenuButtons;
 
     @Override

@@ -19,6 +19,7 @@ import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchAllCommentsOnImageCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.PostCommentToImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
@@ -31,50 +32,40 @@ public class CommentView extends AppCompatActivity
     private List<SeeFoodComment> commentList;
     private int SeeFoodID;
 
-
-    //TODO: Figure out how to update all views (GalleryView, ResultView, CommentView) using fetchAllImages and fetchSingleImage. as of right now when you add a comment it will populate the screen but when you leave said activity, the other views arent updating to support the new comment unless you reopen the galleryview
     @Override
+    // TODO: Figure out how to update galleryview to match commentview updates (might need to do a controller)
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comment_view);
 
         SetupActivity();
+        LoadComments();
+    }
 
-        LinearLayoutManager layoutManger = new LinearLayoutManager(this);
-        recyclerView = (RecyclerView) findViewById(R.id.commentView);
-        recyclerView.setLayoutManager(layoutManger);
-        recyclerView.setHasFixedSize(true);
-
-        // Getting SeeFoodID & commentList from calling the intent
+    private void LoadComments()
+    {
+        // Getting SeeFoodID from calling the intent
         SeeFoodID = getIntent().getIntExtra("SeeFoodID", 0);
-        
-        commentList = (List<SeeFoodComment>) getIntent().getSerializableExtra("SeeFoodComments");
-        CommentsAdapter adapter = new CommentsAdapter(getApplicationContext(), commentList);
-        recyclerView.setAdapter(adapter);
 
-        //TODO: why won't fetch single image retrieve the correct SeeFoodImage object?
-//        SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback() {
-//            @Override
-//            public void onSuccess(@NonNull SeeFoodImage image)
-//            {
-//                commentList = image.getComments();
-//                CommentsAdapter adapter = new CommentsAdapter(getApplicationContext(), commentList);
-//                recyclerView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Throwable throwable)
-//            {
-//
-//            }
-//
-//            @Override
-//            public void onError(@NonNull String errorMessage)
-//            {
-//
-//            }
-//        });
+        SeeFoodHTTPHandler.getInstance().fetchAllCommentsOnImage(SeeFoodID, new FetchAllCommentsOnImageCallback() {
+            @Override
+            public void onSuccess(@NonNull List<SeeFoodComment> comments) {
+                commentList = comments;
+                CommentsAdapter adapter = new CommentsAdapter(getApplicationContext(), commentList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(@NonNull Throwable throwable) {
+
+            }
+
+            @Override
+            public void onError(@NonNull String errorMessage) {
+
+            }
+        });
     }
 
     private void SetupActivity()
@@ -112,7 +103,10 @@ public class CommentView extends AppCompatActivity
                 }
             }
         });
-
+        LinearLayoutManager layoutManger = new LinearLayoutManager(this);
+        recyclerView = (RecyclerView) findViewById(R.id.commentView);
+        recyclerView.setLayoutManager(layoutManger);
+        recyclerView.setHasFixedSize(true);
     }
 
     private void addComment(String comment)

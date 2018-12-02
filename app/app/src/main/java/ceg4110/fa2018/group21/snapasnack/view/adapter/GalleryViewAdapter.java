@@ -67,7 +67,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         });
     }
 
-
     // Sets confidence gauge for each SeaFoodImage
     private void setConfidenceGauge(@NonNull final ViewHolder viewHolder, final float hasFood, final float notFood)
     {

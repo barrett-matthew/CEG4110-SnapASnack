@@ -56,7 +56,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         final Random random = new Random();
 
         // The timer will allow the gauge to fluctuate between values before setting on a final target value
-        final CountDownTimer timer = new CountDownTimer(1000, 2)
+        final CountDownTimer timer = new CountDownTimer(4000, 2)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -119,9 +119,8 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        private ImageView aiPicture;
+        private ImageView aiPicture, image;
         private TextView confidenceRatingText;
-        private ImageView image;
         private GaugeView gaugeView;
 
         public ViewHolder(@NonNull View itemView)
