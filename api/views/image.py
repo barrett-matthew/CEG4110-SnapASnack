@@ -28,7 +28,7 @@ class ImagesAPI(FlaskView):
         page = int(request.args.get('page', 1))
         ordered_by = request.args.get('sort', 'posted_at')
         direction = request.args.get('direction', 'desc')
-        per_page = 10
+        per_page = 12
         if ordered_by == 'comments':
             if direction == 'asc':
                 images = Image.query.order_by(asc(Image.num_comments)).paginate(page, per_page, error_out=False)
