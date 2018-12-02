@@ -12,7 +12,13 @@
     <string name="to_gallery_view">To Gallery View</string>
     <string name="main_menu_btn_upload">Snap Your Snack</string>
     <string name="main_menu_btn_gallery">Community Upload Gallery</string>
-    <string name="nextpage">nextpage</string>
+    <string name="nextpage">&gt;</string>
+    <string name="previous_page">&lt;</string>
+    <string name="menu">Menu</string>
+    <string name="gallery_filter">Filter</string>
+    <string name="contentdesc_gallery_filter">Filter Options</string>
+    <string name="filterdialog_filter">Filter</string>
+    <string name="cancel">Cancel</string>
     <string-array name="speedTestRangeValues">
         <item>0</item>
         <item>12.5</item>
@@ -24,4 +30,16 @@
         <item>87.5</item>
         <item>100</item>
     </string-array>
+
+    <string name="filterBy_datePosted">Date Posted</string>
+    <string name="filterBy_confidenceRating">Confidence Rating</string>
+    <string name="filterBy_comments">Number of Comments</string>
+    <string-array name="filterBy">
+        <item>@string/filterBy_datePosted</item>
+        <item>@string/filterBy_confidenceRating</item>
+        <item>@string/filterBy_comments</item>
+    </string-array>
+
+    <string name="filterDirection_ascending">Asc</string>
+    <string name="filterDirection_descending">Desc</string>
 </resources>

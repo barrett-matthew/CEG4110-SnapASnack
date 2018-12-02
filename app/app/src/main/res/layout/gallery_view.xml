@@ -1,28 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--< Snap a' Snack's GalleryView. This view will be populated by seefood_gallery_cells />-->
+<!--< Snap a' Snack's GalleryView. This view will be populated by seefood_gallery_cell(s) />-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.GalleryView">
 
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/prevpage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/previous_page" />
+
+        <Button
+            android:id="@+id/nextpage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/nextpage" />
+
+        <Button
+            android:id="@+id/backtomainmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/menu" />
+
+        <ImageButton
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/contentdesc_gallery_filter"
+            android:onClick="showFilterDialog"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_filter" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            style="@style/Base.Widget.AppCompat.DrawerArrowToggle.Common"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:textOff="@string/filterDirection_descending"
+            android:textOn="@string/filterDirection_ascending" />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gallery"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
-
-    <Button
-        android:id="@+id/backtomainmenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mainmenu" />
-
-    <Button
-        android:id="@+id/nextpage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nextpage" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

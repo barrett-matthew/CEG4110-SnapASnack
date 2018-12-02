@@ -1,6 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,11 +15,13 @@ import android.widget.Toast;
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.List;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
+import ceg4110.fa2018.group21.snapasnack.view.activity.ResultView;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
 {
@@ -43,7 +46,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     {
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        Picasso.get().load(SeeFoodAPI.BASE_URL + galleryList.get(i).getImageLocation()).into(viewHolder.img);
+        Picasso.get().load(SeeFoodAPI.BASE_URL + galleryList.get(i).getThumbnailLocation()).into(viewHolder.img);
 
         setConfidenceGauge(viewHolder, galleryList.get(i).getHasFood(), galleryList.get(i).getNotFood());
 
@@ -55,12 +58,11 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
             @Override
             public void onClick(View view)
             {
-                //TODO: (???) open a new activity to show full image and related information.
-                Toast.makeText(context, " image", Toast.LENGTH_SHORT).show();
+                SeeFoodImage passThisResult = galleryList.get(i);
 
-                // TODO: Pass this variable to the new activity and call "fetch single image"
-                int id = galleryList.get(i).getId();
-
+                Intent intent = new Intent(context, ResultView.class);
+                intent.putExtra("SeeFoodResult", (Serializable) passThisResult);
+                context.startActivity(intent);
             }
         });
     }
@@ -74,7 +76,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         float result = hasFood - notFood;
 
         // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
-        // TODO: BUG-- why does app crash if I set the target value to 100??
         if (result > 5)
         {
             viewHolder.gaugeView.setTargetValue(99);

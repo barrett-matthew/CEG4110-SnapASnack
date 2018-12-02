@@ -41,11 +41,10 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i)
     {
-        // viewHolder.confidenceRatingText.setText("This is not food!");
-        // viewHolder.itemName.setText(resultList.get(i).getTitle());
-
         viewHolder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.get().load(SeeFoodAPI.BASE_URL + resultList.get(i).getImageLocation()).into(viewHolder.image);
+
+        Picasso.get().load("https://cdn1.iconfinder.com/data/icons/artificial-intelligence-1-2/128/Brain-Technology-Intelligence-Engineering-Scientific-Neuroscience-512.png").into(viewHolder.aiPicture);
 
         setConfidenceGauge(viewHolder, resultList.get(i).getHasFood(), resultList.get(i).getNotFood());
     }
@@ -71,24 +70,46 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
                 float result = hasFood - notFood;
 
                 // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
-                // TODO: BUG-- why does app crash if I set the target value to 100??
                 if (result > 5)
                 {
                     viewHolder.gaugeView.setTargetValue(99);
+                    viewHolder.confidenceRatingText.setText("AI says: This image definitely contains food!!! :-D");
                 }
                 else if (result < -3)
                 {
                     viewHolder.gaugeView.setTargetValue(0);
+                    viewHolder.confidenceRatingText.setText("AI says: This image is definitely not food! D-:");
                 }
                 else
                 {
                     viewHolder.gaugeView.setTargetValue(((result + 3) / 8) * 100);
+                    setIntelligenceDialog((((result + 3) / 8) * 100), viewHolder);
                 }
 
             }
         };
 
         timer.start();
+    }
+
+    private void setIntelligenceDialog(float confidenceRating, ViewHolder viewHolder)
+    {
+        if(confidenceRating >= 90)
+        {
+            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-D");
+        }
+        else if (confidenceRating >= 60)
+        {
+            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-)");
+        }
+        else if (confidenceRating >= 30)
+        {
+            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-(");
+        }
+        else
+        {
+            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :,-(");
+        }
     }
 
     @Override
@@ -98,20 +119,18 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView itemName;
+        private ImageView aiPicture;
         private TextView confidenceRatingText;
         private ImageView image;
-        private TextView name;
         private GaugeView gaugeView;
 
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
-            //itemName = itemView.findViewById(R.id.itemName);
-            //confidenceRatingText = itemView.findViewById(R.id.confidenceRatingText);
             image = itemView.findViewById(R.id.resultImg);
-            name = itemView.findViewById(R.id.resultTitle);
+            aiPicture = itemView.findViewById(R.id.seeFoodAIPictureCell);
+            confidenceRatingText = itemView.findViewById(R.id.resultCommentTextCell);
             gaugeView = itemView.findViewById(R.id.resultGauge);
 
         }

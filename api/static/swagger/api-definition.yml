@@ -50,6 +50,16 @@ paths:
         description: "Page of image objects to retrieve will default to 1"
         schema:
           type: "string"
+      - in: "query"
+        name: "sort"
+        description: "Valid values to sort by (comments, score, posted_at) will default to posted_at"
+        schema:
+          type: "string"
+      - in: "query"
+        name: "direction"
+        description: "Valid values to direct the sort (desc, asc) will default to desc"
+        schema:
+          type: "string"
       responses:
         200:
           description: "Get list of images"
