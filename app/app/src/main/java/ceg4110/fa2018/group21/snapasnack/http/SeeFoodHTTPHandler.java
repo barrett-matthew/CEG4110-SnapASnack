@@ -9,13 +9,13 @@ import java.util.List;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchAllCommentsOnImageCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.PostCommentToImageCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.PostImagesCallback;
-import ceg4110.fa2018.group21.snapasnack.http.callback.FetchAllImagesCallback;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchImagesByPageNumberCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchCommentInformationCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.response.PostCommentToImageResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.PostImagesResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllCommentsOnImageResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchImagesByPageNumberResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.FetchCommentInformationResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.FetchSingleImageResponse;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
@@ -148,20 +148,22 @@ public class SeeFoodHTTPHandler {
         });
     }
 
-    public static void fetchAllImages(@Nullable final FetchAllImagesCallback callbacks) {
+    public static void fetchImagesDefaultFirstPage(@Nullable final FetchImagesByPageNumberCallback callbacks) {
         // Default to page 1
-        fetchAllImages(1, callbacks);
+        fetchImagesByPageNumber(1, null, null, callbacks);
     }
 
-    public static void fetchAllImages(int pageNumber, @Nullable final FetchAllImagesCallback callbacks) {
-        Call call = getTransactionHandler().fetchAllImages(pageNumber);
+    // Use SeeFoodAPI.FETCH_* string constants for the orderBy and orderDirection parameters
+    public static void fetchImagesByPageNumber(int pageNumber, String orderBy, String orderDirection,
+                                               @Nullable final FetchImagesByPageNumberCallback callbacks) {
+        Call call = getTransactionHandler().fetchImagesByPageNumber(pageNumber, orderBy, orderDirection);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 if(response.code() == 200) {
                     // Image added successfully
                     // Isolate the images
-                    FetchAllImagesResponse result = (FetchAllImagesResponse) response.body();
+                    FetchImagesByPageNumberResponse result = (FetchImagesByPageNumberResponse) response.body();
                     List<SeeFoodImage> images = result.getImages();
                     int pageNumber = result.getPage();
                     boolean hasNext = result.isHasNext();

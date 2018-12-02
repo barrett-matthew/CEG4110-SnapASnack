@@ -16,21 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:orientation="vertical"
-        android:layout_toEndOf="@id/profilePictureCell">
+        android:layout_toEndOf="@id/profilePictureCell"
+        android:orientation="vertical">
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/userCommentCell"
-            android:maxLines="5"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="5" />
+
+        <TextView
             android:id="@+id/userPostedAtCell"
-            android:layout_toRightOf="@id/userCommentCell"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/userCommentCell" />
 
     </LinearLayout>
 </RelativeLayout>

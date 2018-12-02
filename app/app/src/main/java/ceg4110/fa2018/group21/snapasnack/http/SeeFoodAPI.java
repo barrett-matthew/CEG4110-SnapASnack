@@ -5,7 +5,7 @@ import java.util.List;
 import ceg4110.fa2018.group21.snapasnack.model.response.PostCommentToImageResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.PostImagesResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllCommentsOnImageResponse;
-import ceg4110.fa2018.group21.snapasnack.model.response.FetchAllImagesResponse;
+import ceg4110.fa2018.group21.snapasnack.model.response.FetchImagesByPageNumberResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.FetchSingleImageResponse;
 import ceg4110.fa2018.group21.snapasnack.model.response.FetchCommentInformationResponse;
 import okhttp3.MultipartBody;
@@ -21,6 +21,17 @@ public interface SeeFoodAPI {
 
     String BASE_URL = "http://ec2-13-58-18-68.us-east-2.compute.amazonaws.com";
 
+    // Use these for returning an image list in either ascending or descending order
+    // Default is descending
+    String FETCH_DIR_ASC = "asc";
+    String FETCH_DIR_DESC = "desc";
+
+    // Parameters for ordering fetched images
+    // Default is no parameter; orders by posted date
+    String FETCH_ORDER_BY_COMMENTS = "comments";
+    String FETCH_ORDER_BY_SCORE = "score";
+    String FETCH_ORDER_BY_DATE = "posted_at";
+
     @Multipart
     @POST("/images/")
     Call<PostImagesResponse> postImages(@Part List<MultipartBody.Part> file);
@@ -31,10 +42,12 @@ public interface SeeFoodAPI {
                                                         @Part MultipartBody.Part commentAsString);
 
     @GET("/images/")
-    Call<FetchAllImagesResponse> fetchAllImages();
+    Call<FetchImagesByPageNumberResponse> fetchAllImages();
 
     @GET("/images/")
-    Call<FetchAllImagesResponse> fetchAllImages(@Query("page") int page);
+    Call<FetchImagesByPageNumberResponse> fetchImagesByPageNumber(@Query("page") int page,
+                                                                  @Query("sort") String sort,
+                                                                  @Query("direction") String direction);
 
     @GET("/images/{imageId}/")
     Call<FetchSingleImageResponse> fetchSingleImage(@Path(value="imageId", encoded=true) int imageId);
