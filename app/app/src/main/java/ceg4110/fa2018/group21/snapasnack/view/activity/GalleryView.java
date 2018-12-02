@@ -24,7 +24,6 @@ import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
 
-// TODO: account for empty case (later)
 public class GalleryView extends AppCompatActivity
 {
     private boolean hasNextPage;

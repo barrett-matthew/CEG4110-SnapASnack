@@ -21,8 +21,7 @@ import java.util.List;
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
-import ceg4110.fa2018.group21.snapasnack.view.activity.MainActivity;
-import ceg4110.fa2018.group21.snapasnack.view.activity.UploadResultsView;
+import ceg4110.fa2018.group21.snapasnack.view.activity.ResultView;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
 {
@@ -59,14 +58,11 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
             @Override
             public void onClick(View view)
             {
-                int id = galleryList.get(i).getId();
+                SeeFoodImage passThisResult = galleryList.get(i);
 
-                // Passing int image id to ResultCommentView
-                // TODO: Uncomment this stuff when ResultCommentView Class is completed
-//                Intent intent = new Intent(GalleryViewAdapter.this, ResultCommentView.class);
-//                intent.putExtra("SeeFoodResult", id);
-//                startActivity(intent);
-
+                Intent intent = new Intent(context, ResultView.class);
+                intent.putExtra("SeeFoodResult", (Serializable) passThisResult);
+                context.startActivity(intent);
             }
         });
     }
@@ -80,7 +76,6 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
         float result = hasFood - notFood;
 
         // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
-        // TODO: BUG-- why does app crash if I set the target value to 100??
         if (result > 5)
         {
             viewHolder.gaugeView.setTargetValue(99);
