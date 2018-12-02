@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--< Snap a' Snack's CommentView. This view will be populated by seefood_comment_cell(s) />-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -36,7 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/profilePicture"
-            android:hint= "Add a comment..."
+            android:hint= "Add a comment......"
+            android:textColorHint="@color/colorPrimary"
             android:id="@+id/addCommentTF"
             android:textColor="@color/colorPrimary"
             android:layout_centerVertical="true"

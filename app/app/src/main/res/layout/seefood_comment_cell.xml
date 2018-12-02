@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--< These are the cells that will populate the CommentView />-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -29,7 +31,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/userPostedAtCell"
             android:layout_toRightOf="@id/userCommentCell"/>
-
 
     </LinearLayout>
 </RelativeLayout>

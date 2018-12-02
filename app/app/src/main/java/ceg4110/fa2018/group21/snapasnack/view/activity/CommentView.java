@@ -52,7 +52,7 @@ public class CommentView extends AppCompatActivity
         CommentsAdapter adapter = new CommentsAdapter(getApplicationContext(), commentList);
         recyclerView.setAdapter(adapter);
 
-
+        //TODO: why won't fetch single image retrieve the correct SeeFoodImage object?
 //        SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback() {
 //            @Override
 //            public void onSuccess(@NonNull SeeFoodImage image)

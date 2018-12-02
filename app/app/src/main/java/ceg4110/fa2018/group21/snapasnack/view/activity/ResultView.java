@@ -94,7 +94,7 @@ public class ResultView extends AppCompatActivity {
         });
 
 
-        //TODO: maybe add swiping motions to change images? then use fetchSingleImage
+        //TODO: maybe add swiping motions to change gallery images? (use fetchSingleImage)
 
         //            SeeFoodHTTPHandler.getInstance().fetchSingleImage(seeFoodID, new FetchSingleImageCallback()
 //            {
