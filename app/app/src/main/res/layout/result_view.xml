@@ -15,7 +15,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/resultToolbar"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:background="?android:attr/windowBackground" />
 
         <LinearLayout
@@ -24,10 +24,10 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/seeFoodAIPicture"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:id="@+id/seeFoodAIPicture"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -96,13 +96,12 @@
 
         <Button
             android:id="@+id/toCommentView"
-            style="@android:style/Widget.Button.Inset"
-            android:layout_width="170dp"
+            style="@android:style/Widget.DeviceDefault.Button"
+            android:layout_width="wrap_content"
             android:layout_height="75dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="25dp"
             android:drawableLeft="@drawable/ic_comment"
-            android:drawablePadding="20dp"
+            android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
             android:src="@drawable/ic_comment"
             android:text="View Comments"

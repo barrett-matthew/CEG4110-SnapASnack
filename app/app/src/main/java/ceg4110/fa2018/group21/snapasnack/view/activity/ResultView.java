@@ -109,19 +109,19 @@ public class ResultView extends AppCompatActivity {
     {
         if(confidenceRating >= 90)
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-D");
+            resultCommentText.setText("AI says: Definitely food! :-D");
         }
         else if (confidenceRating >= 60)
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-)");
+            resultCommentText.setText("AI says: Probably food... :-)");
         }
         else if (confidenceRating >= 30)
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-(");
+            resultCommentText.setText("AI says: Probably NOT food... :-(");
         }
         else
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :,-(");
+            resultCommentText.setText("AI says: Definitely NOT food! :,-(");
         }
     }
 
