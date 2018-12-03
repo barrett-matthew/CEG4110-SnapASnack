@@ -207,12 +207,6 @@ public class GalleryView extends AppCompatActivity
 
                                 // Refresh next/previous page buttons
                                 updatePrevNextButtons();
-//
-//                                if(newAdapter.refreshme())
-//                                {
-//                                    loadImages(pageNumber,orderBy, orderDirection);
-//                                }
-
                             }
 
                             @Override
