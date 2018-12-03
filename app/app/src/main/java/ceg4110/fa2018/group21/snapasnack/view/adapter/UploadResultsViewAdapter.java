@@ -44,7 +44,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         viewHolder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.get().load(SeeFoodAPI.BASE_URL + resultList.get(i).getImageLocation()).into(viewHolder.image);
 
-        Picasso.get().load("https://cdn1.iconfinder.com/data/icons/artificial-intelligence-1-2/128/Brain-Technology-Intelligence-Engineering-Scientific-Neuroscience-512.png").into(viewHolder.aiPicture);
+        viewHolder.aiPicture.setImageDrawable(R.drawable.ic_ai_brain_light);
 
         setConfidenceGauge(viewHolder, resultList.get(i).getHasFood(), resultList.get(i).getNotFood());
     }

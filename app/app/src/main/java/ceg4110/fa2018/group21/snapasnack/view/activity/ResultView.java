@@ -64,7 +64,7 @@ public class ResultView extends AppCompatActivity {
         Picasso.get().load(SeeFoodAPI.BASE_URL + image.getImageLocation()).into(seeFoodImage);
 
         ImageView aiImage = findViewById(R.id.seeFoodAIPicture);
-        Picasso.get().load("https://cdn1.iconfinder.com/data/icons/artificial-intelligence-1-2/128/Brain-Technology-Intelligence-Engineering-Scientific-Neuroscience-512.png").into(aiImage);
+        aiImage.setImageResource(R.drawable.ic_ai_brain_light);
     }
 
     private void setGauge(final SeeFoodImage image)
