@@ -1,5 +1,6 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import java.util.List;
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
+import ceg4110.fa2018.group21.snapasnack.view.activity.GalleryView;
 import ceg4110.fa2018.group21.snapasnack.view.activity.ResultView;
 
 public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>
@@ -37,6 +39,7 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
     {
+        context = viewGroup.getContext();
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.seefood_gallery_cell, viewGroup, false);
         return new ViewHolder(view);
     }
@@ -61,11 +64,9 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
                 SeeFoodImage passThisResult = galleryList.get(i);
 
                 Intent intent = new Intent(context, ResultView.class);
-
                 intent.putExtra("SeeFoodResult", (Serializable) passThisResult);
                 intent.putExtra("SeeFoodMaxID", galleryList.size());
-
-                context.startActivity(intent);
+                ((Activity)context).startActivityForResult(intent, GalleryView.ACTIVITY_IMAGE_RESULT_VIEW);
             }
         });
     }

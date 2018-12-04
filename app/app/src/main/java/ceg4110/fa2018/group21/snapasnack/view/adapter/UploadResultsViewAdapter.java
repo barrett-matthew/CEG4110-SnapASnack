@@ -45,7 +45,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         viewHolder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.get().load(SeeFoodAPI.BASE_URL + resultList.get(i).getImageLocation()).into(viewHolder.image);
 
-        //viewHolder.aiImage.setImageDrawable(R.drawable.ic_ai_brain_light);
+        viewHolder.aiImage.setImageResource(R.drawable.ic_ai_brain_light);
 
         setConfidenceGauge(viewHolder, resultList.get(i).getHasFood(), resultList.get(i).getNotFood());
     }
