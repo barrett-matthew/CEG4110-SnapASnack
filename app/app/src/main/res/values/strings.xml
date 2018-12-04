@@ -40,6 +40,6 @@
         <item>@string/filterBy_comments</item>
     </string-array>
 
-    <string name="filterDirection_ascending">Asc</string>
-    <string name="filterDirection_descending">Desc</string>
+    <string name="filterDirection_ascending">Ascending</string>
+    <string name="filterDirection_descending">Descending</string>
 </resources>
