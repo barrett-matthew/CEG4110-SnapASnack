@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -51,24 +52,27 @@ public class GalleryView extends AppCompatActivity
         orderByValues.addAll(Arrays.asList(getResources().getStringArray(R.array.filterBy)));
         currentOrderBy = getResources().getString(R.string.filterBy_datePosted);
         currentOrderDirection = SeeFoodAPI.FETCH_DIR_DESC;
-        
+
         String[] queryParams = getQueryParams();
         loadImages(1, queryParams[0], queryParams[1]);
+
+        Toolbar toolbar = findViewById(R.id.resultToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Community Gallery");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+                                                 @Override
+                                                 public void onClick(View view)
+                                                 { finish();
+                                                 }
+                                             }
+        );
 
         configureButtons();
     }
 
     public void configureButtons()
     {
-        Button backButton = (Button) findViewById(R.id.backtomainmenu);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                finish();
-            }
-        });
-
         Button nextPage = (Button) findViewById(R.id.nextpage);
         nextPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,7 +195,7 @@ public class GalleryView extends AppCompatActivity
         }
 
         TextView pageNumberView = (TextView) findViewById(R.id.pageNumberView);
-        pageNumberView.setText(String.valueOf(currentPageNumber));
+        pageNumberView.setText("PG: " + String.valueOf(currentPageNumber));
     }
 
     private void loadImages(int pageNumber, String orderBy, String orderDirection) {

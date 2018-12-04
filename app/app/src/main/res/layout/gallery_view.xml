@@ -9,66 +9,82 @@
     tools:context=".view.activity.GalleryView">
 
     <LinearLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/prevpage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/previous_page" />
-
-        <Button
-            android:id="@+id/nextpage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/nextpage" />
-
-        <TextView
-            android:id="@+id/pageNumberView"
-            android:layout_width="27dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="fill"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/backtomainmenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/menu" />
-
-        <ImageButton
-            android:id="@+id/filterButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/contentdesc_gallery_filter"
-            android:onClick="showFilterDialog"
-            android:tint="@color/colorPrimaryDark"
-            app:srcCompat="@drawable/ic_filter" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton"
-            style="@style/Base.Widget.AppCompat.DrawerArrowToggle.Common"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:textOff="@string/filterDirection_descending"
-            android:textOn="@string/filterDirection_ascending" />
-
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"></android.support.v7.widget.RecyclerView>
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/resultToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/windowBackground" />
+
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/prevpage"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/previous_page" />
+
+            <TextView
+                android:id="@+id/pageNumberView"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="fill"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+            <Button
+                android:id="@+id/nextpage"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nextpage" />
+
+            <Space
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/filterButton"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@string/contentdesc_gallery_filter"
+                android:onClick="showFilterDialog"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_filter" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                style="@style/Base.Widget.AppCompat.DrawerArrowToggle.Common"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="false"
+                android:textAlignment="center"
+                android:textOff="@string/filterDirection_descending"
+                android:textOn="@string/filterDirection_ascending"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
 </RelativeLayout>
