@@ -16,11 +16,13 @@ import android.widget.TextView;
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchImagesByPageNumberCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
@@ -59,7 +61,27 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                                              }
         );
 
-        maxSeeFoodID = getIntent().getIntExtra("SeeFoodMaxID", 0);
+//        SeeFoodHTTPHandler.getInstance().fetchImagesDefaultFirstPage(new FetchImagesByPageNumberCallback() {
+//                @Override
+//                public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
+//                    maxSeeFoodID = images.get(0).getId();
+//                    System.out.println(maxSeeFoodID);
+//                }
+//
+//                @Override
+//                public void onFailure(@NonNull Throwable throwable) {
+//
+//                }
+//
+//                @Override
+//                public void onError(@NonNull String errorMessage) {
+//
+//                }
+//        });
+
+
+        //TODO: get the actual maxSeeFoodID from the database, not the size of the list (which is 12)
+       // maxSeeFoodID = getIntent().getIntExtra("SeeFoodMaxID", 0);
 
         if (getIntent().hasExtra("SeeFoodResult"))
         {
@@ -176,7 +198,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY)
     {
 
-      float diffX = moveEvent.getX()-downEvent.getY();
+      float diffX = moveEvent.getX() - downEvent.getY();
 
           // right or left swipe
           if(Math.abs(diffX) > 100 & Math.abs(velocityX) > 100)
@@ -192,10 +214,10 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
               else
               {
                   // swipe left, meaning go up the list
-                  if(SeeFoodID < maxSeeFoodID)
-                  {
+//                  if(SeeFoodID < maxSeeFoodID)
+//                  {
                       SeeFoodID = viewThis.getId() + 1;
-                  }
+                //  }
               }
 
               SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback()
