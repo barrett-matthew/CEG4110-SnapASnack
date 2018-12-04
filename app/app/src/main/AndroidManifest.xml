@@ -27,6 +27,7 @@
         <activity android:name=".view.activity.GalleryView" />
         <activity android:name=".view.activity.ResultView" />
         <activity android:name=".view.activity.CommentView"></activity>
+        <activity android:name=".view.activity.UploadResultsView"></activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
