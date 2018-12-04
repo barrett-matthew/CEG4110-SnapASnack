@@ -49,7 +49,7 @@ public class GalleryView extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.gallery);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
         orderByValues = new ArrayList<>();

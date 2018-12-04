@@ -183,7 +183,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
           {
               if(diffX > 0)
               {
-                  // swipe right
+                  // swipe right, meaning go down the list
                   if(SeeFoodID > 1)
                   {
                       SeeFoodID = viewThis.getId() - 1;
@@ -191,7 +191,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
               }
               else
               {
-                  // swipe left
+                  // swipe left, meaning go up the list
                   if(SeeFoodID < maxSeeFoodID)
                   {
                       SeeFoodID = viewThis.getId() + 1;
