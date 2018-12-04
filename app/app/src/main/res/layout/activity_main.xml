@@ -35,6 +35,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:="@mipmap/icon_cartoon_shrimp"-->
+            <!--/>-->
+
         <Button
             android:id="@+id/uploadImagesButton"
             android:layout_width="match_parent"
@@ -46,6 +52,9 @@
             android:fontFamily="@font/advent_pro_semibold"
             android:text="@string/main_menu_btn_upload"
             android:textSize="30sp"
+            android:drawableLeft="@drawable/ic_photo"
+            android:drawablePadding="50dp"
+            android:gravity="left|center_vertical"
             app:layout_constraintBottom_toTopOf="@+id/galleryview"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -64,6 +73,9 @@
             android:fontFamily="@font/advent_pro_semibold"
             android:text="@string/main_menu_btn_gallery"
             android:textSize="30sp"
+            android:drawableLeft="@drawable/ic_gallery"
+            android:drawablePadding="35dp"
+            android:gravity="left|center_vertical"
             app:layout_constrainedWidth="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

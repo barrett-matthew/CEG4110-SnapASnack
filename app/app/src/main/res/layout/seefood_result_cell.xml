@@ -20,14 +20,12 @@
     android:layout_width="40dp"
     android:layout_height="40dp"
     android:layout_margin="10dp"
-    android:id="@+id/seeFoodAIPictureCell"
-    android:src="@mipmap/ic_launcher" />
+    android:id="@+id/seeFoodAIPictureCell" />
 
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/resultCommentTextCell"
-    android:src="@mipmap/ic_launcher"
     android:layout_gravity="center_vertical"
     android:textSize="18sp"
     android:textStyle="bold"

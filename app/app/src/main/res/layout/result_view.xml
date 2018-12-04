@@ -29,14 +29,13 @@
                 android:id="@+id/seeFoodAIPicture"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/ic_launcher" />
+                android:layout_margin="10dp" >
+            </de.hdodenhof.circleimageview.CircleImageView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/resultCommentText"
-                android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_vertical"
                 android:textSize="18sp"
                 android:textStyle="bold"
