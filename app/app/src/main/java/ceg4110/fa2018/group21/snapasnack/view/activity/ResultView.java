@@ -26,15 +26,13 @@ import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
 public class ResultView extends AppCompatActivity implements GestureDetector.OnGestureListener
 {
-
-    public static final int SWIPE_THRESHOLD = 100;
-    public static final int SWIPE_VELOCITY_THRESHOLD = 100;
-
     private Button toCommentView;
     private TextView resultCommentText;
     private SeeFoodImage viewThis;
     private GestureDetector gestureDetector;
+
     private int SeeFoodID;
+    private int maxSeeFoodID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,13 +59,15 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                                              }
         );
 
+        maxSeeFoodID = getIntent().getIntExtra("SeeFoodMaxID", 0);
+
         if (getIntent().hasExtra("SeeFoodResult"))
         {
             viewThis = (SeeFoodImage) getIntent().getSerializableExtra("SeeFoodResult");
             setImage(viewThis);
             setGauge(viewThis);
             setButton(viewThis);
-            SeeFoodID = viewThis.getId();
+            setID(viewThis.getId());
         }
     }
 
@@ -155,6 +155,16 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
         });
     }
 
+    private void setID(int id)
+    {
+        this.SeeFoodID = id;
+    }
+
+    private void setSeeFoodImage(SeeFoodImage image)
+    {
+        this.viewThis = image;
+    };
+
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -169,17 +179,23 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
       float diffX = moveEvent.getX()-downEvent.getY();
 
           // right or left swipe
-          if(Math.abs(diffX) > SWIPE_THRESHOLD & Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)
+          if(Math.abs(diffX) > 100 & Math.abs(velocityX) > 100)
           {
               if(diffX > 0)
               {
                   // swipe right
-                  SeeFoodID = viewThis.getId() + 1;
+                  if(SeeFoodID > 1)
+                  {
+                      SeeFoodID = viewThis.getId() - 1;
+                  }
               }
               else
               {
                   // swipe left
-                  SeeFoodID = viewThis.getId() - 1;
+                  if(SeeFoodID < maxSeeFoodID)
+                  {
+                      SeeFoodID = viewThis.getId() + 1;
+                  }
               }
 
               SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback()
@@ -187,10 +203,12 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 @Override
                 public void onSuccess(@NonNull SeeFoodImage image)
                 {
-                    SeeFoodID = image.getId();
+                    resultCommentText.setText("...Thinking...");
                     setImage(image);
                     setGauge(image);
                     setButton(image);
+                    setID(image.getId());
+                    setSeeFoodImage(image);
                 }
 
                 @Override
@@ -205,36 +223,36 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
 
                 }
             });
-
               return true;
-
           }
-
         return false;
     }
 
     @Override
-    public boolean onDown(MotionEvent e) {
+    public boolean onDown(MotionEvent e)
+    {
         return false;
     }
 
     @Override
-    public void onShowPress(MotionEvent e) {
-
+    public void onShowPress(MotionEvent e)
+    {
     }
 
     @Override
-    public boolean onSingleTapUp(MotionEvent e) {
+    public boolean onSingleTapUp(MotionEvent e)
+    {
         return false;
     }
 
     @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
+    {
         return false;
     }
 
     @Override
-    public void onLongPress(MotionEvent e) {
-
+    public void onLongPress(MotionEvent e)
+    {
     }
 }
