@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setPeekHeight(1600)
                 .showTitle(false)
-                .setCompleteButtonText("Submit to AI")
+                .setCompleteButtonText("Submit Image(s) to AI")
                 .setEmptySelectionText("No Images Selected")
                 .create();
 

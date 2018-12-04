@@ -1,7 +1,6 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -72,12 +71,12 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
                 if (result > 5)
                 {
                     viewHolder.gaugeView.setTargetValue(99);
-                    viewHolder.confidenceRatingText.setText("AI says: This image definitely contains food!!! :-D");
+                    viewHolder.confidenceRatingText.setText("AI says: This image definitely contains food!!! =D");
                 }
                 else if (result < -3)
                 {
                     viewHolder.gaugeView.setTargetValue(0);
-                    viewHolder.confidenceRatingText.setText("AI says: This image is definitely not food! D-:");
+                    viewHolder.confidenceRatingText.setText("AI says: This image is definitely not food! D=");
                 }
                 else
                 {
@@ -95,19 +94,19 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
     {
         if(confidenceRating >= 90)
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-D");
+            viewHolder.confidenceRatingText.setText("AI says: Definitely food! =D");
         }
         else if (confidenceRating >= 60)
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-)");
+            viewHolder.confidenceRatingText.setText("AI says: Probably food... =)");
         }
         else if (confidenceRating >= 30)
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-(");
+            viewHolder.confidenceRatingText.setText("AI says: Probably NOT food... =(");
         }
         else
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :,-(");
+            viewHolder.confidenceRatingText.setText("AI says: Definitely NOT food! =((");
         }
     }
 

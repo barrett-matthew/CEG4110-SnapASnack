@@ -31,7 +31,6 @@ public class CommentView extends AppCompatActivity
     private int SeeFoodID;
 
     @Override
-    // TODO: Figure out how to update galleryview to match commentview updates (might need to do a controller)
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
