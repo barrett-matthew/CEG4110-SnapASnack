@@ -210,7 +210,7 @@ public class GalleryView extends AppCompatActivity
                             public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, int totalNumImages,
                                                   int imagesPerPage, boolean hasPrevPage, boolean hasNextPage) {
                                 // Create a new adapter with the query results for this page
-                                GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images);
+                                GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images, totalNumImages);
                                 recyclerView.setAdapter(newAdapter);
 
                                 // Update globals
@@ -271,4 +271,5 @@ public class GalleryView extends AppCompatActivity
     private void setCurrentPageNumber(int currentPageNumber) { this.currentPageNumber = currentPageNumber; }
 
     private void setGalleryList(List<SeeFoodImage> galleryList) { this.galleryList = galleryList; }
+
 }
