@@ -207,7 +207,8 @@ public class GalleryView extends AppCompatActivity
                 .fetchImagesByPageNumber(pageNumber, orderBy, orderDirection,
                         new FetchImagesByPageNumberCallback() {
                             @Override
-                            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
+                            public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, int totalNumImages,
+                                                  int imagesPerPage, boolean hasPrevPage, boolean hasNextPage) {
                                 // Create a new adapter with the query results for this page
                                 GalleryViewAdapter newAdapter = new GalleryViewAdapter(getApplicationContext(), images);
                                 recyclerView.setAdapter(newAdapter);
