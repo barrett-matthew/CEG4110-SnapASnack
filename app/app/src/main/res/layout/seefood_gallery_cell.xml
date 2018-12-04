@@ -69,13 +69,15 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-5dp"
                 android:layout_marginBottom="5dp"
+                android:fontFamily="@font/advent_pro_semibold"
+                android:textAllCaps="true"
                 android:gravity="center"
                 android:text="@android:string/selectTextMode"
                 android:textAlignment="center"
-                android:textColor="#000"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/tedbottompicker_gallery"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-
 
         </RelativeLayout>
 

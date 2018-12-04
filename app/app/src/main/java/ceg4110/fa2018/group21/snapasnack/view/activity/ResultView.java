@@ -108,10 +108,10 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
                 if (result > 5) {
                     gaugeView.setTargetValue(99);
-                    resultCommentText.setText("AI says: This image definitely contains food!!! :-D");
+                    resultCommentText.setText("AI says: This image definitely contains food!!! =D");
                 } else if (result < -3) {
                     gaugeView.setTargetValue(0);
-                    resultCommentText.setText("AI says: This image is definitely not food! D-:");
+                    resultCommentText.setText("AI says: This image is definitely not food! D=");
                 } else {
                     gaugeView.setTargetValue(((result + 3) / 8) * 100);
                     setIntelligenceDialog(((result + 3) / 8) * 100);
@@ -125,19 +125,19 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     {
         if(confidenceRating >= 90)
         {
-            resultCommentText.setText("AI says: Definitely food! :-D");
+            resultCommentText.setText("AI says: Definitely food! =D");
         }
         else if (confidenceRating >= 60)
         {
-            resultCommentText.setText("AI says: Probably food... :-)");
+            resultCommentText.setText("AI says: Probably food... =)");
         }
         else if (confidenceRating >= 30)
         {
-            resultCommentText.setText("AI says: Probably NOT food... :-(");
+            resultCommentText.setText("AI says: Probably NOT food... =(");
         }
         else
         {
-            resultCommentText.setText("AI says: Definitely NOT food! :,-(");
+            resultCommentText.setText("AI says: Definitely NOT food! =((");
         }
     }
 
@@ -217,15 +217,11 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 @Override
                 public void onFailure(@NonNull Throwable throwable)
                 {
-                    System.out.println("Here");
-                    // got here
                 }
 
                 @Override
                 public void onError(@NonNull String errorMessage)
                 {
-                    System.out.println("Here");
-                    // got here
                 }
             });
               return true;

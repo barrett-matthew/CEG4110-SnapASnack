@@ -39,7 +39,8 @@
                 android:layout_gravity="center_vertical"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/tedbottompicker_gallery"
+                android:fontFamily="@font/advent_pro_semibold"
                 android:text="...Thinking..."/>
         </LinearLayout>
 
@@ -105,7 +106,9 @@
             android:gravity="left|center_vertical"
             android:src="@drawable/ic_comment"
             android:text="View Comments"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:fontFamily="@font/advent_pro_semibold"
+            android:textAllCaps="true" />
 
     </LinearLayout>
 </RelativeLayout>
