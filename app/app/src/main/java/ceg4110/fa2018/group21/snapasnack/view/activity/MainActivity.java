@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         if(uriList.size() > 0) {
 
                             // ProgressDialog, will disappear once images are retrieved
-                            final ProgressDialog dialog= new ProgressDialog(MainActivity.this);
+                            final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
                             dialog.setMessage("..Sending Images to AI..");
                             dialog.setCancelable(false);
                             dialog.setInverseBackgroundForced(false);
@@ -130,8 +130,9 @@ public class MainActivity extends AppCompatActivity {
                                     // Passing the SeaFoodImage List to UploadResultsView
                                     Intent intent = new Intent(MainActivity.this, UploadResultsView.class);
                                     intent.putExtra("SeeFoodResults", (Serializable) images);
-                                    dialog.dismiss();
                                     startActivity(intent);
+
+                                    dialog.dismiss();
                                 }
 
                                 @Override

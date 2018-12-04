@@ -1,6 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -44,7 +45,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         viewHolder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.get().load(SeeFoodAPI.BASE_URL + resultList.get(i).getImageLocation()).into(viewHolder.image);
 
-        viewHolder.aiPicture.setImageDrawable(R.drawable.ic_ai_brain_light);
+        viewHolder.aiImage.setImageDrawable(R.drawable.ic_ai_brain_light);
 
         setConfidenceGauge(viewHolder, resultList.get(i).getHasFood(), resultList.get(i).getNotFood());
     }
@@ -119,7 +120,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        private ImageView aiPicture, image;
+        private ImageView aiImage, image;
         private TextView confidenceRatingText;
         private GaugeView gaugeView;
 
@@ -128,7 +129,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
             super(itemView);
 
             image = itemView.findViewById(R.id.resultImg);
-            aiPicture = itemView.findViewById(R.id.seeFoodAIPictureCell);
+            aiImage = itemView.findViewById(R.id.seeFoodAIPictureCell);
             confidenceRatingText = itemView.findViewById(R.id.resultCommentTextCell);
             gaugeView = itemView.findViewById(R.id.resultGauge);
 

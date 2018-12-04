@@ -19,7 +19,7 @@
     <string name="contentdesc_gallery_filter">Filter Options</string>
     <string name="filterdialog_filter">Filter</string>
     <string name="cancel">Cancel</string>
-    <string-array name="speedTestRangeValues">
+    <string-array name="ConfidenceRangeValues">
         <item>0</item>
         <item>12.5</item>
         <item>25</item>

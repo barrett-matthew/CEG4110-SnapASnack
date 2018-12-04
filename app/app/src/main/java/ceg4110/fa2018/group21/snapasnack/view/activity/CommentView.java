@@ -20,10 +20,8 @@ import java.util.List;
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchAllCommentsOnImageCallback;
-import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.PostCommentToImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodComment;
-import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import ceg4110.fa2018.group21.snapasnack.view.adapter.CommentsAdapter;
 
 public class CommentView extends AppCompatActivity

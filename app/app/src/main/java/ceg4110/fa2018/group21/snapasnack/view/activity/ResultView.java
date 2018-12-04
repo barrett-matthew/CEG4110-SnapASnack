@@ -2,9 +2,12 @@ package ceg4110.fa2018.group21.snapasnack.view.activity;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,17 +16,25 @@ import android.widget.TextView;
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
+import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
-public class ResultView extends AppCompatActivity {
+public class ResultView extends AppCompatActivity implements GestureDetector.OnGestureListener
+{
+
+    public static final int SWIPE_THRESHOLD = 100;
+    public static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
     private Button toCommentView;
     private TextView resultCommentText;
+    private SeeFoodImage viewThis;
+    private GestureDetector gestureDetector;
+    private int SeeFoodID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +44,7 @@ public class ResultView extends AppCompatActivity {
 
         setupActivity();
 
+        gestureDetector = new GestureDetector(this);
     }
 
     private void setupActivity()
@@ -51,10 +63,11 @@ public class ResultView extends AppCompatActivity {
 
         if (getIntent().hasExtra("SeeFoodResult"))
         {
-            SeeFoodImage viewThis = (SeeFoodImage) getIntent().getSerializableExtra("SeeFoodResult");
+            viewThis = (SeeFoodImage) getIntent().getSerializableExtra("SeeFoodResult");
             setImage(viewThis);
             setGauge(viewThis);
             setButton(viewThis);
+            SeeFoodID = viewThis.getId();
         }
     }
 
@@ -142,31 +155,86 @@ public class ResultView extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
 
-    //TODO: add swiping motions to change gallery images? (use fetchSingleImage)
+    @Override
+    public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY)
+    {
 
-    //            SeeFoodHTTPHandler.getInstance().fetchSingleImage(seeFoodID, new FetchSingleImageCallback()
-//            {
-//                @Override
-//                public void onSuccess(@NonNull SeeFoodImage image)
-//                {
-//                    setImage(image);
-//                    setGauge(image);
-//                    setComments(image);
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Throwable throwable)
-//                {
-//
-//                }
-//
-//                @Override
-//                public void onError(@NonNull String errorMessage)
-//                {
-//
-//                }
-//            });
+      float diffX = moveEvent.getX()-downEvent.getY();
 
+          // right or left swipe
+          if(Math.abs(diffX) > SWIPE_THRESHOLD & Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)
+          {
+              if(diffX > 0)
+              {
+                  // swipe right
+                  SeeFoodID = viewThis.getId() + 1;
+              }
+              else
+              {
+                  // swipe left
+                  SeeFoodID = viewThis.getId() - 1;
+              }
 
+              SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback()
+            {
+                @Override
+                public void onSuccess(@NonNull SeeFoodImage image)
+                {
+                    SeeFoodID = image.getId();
+                    setImage(image);
+                    setGauge(image);
+                    setButton(image);
+                }
+
+                @Override
+                public void onFailure(@NonNull Throwable throwable)
+                {
+
+                }
+
+                @Override
+                public void onError(@NonNull String errorMessage)
+                {
+
+                }
+            });
+
+              return true;
+
+          }
+
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
 }
