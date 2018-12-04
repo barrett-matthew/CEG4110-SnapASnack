@@ -1,7 +1,9 @@
 package ceg4110.fa2018.group21.snapasnack.view.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,8 @@ import ceg4110.fa2018.group21.snapasnack.view.adapter.GalleryViewAdapter;
 
 public class GalleryView extends AppCompatActivity
 {
+    public static int ACTIVITY_IMAGE_RESULT_VIEW = 100;
+
     private boolean hasNextPage;
     private int currentPageNumber;
     private RecyclerView recyclerView;
@@ -198,7 +202,7 @@ public class GalleryView extends AppCompatActivity
         pageNumberView.setText("PG: " + String.valueOf(currentPageNumber));
     }
 
-    private void loadImages(int pageNumber, String orderBy, String orderDirection) {
+    private void loadImages(final int pageNumber, final String orderBy, final String orderDirection) {
         SeeFoodHTTPHandler
                 .getInstance()
                 .fetchImagesByPageNumber(pageNumber, orderBy, orderDirection,
@@ -250,6 +254,16 @@ public class GalleryView extends AppCompatActivity
         retVal[1] = currentOrderDirection;
 
         return retVal;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ACTIVITY_IMAGE_RESULT_VIEW) //check if the request code is the one you've sent
+        {
+            // This is mainly to update comment counts after the user comes back to the activity
+            String[] queryParams = getQueryParams();
+            loadImages(currentPageNumber, queryParams[0], queryParams[1]);
+        }
     }
 
     private void setHasNextPage(boolean hasNextPage) { this.hasNextPage = hasNextPage; }

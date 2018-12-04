@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--< Snap a' Snack's Result View. This view will be invoked when the user clicks on an image in the Gallery />-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gauge="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +17,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/resultToolbar"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:background="?android:attr/windowBackground" />
 
         <LinearLayout
@@ -24,10 +26,10 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/seeFoodAIPicture"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:id="@+id/seeFoodAIPicture"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -77,7 +79,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="-19dp"
                     gauge:divisions="8"
-                    gauge:rangeValues="@array/speedTestRangeValues"
+                    gauge:rangeValues="@array/ConfidenceRangeValues"
                     gauge:scaleEndValue="100"
                     gauge:showInnerRim="false"
                     gauge:showNeedle="true"
@@ -88,7 +90,6 @@
                     gauge:showRanges="true"
                     gauge:showScale="true"
                     gauge:subdivisions="1"
-                    gauge:textUnit=""
                     gauge:textUnitSize="0.06"
                     gauge:textValueSize="0.20" />
             </RelativeLayout>
@@ -96,13 +97,12 @@
 
         <Button
             android:id="@+id/toCommentView"
-            style="@android:style/Widget.Button.Inset"
-            android:layout_width="170dp"
+            style="@android:style/Widget.DeviceDefault.Button"
+            android:layout_width="wrap_content"
             android:layout_height="75dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="25dp"
             android:drawableLeft="@drawable/ic_comment"
-            android:drawablePadding="20dp"
+            android:drawablePadding="10dp"
             android:gravity="left|center_vertical"
             android:src="@drawable/ic_comment"
             android:text="View Comments"

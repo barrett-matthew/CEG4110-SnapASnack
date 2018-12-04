@@ -1,6 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -43,9 +44,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
     {
         viewHolder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.get().load(SeeFoodAPI.BASE_URL + resultList.get(i).getImageLocation()).into(viewHolder.image);
-
-        Picasso.get().load("https://cdn1.iconfinder.com/data/icons/artificial-intelligence-1-2/128/Brain-Technology-Intelligence-Engineering-Scientific-Neuroscience-512.png").into(viewHolder.aiPicture);
-
+        viewHolder.aiImage.setImageResource(R.drawable.ic_ai_brain_light);
         setConfidenceGauge(viewHolder, resultList.get(i).getHasFood(), resultList.get(i).getNotFood());
     }
 
@@ -56,7 +55,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         final Random random = new Random();
 
         // The timer will allow the gauge to fluctuate between values before setting on a final target value
-        final CountDownTimer timer = new CountDownTimer(1000, 2)
+        final CountDownTimer timer = new CountDownTimer(4000, 2)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -119,9 +118,8 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        private ImageView aiPicture;
+        private ImageView aiImage, image;
         private TextView confidenceRatingText;
-        private ImageView image;
         private GaugeView gaugeView;
 
         public ViewHolder(@NonNull View itemView)
@@ -129,7 +127,7 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
             super(itemView);
 
             image = itemView.findViewById(R.id.resultImg);
-            aiPicture = itemView.findViewById(R.id.seeFoodAIPictureCell);
+            aiImage = itemView.findViewById(R.id.seeFoodAIPictureCell);
             confidenceRatingText = itemView.findViewById(R.id.resultCommentTextCell);
             gaugeView = itemView.findViewById(R.id.resultGauge);
 

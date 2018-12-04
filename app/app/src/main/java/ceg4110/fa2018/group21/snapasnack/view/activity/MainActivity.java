@@ -1,6 +1,7 @@
 package ceg4110.fa2018.group21.snapasnack.view.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,7 +30,6 @@ import gun0912.tedbottompicker.TedBottomPicker;
 public class MainActivity extends AppCompatActivity {
 
     private boolean allPermissionsGranted;
-
     private ArrayList<Button> mainMenuButtons;
 
     @Override
@@ -108,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onImagesSelected(ArrayList<Uri> uriList) {
                         if(uriList.size() > 0) {
+
+                            // ProgressDialog, will disappear once images are retrieved
+                            final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+                            dialog.setMessage("..Sending Images to AI..");
+                            dialog.setCancelable(false);
+                            dialog.setInverseBackgroundForced(false);
+                            dialog.show();
+
                             // Get a list of all filepaths from the uriList
                             ArrayList<String> filepaths = new ArrayList<>();
                             for(Uri uri : uriList) {
@@ -123,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                                     Intent intent = new Intent(MainActivity.this, UploadResultsView.class);
                                     intent.putExtra("SeeFoodResults", (Serializable) images);
                                     startActivity(intent);
+
+                                    dialog.dismiss();
                                 }
 
                                 @Override

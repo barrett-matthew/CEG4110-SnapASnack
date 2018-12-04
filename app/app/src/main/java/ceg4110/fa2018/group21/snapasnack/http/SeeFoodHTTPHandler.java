@@ -118,7 +118,7 @@ public class SeeFoodHTTPHandler {
     }
 
     public static void fetchSingleImage(int imageId, @Nullable final FetchSingleImageCallback callbacks) {
-        Call call = getTransactionHandler().fetchSingleImage(1);
+        Call call = getTransactionHandler().fetchSingleImage(imageId);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
