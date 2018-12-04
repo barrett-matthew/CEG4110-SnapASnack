@@ -95,19 +95,19 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
     {
         if(confidenceRating >= 90)
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-D");
+            viewHolder.confidenceRatingText.setText("AI says: Definitely food! :-D");
         }
         else if (confidenceRating >= 60)
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-)");
+            viewHolder.confidenceRatingText.setText("AI says: Probably food... :-)");
         }
         else if (confidenceRating >= 30)
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-(");
+            viewHolder.confidenceRatingText.setText("AI says: Probably NOT food... :-(");
         }
         else
         {
-            viewHolder.confidenceRatingText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :,-(");
+            viewHolder.confidenceRatingText.setText("AI says: Definitely NOT food! :,-(");
         }
     }
 
