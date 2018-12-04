@@ -1,7 +1,6 @@
 package ceg4110.fa2018.group21.snapasnack.view.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

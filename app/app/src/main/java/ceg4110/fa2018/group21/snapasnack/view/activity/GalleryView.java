@@ -1,6 +1,5 @@
 package ceg4110.fa2018.group21.snapasnack.view.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
