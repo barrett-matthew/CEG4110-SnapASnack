@@ -19,7 +19,6 @@
         android:layout_toEndOf="@id/profilePictureCell"
         android:orientation="vertical">
 
-
         <TextView
             android:id="@+id/userCommentCell"
             android:layout_width="wrap_content"
