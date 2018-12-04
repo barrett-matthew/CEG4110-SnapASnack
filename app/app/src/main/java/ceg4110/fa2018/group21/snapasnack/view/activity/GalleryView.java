@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -50,6 +51,14 @@ public class GalleryView extends AppCompatActivity
         orderByValues.addAll(Arrays.asList(getResources().getStringArray(R.array.filterBy)));
         currentOrderBy = getResources().getString(R.string.filterBy_datePosted);
         currentOrderDirection = SeeFoodAPI.FETCH_DIR_DESC;
+
+
+
+
+
+
+
+
 
         String[] queryParams = getQueryParams();
         loadImages(1, queryParams[0], queryParams[1]);
@@ -117,6 +126,7 @@ public class GalleryView extends AppCompatActivity
 
         // Update prev/next buttons with the initial configureButtons() call
         updatePrevNextButtons();
+
     }
 
     public void showFilterDialog (View view) {
@@ -187,6 +197,9 @@ public class GalleryView extends AppCompatActivity
         else {
             prevPgBtn.setEnabled(false);
         }
+
+        TextView pageNumberView = (TextView) findViewById(R.id.pageNumberView);
+        pageNumberView.setText(String.valueOf(currentPageNumber));
     }
 
     private void loadImages(int pageNumber, String orderBy, String orderDirection) {
