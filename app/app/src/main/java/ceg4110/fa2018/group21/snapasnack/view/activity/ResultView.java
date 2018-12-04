@@ -61,7 +61,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                                              }
         );
 
-        //TODO: get the actual maxSeeFoodID from the database, hardcoded to current max
+        //gets the maxID from the database
         maxSeeFoodID = getIntent().getIntExtra("SeeFoodMaxID", 0);
 
         if (getIntent().hasExtra("SeeFoodResult"))
