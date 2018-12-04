@@ -51,15 +51,7 @@ public class GalleryView extends AppCompatActivity
         orderByValues.addAll(Arrays.asList(getResources().getStringArray(R.array.filterBy)));
         currentOrderBy = getResources().getString(R.string.filterBy_datePosted);
         currentOrderDirection = SeeFoodAPI.FETCH_DIR_DESC;
-
-
-
-
-
-
-
-
-
+        
         String[] queryParams = getQueryParams();
         loadImages(1, queryParams[0], queryParams[1]);
 
