@@ -22,18 +22,25 @@
 
         <Button
             android:id="@+id/togalleryview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="270dp"
+            android:layout_height="65dp"
             android:text="@string/main_menu_btn_gallery"
+            android:drawableLeft="@drawable/ic_gallery"
+            android:drawablePadding="35dp"
+            android:fontFamily="@font/advent_pro_semibold"
+            android:gravity="left|center_vertical"
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
 
         <Button
             android:id="@+id/backtomainmenu2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="270dp"
+            android:layout_height="65dp"
             android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_main_menu"
+            android:drawablePadding="35dp"
+            android:fontFamily="@font/advent_pro_semibold"
             android:text="@string/main_menu"
             android:textStyle="bold" />
     </LinearLayout>

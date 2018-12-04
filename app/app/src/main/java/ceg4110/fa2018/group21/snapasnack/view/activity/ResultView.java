@@ -61,27 +61,8 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                                              }
         );
 
-//        SeeFoodHTTPHandler.getInstance().fetchImagesDefaultFirstPage(new FetchImagesByPageNumberCallback() {
-//                @Override
-//                public void onSuccess(@NonNull List<SeeFoodImage> images, int currentPageNumber, boolean hasNextPage) {
-//                    maxSeeFoodID = images.get(0).getId();
-//                    System.out.println(maxSeeFoodID);
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Throwable throwable) {
-//
-//                }
-//
-//                @Override
-//                public void onError(@NonNull String errorMessage) {
-//
-//                }
-//        });
-
-
-        //TODO: get the actual maxSeeFoodID from the database, not the size of the list (which is 12)
-       // maxSeeFoodID = getIntent().getIntExtra("SeeFoodMaxID", 0);
+        //TODO: get the actual maxSeeFoodID from the database, hardcoded to current max
+        maxSeeFoodID = 215;
 
         if (getIntent().hasExtra("SeeFoodResult"))
         {
@@ -214,10 +195,10 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
               else
               {
                   // swipe left, meaning go up the list
-//                  if(SeeFoodID < maxSeeFoodID)
-//                  {
+                  if(SeeFoodID < maxSeeFoodID)
+                  {
                       SeeFoodID = viewThis.getId() + 1;
-                //  }
+                  }
               }
 
               SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback()
@@ -236,13 +217,15 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 @Override
                 public void onFailure(@NonNull Throwable throwable)
                 {
-
+                    System.out.println("Here");
+                    // got here
                 }
 
                 @Override
                 public void onError(@NonNull String errorMessage)
                 {
-
+                    System.out.println("Here");
+                    // got here
                 }
             });
               return true;
