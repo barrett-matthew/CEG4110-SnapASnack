@@ -16,11 +16,13 @@ import android.widget.TextView;
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchImagesByPageNumberCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
@@ -59,6 +61,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                                              }
         );
 
+        //gets the maxID from the database
         maxSeeFoodID = getIntent().getIntExtra("SeeFoodMaxID", 0);
 
         if (getIntent().hasExtra("SeeFoodResult"))
@@ -105,10 +108,10 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
                 if (result > 5) {
                     gaugeView.setTargetValue(99);
-                    resultCommentText.setText("AI says: This image definitely contains food!!! :-D");
+                    resultCommentText.setText("AI says: This image definitely contains food!!! =D");
                 } else if (result < -3) {
                     gaugeView.setTargetValue(0);
-                    resultCommentText.setText("AI says: This image is definitely not food! D-:");
+                    resultCommentText.setText("AI says: This image is definitely not food! D=");
                 } else {
                     gaugeView.setTargetValue(((result + 3) / 8) * 100);
                     setIntelligenceDialog(((result + 3) / 8) * 100);
@@ -122,19 +125,19 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     {
         if(confidenceRating >= 90)
         {
-            resultCommentText.setText("AI says: Definitely food! :-D");
+            resultCommentText.setText("AI says: Definitely food! =D");
         }
         else if (confidenceRating >= 60)
         {
-            resultCommentText.setText("AI says: Probably food... :-)");
+            resultCommentText.setText("AI says: Probably food... =)");
         }
         else if (confidenceRating >= 30)
         {
-            resultCommentText.setText("AI says: Probably NOT food... :-(");
+            resultCommentText.setText("AI says: Probably NOT food... =(");
         }
         else
         {
-            resultCommentText.setText("AI says: Definitely NOT food! :,-(");
+            resultCommentText.setText("AI says: Definitely NOT food! =((");
         }
     }
 
@@ -176,14 +179,14 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY)
     {
 
-      float diffX = moveEvent.getX()-downEvent.getY();
+      float diffX = moveEvent.getX() - downEvent.getY();
 
           // right or left swipe
           if(Math.abs(diffX) > 100 & Math.abs(velocityX) > 100)
           {
               if(diffX > 0)
               {
-                  // swipe right
+                  // swipe right, meaning go down the list
                   if(SeeFoodID > 1)
                   {
                       SeeFoodID = viewThis.getId() - 1;
@@ -191,7 +194,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
               }
               else
               {
-                  // swipe left
+                  // swipe left, meaning go up the list
                   if(SeeFoodID < maxSeeFoodID)
                   {
                       SeeFoodID = viewThis.getId() + 1;
@@ -214,13 +217,11 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 @Override
                 public void onFailure(@NonNull Throwable throwable)
                 {
-
                 }
 
                 @Override
                 public void onError(@NonNull String errorMessage)
                 {
-
                 }
             });
               return true;

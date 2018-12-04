@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
@@ -29,11 +28,13 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
 {
     private List<SeeFoodImage> galleryList;
     private Context context;
+    private int maxID;
 
-    public GalleryViewAdapter(Context context, List <SeeFoodImage> galleryList)
+    public GalleryViewAdapter(Context context, List <SeeFoodImage> galleryList, int SeeFoodMaxID)
     {
         this.galleryList = galleryList;
         this.context = context;
+        this.maxID = SeeFoodMaxID;
     }
 
     @Override
@@ -64,8 +65,8 @@ public class GalleryViewAdapter extends RecyclerView.Adapter<GalleryViewAdapter.
                 SeeFoodImage passThisResult = galleryList.get(i);
 
                 Intent intent = new Intent(context, ResultView.class);
+                intent.putExtra("SeeFoodMaxID", maxID);
                 intent.putExtra("SeeFoodResult", (Serializable) passThisResult);
-                intent.putExtra("SeeFoodMaxID", galleryList.size());
                 ((Activity)context).startActivityForResult(intent, GalleryView.ACTIVITY_IMAGE_RESULT_VIEW);
             }
         });

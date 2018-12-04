@@ -3,9 +3,12 @@ package ceg4110.fa2018.group21.snapasnack.view.activity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +31,8 @@ import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static int ACTIVITY_SETTINGS_PERMISSIONS_RESULT = 10;
 
     private boolean allPermissionsGranted;
     private ArrayList<Button> mainMenuButtons;
@@ -63,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
         uploadImagesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImages();
+                if(arePermissionsGranted()) {
+                    uploadImages();
+                }
             }
         });
         mainMenuButtons.add(uploadImagesButton);
@@ -82,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         // Update our global permissions variable
                         allPermissionsGranted = report.areAllPermissionsGranted();
+
+                        if(!report.areAllPermissionsGranted()) {
+                            Toast.makeText(getApplicationContext(), "Snap a' Snack requires proper access to function!", Toast.LENGTH_LONG).show();
+                            Intent myAppSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+                            myAppSettings.addCategory(Intent.CATEGORY_DEFAULT);
+                            myAppSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivityForResult(myAppSettings, 10);
+                        }
                     }
 
                     @Override
@@ -89,12 +104,16 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 })
+                .onSameThread()
                 .check();
     }
 
     public void uploadImages() {
         // TODO : Clean this up, does not actually check permissions every time (permanently disabled)
         // Verify permissions and exit if the permissions are not given
+        /*if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+        }*/
         requestPermissionsFromUser();
         if(!allPermissionsGranted) {
             Toast.makeText(this, "Snap a' Snack cannot perform the requested " +
@@ -152,11 +171,46 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setPeekHeight(1600)
                 .showTitle(false)
-                .setCompleteButtonText("Submit to AI")
+                .setCompleteButtonText("Submit Image(s) to AI")
                 .setEmptySelectionText("No Images Selected")
                 .create();
 
         bottomSheetDialogFragment.show(getSupportFragmentManager());
+    }
+
+    // Send the user to permissions if they haven't allowed the needed ones
+    public boolean validatePermissions() {
+        if((ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean arePermissionsGranted() {
+        if(!validatePermissions()) {
+            Toast.makeText(getApplicationContext(), "Snap a' Snack requires proper access to function!", Toast.LENGTH_LONG).show();
+            Intent myAppSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+            myAppSettings.addCategory(Intent.CATEGORY_DEFAULT);
+            myAppSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivityForResult(myAppSettings, ACTIVITY_SETTINGS_PERMISSIONS_RESULT);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==ACTIVITY_SETTINGS_PERMISSIONS_RESULT) {
+            /*if(validatePermissions()) {
+                // TODO : Implement this further?
+            }*/
+        }
     }
 
 }

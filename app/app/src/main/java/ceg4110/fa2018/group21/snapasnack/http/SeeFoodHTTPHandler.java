@@ -166,10 +166,13 @@ public class SeeFoodHTTPHandler {
                     FetchImagesByPageNumberResponse result = (FetchImagesByPageNumberResponse) response.body();
                     List<SeeFoodImage> images = result.getImages();
                     int pageNumber = result.getPage();
+                    int numImagesTotal = result.getTotal();
+                    int imagesPerPage = result.getPerPage();
+                    boolean hasPrev = result.isHasPrevious();
                     boolean hasNext = result.isHasNext();
 
                     if(callbacks != null) {
-                        callbacks.onSuccess(images, pageNumber, hasNext);
+                        callbacks.onSuccess(images, pageNumber, numImagesTotal, imagesPerPage, hasPrev, hasNext);
                     }
                 }
                 else if(response.code() == 400) {
