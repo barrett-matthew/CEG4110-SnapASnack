@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--< These are the cells that will populate the GalleryView />-->
+<!--< These are the cells that will populate the Gallery />-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_layout"
@@ -47,7 +47,7 @@
                 android:paddingRight="10dp"
                 android:paddingBottom="10dp"
                 gauge:divisions="8"
-                gauge:rangeValues="@array/speedTestRangeValues"
+                gauge:rangeValues="@array/ConfidenceRangeValues"
                 gauge:scaleEndValue="100"
                 gauge:showInnerRim="false"
                 gauge:showNeedle="true"
@@ -58,7 +58,6 @@
                 gauge:showRanges="true"
                 gauge:showScale="true"
                 gauge:subdivisions="1"
-                gauge:textUnit=""
                 gauge:textUnitSize="0.06"
                 gauge:textValueSize="0.20" />
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--< These are the cells that will populate the upload_results_view />-->
+<!--< These are the image(s) that will populate the Upload Results />-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content" android:layout_height="wrap_content">
@@ -71,7 +71,7 @@
                 android:paddingRight="10dp"
                 android:paddingBottom="10dp"
                 gauge:divisions="8"
-                gauge:rangeValues="@array/speedTestRangeValues"
+                gauge:rangeValues="@array/ConfidenceRangeValues"
                 gauge:scaleEndValue="100"
                 gauge:showInnerRim="false"
                 gauge:showNeedle="true"

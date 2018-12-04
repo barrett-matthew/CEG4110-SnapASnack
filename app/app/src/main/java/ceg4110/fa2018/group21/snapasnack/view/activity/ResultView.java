@@ -2,9 +2,12 @@ package ceg4110.fa2018.group21.snapasnack.view.activity;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,18 +16,23 @@ import android.widget.TextView;
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
+import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
+import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
-public class ResultView extends AppCompatActivity {
-
+public class ResultView extends AppCompatActivity implements GestureDetector.OnGestureListener
+{
     private Button toCommentView;
     private TextView resultCommentText;
+    private SeeFoodImage viewThis;
+    private GestureDetector gestureDetector;
 
+    private int SeeFoodID;
+    private int maxSeeFoodID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +42,7 @@ public class ResultView extends AppCompatActivity {
 
         setupActivity();
 
+        gestureDetector = new GestureDetector(this);
     }
 
     private void setupActivity()
@@ -50,12 +59,15 @@ public class ResultView extends AppCompatActivity {
                                              }
         );
 
+        maxSeeFoodID = getIntent().getIntExtra("SeeFoodMaxID", 0);
+
         if (getIntent().hasExtra("SeeFoodResult"))
         {
-            SeeFoodImage viewThis = (SeeFoodImage) getIntent().getSerializableExtra("SeeFoodResult");
+            viewThis = (SeeFoodImage) getIntent().getSerializableExtra("SeeFoodResult");
             setImage(viewThis);
             setGauge(viewThis);
             setButton(viewThis);
+            setID(viewThis.getId());
         }
     }
 
@@ -65,7 +77,7 @@ public class ResultView extends AppCompatActivity {
         Picasso.get().load(SeeFoodAPI.BASE_URL + image.getImageLocation()).into(seeFoodImage);
 
         ImageView aiImage = findViewById(R.id.seeFoodAIPicture);
-        Picasso.get().load("https://cdn1.iconfinder.com/data/icons/artificial-intelligence-1-2/128/Brain-Technology-Intelligence-Engineering-Scientific-Neuroscience-512.png").into(aiImage);
+        aiImage.setImageResource(R.drawable.ic_ai_brain_light);
     }
 
     private void setGauge(final SeeFoodImage image)
@@ -110,19 +122,19 @@ public class ResultView extends AppCompatActivity {
     {
         if(confidenceRating >= 90)
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-D");
+            resultCommentText.setText("AI says: Definitely food! :-D");
         }
         else if (confidenceRating >= 60)
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-)");
+            resultCommentText.setText("AI says: Probably food... :-)");
         }
         else if (confidenceRating >= 30)
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :-(");
+            resultCommentText.setText("AI says: Probably NOT food... :-(");
         }
         else
         {
-            resultCommentText.setText("AI says: This image has a " + confidenceRating + "% chance of being food! :,-(");
+            resultCommentText.setText("AI says: Definitely NOT food! :,-(");
         }
     }
 
@@ -135,8 +147,7 @@ public class ResultView extends AppCompatActivity {
             {
                 Intent intent = new Intent(ResultView.this, CommentView.class);
 
-                // Passing the SeeFoodID & Comments to CommentView
-                intent.putExtra("SeeFoodComments", (Serializable) image.getComments());
+                // Passing the SeeFoodID to CommentView
                 intent.putExtra("SeeFoodID", image.getId());
 
                 startActivity(intent);
@@ -144,31 +155,104 @@ public class ResultView extends AppCompatActivity {
         });
     }
 
+    private void setID(int id)
+    {
+        this.SeeFoodID = id;
+    }
 
-    //TODO: maybe add swiping motions to change gallery images? (use fetchSingleImage)
+    private void setSeeFoodImage(SeeFoodImage image)
+    {
+        this.viewThis = image;
+    };
 
-    //            SeeFoodHTTPHandler.getInstance().fetchSingleImage(seeFoodID, new FetchSingleImageCallback()
-//            {
-//                @Override
-//                public void onSuccess(@NonNull SeeFoodImage image)
-//                {
-//                    setImage(image);
-//                    setGauge(image);
-//                    setComments(image);
-//                }
-//
-//                @Override
-//                public void onFailure(@NonNull Throwable throwable)
-//                {
-//
-//                }
-//
-//                @Override
-//                public void onError(@NonNull String errorMessage)
-//                {
-//
-//                }
-//            });
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
 
+    @Override
+    public boolean onFling(MotionEvent downEvent, MotionEvent moveEvent, float velocityX, float velocityY)
+    {
 
+      float diffX = moveEvent.getX()-downEvent.getY();
+
+          // right or left swipe
+          if(Math.abs(diffX) > 100 & Math.abs(velocityX) > 100)
+          {
+              if(diffX > 0)
+              {
+                  // swipe right
+                  if(SeeFoodID > 1)
+                  {
+                      SeeFoodID = viewThis.getId() - 1;
+                  }
+              }
+              else
+              {
+                  // swipe left
+                  if(SeeFoodID < maxSeeFoodID)
+                  {
+                      SeeFoodID = viewThis.getId() + 1;
+                  }
+              }
+
+              SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback()
+            {
+                @Override
+                public void onSuccess(@NonNull SeeFoodImage image)
+                {
+                    resultCommentText.setText("...Thinking...");
+                    setImage(image);
+                    setGauge(image);
+                    setButton(image);
+                    setID(image.getId());
+                    setSeeFoodImage(image);
+                }
+
+                @Override
+                public void onFailure(@NonNull Throwable throwable)
+                {
+
+                }
+
+                @Override
+                public void onError(@NonNull String errorMessage)
+                {
+
+                }
+            });
+              return true;
+          }
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e)
+    {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e)
+    {
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
+    {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e)
+    {
+    }
 }
