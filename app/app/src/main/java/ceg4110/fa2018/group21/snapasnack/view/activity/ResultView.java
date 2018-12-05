@@ -108,7 +108,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 // calculation to set gauge based on SeeFood AI results (calculating percentage using hasFood and notFood)
                 if (result > 5) {
                     gaugeView.setTargetValue(99);
-                    resultCommentText.setText("AI says: This image definitely contains food!!! =D");
+                    resultCommentText.setText("AI says: Eat up, this is definitely food!!! =D");
                 } else if (result < -3) {
                     gaugeView.setTargetValue(0);
                     resultCommentText.setText("AI says: This image is definitely not food! D=");
@@ -125,19 +125,23 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     {
         if(confidenceRating >= 90)
         {
-            resultCommentText.setText("AI says: Definitely food! =D");
+           resultCommentText.setText("AI says: Definitely food! =D");
         }
-        else if (confidenceRating >= 60)
+        else if (confidenceRating >= 70)
         {
-            resultCommentText.setText("AI says: Probably food... =)");
+           resultCommentText.setText("AI says: Most likely food! =)");
+        }
+        else if (confidenceRating >= 50)
+        {
+           resultCommentText.setText("AI says: Probably food... =P");
         }
         else if (confidenceRating >= 30)
         {
-            resultCommentText.setText("AI says: Probably NOT food... =(");
+           resultCommentText.setText("AI says: Probably NOT food... =(");
         }
         else
         {
-            resultCommentText.setText("AI says: Definitely NOT food! =((");
+          resultCommentText.setText("AI says: Definitely NOT food! =((");
         }
     }
 

@@ -71,12 +71,12 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
                 if (result > 5)
                 {
                     viewHolder.gaugeView.setTargetValue(99);
-                    viewHolder.confidenceRatingText.setText("AI says: This image definitely contains food!!! =D");
+                    viewHolder.confidenceRatingText.setText("AI says: Eat up, this is definitely food!!! =D");
                 }
                 else if (result < -3)
                 {
                     viewHolder.gaugeView.setTargetValue(0);
-                    viewHolder.confidenceRatingText.setText("AI says: This image is definitely not food! D=");
+                    viewHolder.confidenceRatingText.setText("AI says: This image is totally not food! D=");
                 }
                 else
                 {
@@ -96,9 +96,13 @@ public class UploadResultsViewAdapter extends RecyclerView.Adapter<UploadResults
         {
             viewHolder.confidenceRatingText.setText("AI says: Definitely food! =D");
         }
-        else if (confidenceRating >= 60)
+        else if (confidenceRating >= 70)
         {
-            viewHolder.confidenceRatingText.setText("AI says: Probably food... =)");
+            viewHolder.confidenceRatingText.setText("AI says: Most likely food! =)");
+        }
+        else if (confidenceRating >= 50)
+        {
+            viewHolder.confidenceRatingText.setText("AI says: Probably food... =P");
         }
         else if (confidenceRating >= 30)
         {
