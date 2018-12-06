@@ -11,8 +11,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/resultToolbar"
@@ -29,29 +31,28 @@
                 android:id="@+id/seeFoodAIPicture"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp" >
-            </de.hdodenhof.circleimageview.CircleImageView>
+                android:layout_margin="10dp"></de.hdodenhof.circleimageview.CircleImageView>
 
             <TextView
+                android:id="@+id/resultCommentText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/resultCommentText"
                 android:layout_gravity="center_vertical"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/tedbottompicker_gallery"
                 android:fontFamily="@font/advent_pro_semibold"
-                android:text="...Thinking..."/>
+                android:text="...Thinking..."
+                android:textColor="@color/tedbottompicker_gallery"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <android.support.v7.widget.CardView
             android:layout_width="400dp"
             android:layout_height="400dp"
-            app:cardCornerRadius="4dp"
-            app:cardMaxElevation="2dp"
-            app:cardElevation="1dp"
             android:layout_centerInParent="true"
-            android:gravity="center">
+            android:gravity="center"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:cardMaxElevation="2dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -64,12 +65,13 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
                     android:contentDescription="picture of seefood"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_launcher_background" />
 
-                <com.ntt.customgaugeview.library.GaugeView
-                    xmlns:gauge="http://schemas.android.com/apk/res-auto"
+                <com.ntt.customgaugeview.library.GaugeView xmlns:gauge="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/result_comment_gauge"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
@@ -95,20 +97,43 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <Button
-            android:id="@+id/toCommentView"
-            style="@android:style/Widget.DeviceDefault.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="75dp"
-            android:layout_centerInParent="true"
-            android:drawableLeft="@drawable/ic_comment"
-            android:drawablePadding="10dp"
-            android:gravity="left|center_vertical"
-            android:src="@drawable/ic_comment"
-            android:text="View Comments"
-            android:textAlignment="center"
-            android:fontFamily="@font/advent_pro_semibold"
-            android:textAllCaps="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/prevImage"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:text="@string/previous_page" />
+
+            <Button
+                android:id="@+id/toCommentView"
+                style="@android:style/Widget.DeviceDefault.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_comment"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/advent_pro_semibold"
+                android:gravity="left|center_vertical"
+                android:src="@drawable/ic_comment"
+                android:text="View Comments"
+                android:textAlignment="center"
+                android:textAllCaps="true" />
+
+            <Button
+                android:id="@+id/nextImage"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:text="@string/nextpage" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </RelativeLayout>

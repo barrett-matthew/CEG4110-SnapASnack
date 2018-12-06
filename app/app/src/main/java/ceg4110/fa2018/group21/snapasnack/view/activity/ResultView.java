@@ -16,19 +16,19 @@ import android.widget.TextView;
 import com.ntt.customgaugeview.library.GaugeView;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 import java.util.Random;
 
 import ceg4110.fa2018.group21.snapasnack.R;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodAPI;
 import ceg4110.fa2018.group21.snapasnack.http.SeeFoodHTTPHandler;
-import ceg4110.fa2018.group21.snapasnack.http.callback.FetchImagesByPageNumberCallback;
 import ceg4110.fa2018.group21.snapasnack.http.callback.FetchSingleImageCallback;
 import ceg4110.fa2018.group21.snapasnack.model.seefood.SeeFoodImage;
 
 public class ResultView extends AppCompatActivity implements GestureDetector.OnGestureListener
 {
     private Button toCommentView;
+    private Button nextImage;
+    private Button prevImage;
     private TextView resultCommentText;
     private SeeFoodImage viewThis;
     private GestureDetector gestureDetector;
@@ -40,15 +40,26 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.result_view);
 
-        setupActivity();
+        setContentView(R.layout.swipe_notification);
 
-        gestureDetector = new GestureDetector(this);
+        new CountDownTimer(1000,1000){
+            @Override
+            public void onTick(long millisUntilFinished){}
+
+            @Override
+            public void onFinish(){
+                //set the new Content of your activity
+                ResultView.this.setContentView(R.layout.result_view);
+                setupActivity();
+            }
+        }.start();
     }
 
     private void setupActivity()
     {
+        gestureDetector = new GestureDetector(this);
+
         Toolbar toolbar = findViewById(R.id.resultToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,8 +80,9 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
             viewThis = (SeeFoodImage) getIntent().getSerializableExtra("SeeFoodResult");
             setImage(viewThis);
             setGauge(viewThis);
-            setButton(viewThis);
+            setButtons(viewThis);
             setID(viewThis.getId());
+            enableButtons();
         }
     }
 
@@ -145,7 +157,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
         }
     }
 
-    private void setButton(final SeeFoodImage image)
+    private void setButtons(final SeeFoodImage image)
     {
         toCommentView = findViewById(R.id.toCommentView);
         toCommentView.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +170,26 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 intent.putExtra("SeeFoodID", image.getId());
 
                 startActivity(intent);
+            }
+        });
+
+        nextImage = findViewById(R.id.nextImage);
+        nextImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                SeeFoodID = viewThis.getId() + 1;
+                ChangeImage();
+            }
+        });
+
+        prevImage = findViewById(R.id.prevImage);
+        prevImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                SeeFoodID = viewThis.getId() - 1;
+                ChangeImage();
             }
         });
     }
@@ -204,33 +236,60 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                       SeeFoodID = viewThis.getId() + 1;
                   }
               }
-
-              SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback()
-            {
-                @Override
-                public void onSuccess(@NonNull SeeFoodImage image)
-                {
-                    resultCommentText.setText("...Thinking...");
-                    setImage(image);
-                    setGauge(image);
-                    setButton(image);
-                    setID(image.getId());
-                    setSeeFoodImage(image);
-                }
-
-                @Override
-                public void onFailure(@NonNull Throwable throwable)
-                {
-                }
-
-                @Override
-                public void onError(@NonNull String errorMessage)
-                {
-                }
-            });
+              ChangeImage();
               return true;
           }
         return false;
+    }
+
+    private void ChangeImage()
+    {
+        SeeFoodHTTPHandler.getInstance().fetchSingleImage(SeeFoodID, new FetchSingleImageCallback()
+        {
+            @Override
+            public void onSuccess(@NonNull SeeFoodImage image)
+            {
+                resultCommentText.setText("...Thinking...");
+                setImage(image);
+                setGauge(image);
+                setButtons(image);
+                setID(image.getId());
+                setSeeFoodImage(image);
+                enableButtons();
+            }
+
+            @Override
+            public void onFailure(@NonNull Throwable throwable)
+            {
+            }
+
+            @Override
+            public void onError(@NonNull String errorMessage)
+            {
+            }
+        });
+    }
+
+    private void enableButtons()
+    {
+        if(SeeFoodID > 1)
+        {
+            prevImage.setEnabled(true);
+        }
+        else if (SeeFoodID == 1)
+        {
+            prevImage.setEnabled(false);
+        }
+
+        if (SeeFoodID < maxSeeFoodID)
+        {
+            nextImage.setEnabled(true);
+        }
+        else if (SeeFoodID == maxSeeFoodID)
+        {
+            nextImage.setEnabled(false);
+        }
+
     }
 
     @Override
