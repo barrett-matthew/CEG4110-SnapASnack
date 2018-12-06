@@ -30,6 +30,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     private Button nextImage;
     private Button prevImage;
     private TextView resultCommentText;
+    private TextView imageNumber;
     private SeeFoodImage viewThis;
     private GestureDetector gestureDetector;
 
@@ -49,7 +50,6 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
 
             @Override
             public void onFinish(){
-                //set the new Content of your activity
                 ResultView.this.setContentView(R.layout.result_view);
                 setupActivity();
             }
@@ -59,6 +59,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
     private void setupActivity()
     {
         gestureDetector = new GestureDetector(this);
+        imageNumber = findViewById(R.id.imageNumber);
 
         Toolbar toolbar = findViewById(R.id.resultToolbar);
         setSupportActionBar(toolbar);
@@ -81,7 +82,9 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
             setImage(viewThis);
             setGauge(viewThis);
             setButtons(viewThis);
+            imageNumber.setText("Image " + viewThis.getId());
             setID(viewThis.getId());
+
             enableButtons();
         }
     }
@@ -253,6 +256,7 @@ public class ResultView extends AppCompatActivity implements GestureDetector.OnG
                 setImage(image);
                 setGauge(image);
                 setButtons(image);
+                imageNumber.setText("Image " + image.getId());
                 setID(image.getId());
                 setSeeFoodImage(image);
                 enableButtons();
